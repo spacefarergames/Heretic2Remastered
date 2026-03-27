@@ -26,6 +26,7 @@
     <ClCompile Include="..\client\cl_screen.c" />
     <ClCompile Include="..\client\cl_skeletons.c" />
     <ClCompile Include="..\client\cl_smk.c" />
+    <ClCompile Include="..\client\cl_mp4.c" />
     <ClCompile Include="..\client\cl_view.c" />
     <ClCompile Include="..\client\console.c" />
     <ClCompile Include="..\client\glimp_sdl3.c" />
@@ -188,12 +189,12 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <EnableASAN>true</EnableASAN>
   </PropertyGroup>
@@ -255,7 +256,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\build\quake2.dll</OutputFile>
-      <AdditionalDependencies>SDL3.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.lib;mf.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -299,7 +300,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\build\quake2.dll</OutputFile>
-      <AdditionalDependencies>SDL3.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.lib;mf.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

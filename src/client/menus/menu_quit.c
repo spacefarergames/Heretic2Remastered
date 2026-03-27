@@ -105,6 +105,9 @@ static const char* Quit_MenuKey(const int key)
 
 		case K_UPARROW:
 		case K_KP_UPARROW:
+		case K_AUX8:	// D-pad up
+		case 'w':
+		case 'W':
 			s_quit_menu.cursor--;
 			Menu_AdjustCursor(&s_quit_menu, -1);
 			return SND_MENU_SELECT;
@@ -112,6 +115,9 @@ static const char* Quit_MenuKey(const int key)
 		case K_TAB:
 		case K_DOWNARROW:
 		case K_KP_DOWNARROW:
+		case K_AUX9:	// D-pad down
+		case 's':
+		case 'S':
 			s_quit_menu.cursor++;
 			Menu_AdjustCursor(&s_quit_menu, 1);
 			return SND_MENU_SELECT;

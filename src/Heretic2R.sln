@@ -1,7 +1,6 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34916.146
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11620.152 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "H2Common", "H2Common\H2Common.vcxproj", "{0344D3E0-BAA4-4747-8D13-8CAC69C60CEA}"
 EndProject
@@ -19,6 +18,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Heretic2R", "launcher\Heret
 		{D057930A-FC86-421D-99F3-B8636D2BFEEB} = {D057930A-FC86-421D-99F3-B8636D2BFEEB}
 		{D69DFD98-F807-449A-A11F-37A3B512A4EB} = {D69DFD98-F807-449A-A11F-37A3B512A4EB}
 		{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD} = {DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}
+		{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A} = {B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client Effects", "client effects\Client Effects.vcxproj", "{AA334748-A73C-4B14-BA76-01975A87E594}"
@@ -44,10 +44,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "snd_sdl3", "snd_sdl3\snd_sd
 		{0344D3E0-BAA4-4747-8D13-8CAC69C60CEA} = {0344D3E0-BAA4-4747-8D13-8CAC69C60CEA}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_gl3", "ref_gl3\ref_gl3.vcxproj", "{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0344D3E0-BAA4-4747-8D13-8CAC69C60CEA} = {0344D3E0-BAA4-4747-8D13-8CAC69C60CEA}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ref_gl1", "ref_gl1\ref_gl1.vcxproj", "{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0344D3E0-BAA4-4747-8D13-8CAC69C60CEA} = {0344D3E0-BAA4-4747-8D13-8CAC69C60CEA}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DumpTextures", "tools\DumpTextures.vcxproj", "{F1A2B3C4-D5E6-7890-ABCD-EF1234567890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,15 +90,20 @@ Global
 		{D057930A-FC86-421D-99F3-B8636D2BFEEB}.Debug|x86.Build.0 = Debug|Win32
 		{D057930A-FC86-421D-99F3-B8636D2BFEEB}.Release|x86.ActiveCfg = Release|Win32
 		{D057930A-FC86-421D-99F3-B8636D2BFEEB}.Release|x86.Build.0 = Release|Win32
+		{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}.Debug|x86.ActiveCfg = Debug|Win32
+		{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}.Debug|x86.Build.0 = Debug|Win32
+		{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}.Release|x86.ActiveCfg = Release|Win32
+		{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}.Release|x86.Build.0 = Release|Win32
 		{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}.Debug|x86.ActiveCfg = Debug|Win32
 		{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}.Debug|x86.Build.0 = Debug|Win32
 		{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}.Release|x86.ActiveCfg = Release|Win32
 		{DAA188AE-EABB-4F8B-8BFE-F5B8AEC9CFAD}.Release|x86.Build.0 = Release|Win32
+		{F1A2B3C4-D5E6-7890-ABCD-EF1234567890}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1A2B3C4-D5E6-7890-ABCD-EF1234567890}.Debug|x86.Build.0 = Debug|Win32
+		{F1A2B3C4-D5E6-7890-ABCD-EF1234567890}.Release|x86.ActiveCfg = Release|Win32
+		{F1A2B3C4-D5E6-7890-ABCD-EF1234567890}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7A98CBDA-8407-4AD8-9D1D-0D1EE41BF9AB}
 	EndGlobalSection
 EndGlobal

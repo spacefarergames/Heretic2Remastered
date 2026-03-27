@@ -13,6 +13,7 @@
 
 static int last_flags = 0;
 static SDL_Window* window = NULL;
+static cvar_t* vid_hidpi;
 
 static qboolean CreateSDLWindow(const SDL_WindowFlags flags, const int width, const int height)
 {
@@ -181,6 +182,8 @@ qboolean GLimp_Init(void)
 		Com_Printf("SDL version is: %i.%i.%i\n", SDL_VERSIONNUM_MAJOR(version), SDL_VERSIONNUM_MINOR(version), SDL_VERSIONNUM_MICRO(version));
 		Com_Printf("SDL video driver is \"%s\".\n", SDL_GetCurrentVideoDriver());
 
+		vid_hidpi = Cvar_Get("vid_hidpi", "0", CVAR_ARCHIVE);
+
 		if (!InitDisplayModes()) //mxd
 			return false;
 
@@ -214,10 +217,14 @@ qboolean GLimp_InitGraphics(const int width, const int height)
 
 	// Let renderer prepare things (set OpenGL attributes).
 	// FIXME: This is no longer necessary, the renderer could and should pass the flags when calling this function.
-	const SDL_WindowFlags flags = re.PrepareForWindow();
+	SDL_WindowFlags flags = re.PrepareForWindow();
 
 	if ((int)flags == -1)
 		return false; // It's PrepareForWindow() job to log an error.
+
+	// Enable HiDPI / high pixel density rendering when requested.
+	if ((int)vid_hidpi->value)
+		flags |= SDL_WINDOW_HIGH_PIXEL_DENSITY;
 
 	// Create the window. Will be borderless if width and height match current screen resolution.
 	// If this fails, R_SetMode() will retry with gl_state.prev_mode.
@@ -230,11 +237,29 @@ qboolean GLimp_InitGraphics(const int width, const int height)
 	if (!re.InitContext(window))
 		return false; // InitContext() should have logged an error.
 
-	// Another bug or design failure in SDL: when we are not high dpi aware, the drawable size returned by SDL may be too small.
-	// It seems like the window decoration are taken into account when they shouldn't. It can be seen when creating a fullscreen window.
-	// Work around that by always using the resolution and not the drawable size when we are not high dpi aware.
-	viddef.width = width;
-	viddef.height = height;
+	// When HiDPI is enabled, use the actual drawable pixel size for rendering.
+	// On HiDPI displays this will be larger than the window size in screen coordinates.
+	if ((int)vid_hidpi->value)
+	{
+		int draw_w = 0, draw_h = 0;
+		if (SDL_GetWindowSizeInPixels(window, &draw_w, &draw_h))
+		{
+			viddef.width = draw_w;
+			viddef.height = draw_h;
+			Com_Printf("HiDPI: window %ix%i, drawable %ix%i (scale %.1fx)\n",
+				width, height, draw_w, draw_h, (float)draw_w / (float)width);
+		}
+		else
+		{
+			viddef.width = width;
+			viddef.height = height;
+		}
+	}
+	else
+	{
+		viddef.width = width;
+		viddef.height = height;
+	}
 
 	SetSDLIcon();
 	SDL_ShowCursor();

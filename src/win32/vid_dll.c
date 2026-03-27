@@ -11,7 +11,7 @@
 #include "clfx_dll.h"
 #include "glimp_sdl3.h" // YQ2
 
-#define FALLBACK_REFLIB	"gl1" //mxd. //TODO: change to "soft" if we ever have a software renderer.
+#define FALLBACK_REFLIB	"gl3" //mxd. GL3 is the only supported renderer.
 
 // Structure containing functions exported from refresh DLL.
 refexport_t re;
@@ -207,6 +207,7 @@ static qboolean VID_LoadRefresh(const char* name)
 	ri.Cmd_RemoveCommand = Cmd_RemoveCommand;
 	ri.FS_LoadFile = FS_LoadFile;
 	ri.FS_FreeFile = FS_FreeFile;
+	ri.FS_Gamedir = FS_Gamedir;
 	ri.Vid_WriteScreenshot = VID_WriteScreenshot; // YQ2
 	ri.Vid_GetModeInfo = VID_GetModeInfo;
 	ri.GLimp_InitGraphics = GLimp_InitGraphics; // YQ2
@@ -335,6 +336,8 @@ void VID_CheckChanges(void) //TODO: check YQ2 logic.
 		if (se.StopAllSounds != NULL) //mxd. Sound backend is now initialized after renderer backend, so this will be NULL on the first call...
 			se.StopAllSounds();
 
+		Cvar_ForceSet("vid_ref", "gl3"); //mxd. GL3 is the only supported renderer.
+
 		char ref_name[100];
 		Com_sprintf(ref_name, sizeof(ref_name), "ref_%s.dll", vid_ref->string);
 
@@ -365,7 +368,8 @@ void VID_Init(void)
 	vid_restart_required = true; // H2
 
 	// Create the video variables so we know how to start the graphics drivers.
-	vid_ref = Cvar_Get("vid_ref", "gl1", CVAR_ARCHIVE); // H2: "soft"; H2_1.07: "gl".
+	vid_ref = Cvar_Get("vid_ref", "gl3", CVAR_ARCHIVE); // H2: "soft"; H2_1.07: "gl".
+	Cvar_ForceSet("vid_ref", "gl3"); // Always start with the GL3 renderer.
 	vid_gamma = Cvar_Get("vid_gamma", "0.5", CVAR_ARCHIVE);
 	vid_brightness = Cvar_Get("vid_brightness", "0.5", CVAR_ARCHIVE); // H2
 	vid_contrast = Cvar_Get("vid_contrast", "0.5", CVAR_ARCHIVE); // H2

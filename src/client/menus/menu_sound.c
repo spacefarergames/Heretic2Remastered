@@ -174,22 +174,34 @@ static char* Sound_HandleMenuKey(menuframework_t* menu, const int key) // H2
 		case K_TAB:
 		case K_DOWNARROW:
 		case K_KP_DOWNARROW:
+		case K_AUX9:	// D-pad down
+		case 's':
+		case 'S':
 			menu->cursor++;
 			Menu_AdjustCursor(menu, 1);
 			return SND_MENU_SELECT;
 
 		case K_UPARROW:
 		case K_KP_UPARROW:
+		case K_AUX8:	// D-pad up
+		case 'w':
+		case 'W':
 			menu->cursor--;
 			Menu_AdjustCursor(menu, -1);
 			return SND_MENU_SELECT;
 
 		case K_LEFTARROW:
 		case K_KP_LEFTARROW:
+		case K_AUX10:	// D-pad left
+		case 'a':
+		case 'A':
 			return (Menu_SlideItem(menu, -1) ? SND_MENU_TOGGLE : NULL);
 
 		case K_RIGHTARROW:
 		case K_KP_RIGHTARROW:
+		case K_AUX11:	// D-pad right
+		case 'd':
+		case 'D':
 			return (Menu_SlideItem(menu, 1) ? SND_MENU_TOGGLE : NULL);
 
 		case K_ENTER:
@@ -209,10 +221,6 @@ static char* Sound_HandleMenuKey(menuframework_t* menu, const int key) // H2
 		case K_AUX5:
 		case K_AUX6:
 		case K_AUX7:
-		case K_AUX8:
-		case K_AUX9:
-		case K_AUX10:
-		case K_AUX11:
 		case K_AUX12:
 		case K_AUX13:
 		case K_AUX14:

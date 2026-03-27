@@ -8,7 +8,6 @@
 #include "menu_main.h"
 #include "menu_game.h"
 #include "menu_info.h"
-#include "menu_multiplayer.h"
 #include "menu_options.h"
 #include "menu_quit.h"
 #include "menu_sound.h"
@@ -19,7 +18,6 @@ cvar_t* m_banner_main;
 static menuframework_t s_main_menu;
 
 static menuaction_t s_game_action;
-static menuaction_t s_multiplayer_action;
 static menuaction_t s_options_action;
 static menuaction_t s_video_action;
 static menuaction_t s_sound_action;
@@ -27,7 +25,6 @@ static menuaction_t s_info_action;
 static menuaction_t s_quit_action;
 
 static void MainGameFunc(void* data)		{ M_Menu_Game_f(); }
-static void MainMultiplayerFunc(void* data)	{ M_Menu_Multiplayer_f(); }
 static void MainOptionsFunc(void* data)		{ M_Menu_Options_f(); }
 static void MainVideoFunc(void* data)		{ M_Menu_Video_f(); }
 static void MainSoundFunc(void* data)		{ M_Menu_Sound_f(); }
@@ -37,7 +34,6 @@ static void MainQuitFunc(void* data)		{ M_Menu_Quit_f(); }
 static void Main_MenuInit(void)
 {
 	static char name_game[MAX_QPATH];
-	static char name_multiplayer[MAX_QPATH];
 	static char name_options[MAX_QPATH];
 	static char name_video[MAX_QPATH];
 	static char name_sound[MAX_QPATH];
@@ -55,20 +51,11 @@ static void Main_MenuInit(void)
 	s_game_action.generic.width = re.BF_Strlen(name_game);
 	s_game_action.generic.callback = MainGameFunc;
 
-	Com_sprintf(name_multiplayer, sizeof(name_multiplayer), "\x02%s", m_banner_multi->string);
-	s_multiplayer_action.generic.type = MTYPE_ACTION;
-	s_multiplayer_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
-	s_multiplayer_action.generic.x = 0;
-	s_multiplayer_action.generic.y = 32;
-	s_multiplayer_action.generic.name = name_multiplayer;
-	s_multiplayer_action.generic.width = re.BF_Strlen(name_multiplayer);
-	s_multiplayer_action.generic.callback = MainMultiplayerFunc;
-
 	Com_sprintf(name_options, sizeof(name_options), "\x02%s", m_banner_options->string);
 	s_options_action.generic.type = MTYPE_ACTION;
 	s_options_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_options_action.generic.x = 0;
-	s_options_action.generic.y = 64;
+	s_options_action.generic.y = 32;
 	s_options_action.generic.name = name_options;
 	s_options_action.generic.width = re.BF_Strlen(name_options);
 	s_options_action.generic.callback = MainOptionsFunc;
@@ -77,7 +64,7 @@ static void Main_MenuInit(void)
 	s_video_action.generic.type = MTYPE_ACTION;
 	s_video_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_video_action.generic.x = 0;
-	s_video_action.generic.y = 96;
+	s_video_action.generic.y = 64;
 	s_video_action.generic.name = name_video;
 	s_video_action.generic.width = re.BF_Strlen(name_video);
 	s_video_action.generic.callback = MainVideoFunc;
@@ -86,7 +73,7 @@ static void Main_MenuInit(void)
 	s_sound_action.generic.type = MTYPE_ACTION;
 	s_sound_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_sound_action.generic.x = 0;
-	s_sound_action.generic.y = 128;
+	s_sound_action.generic.y = 96;
 	s_sound_action.generic.name = name_sound;
 	s_sound_action.generic.width = re.BF_Strlen(name_sound);
 	s_sound_action.generic.callback = MainSoundFunc;
@@ -95,7 +82,7 @@ static void Main_MenuInit(void)
 	s_info_action.generic.type = MTYPE_ACTION;
 	s_info_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_info_action.generic.x = 0;
-	s_info_action.generic.y = 160;
+	s_info_action.generic.y = 128;
 	s_info_action.generic.name = name_info;
 	s_info_action.generic.width = re.BF_Strlen(name_info);
 	s_info_action.generic.callback = MainInfoFunc;
@@ -108,13 +95,12 @@ static void Main_MenuInit(void)
 	s_quit_action.generic.type = MTYPE_ACTION;
 	s_quit_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_quit_action.generic.x = 0;
-	s_quit_action.generic.y = 192;
+	s_quit_action.generic.y = 160;
 	s_quit_action.generic.name = name_quit;
 	s_quit_action.generic.width = re.BF_Strlen(name_quit);
 	s_quit_action.generic.callback = MainQuitFunc;
 
 	Menu_AddItem(&s_main_menu, &s_game_action);
-	Menu_AddItem(&s_main_menu, &s_multiplayer_action);
 	Menu_AddItem(&s_main_menu, &s_options_action);
 	Menu_AddItem(&s_main_menu, &s_video_action);
 	Menu_AddItem(&s_main_menu, &s_sound_action);

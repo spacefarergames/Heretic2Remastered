@@ -89,13 +89,6 @@ static void ApplyChanges(const qboolean close_menu) //mxd. +close_menu arg.
 		vid_restart_required = true;
 	}
 
-	if (initial_reflib_index != s_ref_list.curvalue)
-	{
-		Cvar_Set("vid_ref", reflib_infos[s_ref_list.curvalue].id);
-		initial_reflib_index = s_ref_list.curvalue;
-		vid_restart_required = true;
-	}
-
 	if ((int)m_minlight != (int)m_gl_minlight->value) // YQ2
 		vid_restart_required = true;
 
@@ -268,7 +261,6 @@ static void VID_MenuInit(void)
 	s_detail_slider.maxvalue = 3.0f;
 	s_detail_slider.curvalue = m_r_detail->value; //mxd. Original version used Cvar_VariableValue("r_detail") here.
 
-	Menu_AddItem(&s_video_menu, &s_ref_list);
 	Menu_AddItem(&s_video_menu, &s_mode_list);
 	Menu_AddItem(&s_video_menu, &s_target_fps_list); //mxd
 	Menu_AddItem(&s_video_menu, &s_gamma_slider);
@@ -319,23 +311,35 @@ static const char* VID_MenuKey(const int key)
 
 		case K_UPARROW:
 		case K_KP_UPARROW:
+		case K_AUX8:	// D-pad up
+		case 'w':
+		case 'W':
 			s_video_menu.cursor--;
 			Menu_AdjustCursor(&s_video_menu, -1);
 			return SND_MENU_SELECT;
 
 		case K_DOWNARROW:
 		case K_KP_DOWNARROW:
+		case K_AUX9:	// D-pad down
+		case 's':
+		case 'S':
 			s_video_menu.cursor++;
 			Menu_AdjustCursor(&s_video_menu, 1);
 			return SND_MENU_SELECT;
 
 		case K_LEFTARROW:
 		case K_KP_LEFTARROW:
+		case K_AUX10:	// D-pad left
+		case 'a':
+		case 'A':
 			//mxd. Original logic calls se.StopAllSounds_Sounding() here - no longer needed.
 			return (Menu_SlideItem(&s_video_menu, -1) ? SND_MENU_TOGGLE : NULL); //mxd. Add sound.
 
 		case K_RIGHTARROW:
 		case K_KP_RIGHTARROW:
+		case K_AUX11:	// D-pad right
+		case 'd':
+		case 'D':
 			//mxd. Original logic calls se.StopAllSounds_Sounding() here - no longer needed.
 			return (Menu_SlideItem(&s_video_menu, 1) ? SND_MENU_TOGGLE : NULL); //mxd. Add sound.
 

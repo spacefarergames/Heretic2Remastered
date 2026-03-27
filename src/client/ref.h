@@ -300,6 +300,7 @@ typedef struct refimport_s
 	// NULL can be passed for buf to just determine existence.
 	int (*FS_LoadFile)(const char* name, void** buf);
 	void (*FS_FreeFile)(void* buf);
+	char* (*FS_Gamedir)(void);
 
 	// Called with image data of width * height pixel which 'comp' bytes per pixel (must be 3 or 4 for RGB or RGBA).
 	// Expects the pixels data to be row-wise, starting at top left.

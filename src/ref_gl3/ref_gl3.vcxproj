@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\include\glad-GL3.3\glad.c" />
+    <ClCompile Include="..\game\q_shared.c" />
+    <ClCompile Include="..\qcommon\anorms.c" />
+    <ClCompile Include="..\qcommon\Reference.c" />
+    <ClCompile Include="..\qcommon\Skeletons.c" />
+    <ClCompile Include="..\qcommon\turbsin.c" />
+    <ClCompile Include="src\gl3_Draw.c" />
+    <ClCompile Include="src\anormtab.c" />
+    <ClCompile Include="src\gl3_FlexModel.c" />
+    <ClCompile Include="src\gl3_Image.c" />
+    <ClCompile Include="src\gl3_Light.c" />
+    <ClCompile Include="src\gl3_Lightmap.c" />
+    <ClCompile Include="src\gl3_Main.c" />
+    <ClCompile Include="src\gl3_Misc.c" />
+    <ClCompile Include="src\gl3_Model.c" />
+    <ClCompile Include="src\gl3_SDL.c" />
+    <ClCompile Include="src\gl3_Shaders.c" />
+    <ClCompile Include="src\gl3_Shadow.c" />
+    <ClCompile Include="src\gl3_Sky.c" />
+    <ClCompile Include="src\gl3_Sprite.c" />
+    <ClCompile Include="src\gl3_StbImage.c" />
+    <ClCompile Include="src\gl3_Surface.c" />
+    <ClCompile Include="src\gl3_Warp.c" />
+    <ClCompile Include="src\Hunk.c" />
+    <ClCompile Include="src\Skeletons\r_SkeletonLerp.c" />
+    <ClCompile Include="src\Skeletons\r_Skeletons.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\glad-GL3.3\glad.h" />
+    <ClInclude Include="..\..\include\glad-GL3.3\khrplatform.h" />
+    <ClInclude Include="..\client\ref.h" />
+    <ClInclude Include="..\client\vid.h" />
+    <ClInclude Include="..\game\game.h" />
+    <ClInclude Include="..\game\q_shared.h" />
+    <ClInclude Include="..\qcommon\anorms.h" />
+    <ClInclude Include="..\qcommon\Reference.h" />
+    <ClInclude Include="..\qcommon\Skeletons.h" />
+    <ClInclude Include="..\qcommon\turbsin.h" />
+    <ClInclude Include="src\gl3_Draw.h" />
+    <ClInclude Include="src\gl3_FlexModel.h" />
+    <ClInclude Include="src\gl3_Shadow.h" />
+    <ClInclude Include="src\Skeletons\m_Skeleton.h" />
+    <ClInclude Include="src\Skeletons\m_SkeletalCluster.h" />
+    <ClInclude Include="src\Skeletons\r_Skeletons.h" />
+    <ClInclude Include="src\Skeletons\r_SkeletonLerp.h" />
+    <ClInclude Include="src\anormtab.h" />
+    <ClInclude Include="src\gl3_Image.h" />
+    <ClInclude Include="src\gl3_Light.h" />
+    <ClInclude Include="src\gl3_Lightmap.h" />
+    <ClInclude Include="src\gl3_Local.h" />
+    <ClInclude Include="src\gl3_Misc.h" />
+    <ClInclude Include="src\gl3_Model.h" />
+    <ClInclude Include="src\gl3_SDL.h" />
+    <ClInclude Include="src\gl3_Shaders.h" />
+    <ClInclude Include="src\gl3_Sky.h" />
+    <ClInclude Include="src\gl3_Sprite.h" />
+    <ClInclude Include="src\gl3_Surface.h" />
+    <ClInclude Include="src\gl3_Warp.h" />
+    <ClInclude Include="src\Hunk.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{B2C4A1F3-7E8D-4C5B-9F2A-3D6E8B1C4F7A}</ProjectGuid>
+    <ProjectName>ref_gl3</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <EnableASAN>true</EnableASAN>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\build\</OutDir>
+    <IntDir>.\debug\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\build\</OutDir>
+    <IntDir>.\release\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\debug\</AssemblerListingLocation>
+      <ObjectFileName>.\debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\debug\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\..\include;..\client;..\qcommon;..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\debug\ref_gl3.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\debug\ref_gl3.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>..\..\build\ref_gl3.dll</OutputFile>
+      <ImportLibrary>
+      </ImportLibrary>
+      <AdditionalDependencies>SDL3.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\release\</AssemblerListingLocation>
+      <ObjectFileName>.\release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\release\</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\..\include;..\client;..\qcommon;..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsC</CompileAs>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <DisableSpecificWarnings>4100; 4115; 4201</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\..\release\ref_gl3.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\release\ref_gl3.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>..\..\build\ref_gl3.dll</OutputFile>
+      <ImportLibrary>
+      </ImportLibrary>
+      <AdditionalDependencies>SDL3.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

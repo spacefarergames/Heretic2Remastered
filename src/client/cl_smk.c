@@ -5,6 +5,7 @@
 //
 
 #include "client.h"
+#include "cl_mp4.h"
 #include <libsmacker/smacker.h>
 
 typedef struct SMKPlaybackInfo_s
@@ -146,54 +147,58 @@ static void SCR_DoCinematicFrame(void) // Called when it's time to render next c
 
 void SCR_PlayCinematic(const char* name)
 {
-	char smk_filepath[MAX_OSPATH];
-
 	//mxd. SCR_BeginLoadingPlaque() in original logic.
 	se.StopAllSounds_Sounding();
 	se.MusicStop();
 
-	//mxd. Skip 'SmackW32.dll' loading logic.
+	// Try HD video replacements (MP4, then MKV) from the HDVideos folder.
+	const char* dot = strrchr(name, '.');
+	const int base_len = dot ? (int)(dot - name) : (int)strlen(name);
 
-	sprintf_s(smk_filepath, sizeof(smk_filepath), "video/%s", name); //mxd. sprintf -> sprintf_s
-	const char* path = FS_GetPath(smk_filepath);
-	if (path == NULL)
+	static const char* hd_exts[] = { "mp4", "mkv", NULL };
+
+	for (int e = 0; hd_exts[e] != NULL; e++)
 	{
-		Com_Printf("...Unable to find file '%s'\n", smk_filepath);
-		SCR_FinishCinematic();
+		char hd_name[MAX_OSPATH];
+		sprintf_s(hd_name, sizeof(hd_name), "%.*s.%s", base_len, name, hd_exts[e]);
 
-		return;
+		char hd_relpath[MAX_OSPATH];
+		sprintf_s(hd_relpath, sizeof(hd_relpath), "HDVideos/%s", hd_name);
+		const char* hd_basepath = FS_GetPath(hd_relpath);
+
+		if (hd_basepath == NULL)
+			continue;
+
+		char hd_filepath[MAX_OSPATH];
+		sprintf_s(hd_filepath, sizeof(hd_filepath), "%s/HDVideos/%s", hd_basepath, hd_name);
+		Com_Printf("Opening HD cinematic: '%s'...\n", hd_filepath);
+
+		if (MP4_Open(hd_filepath))
+		{
+			cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
+			cl.cinematictime = max(1, cl.cinematictime);
+			MP4_NextFrame(); // Prime first frame.
+			Cvar_SetValue("paused", 0);
+			cls.state = ca_connected;
+			SCR_EndLoadingPlaque();
+			In_FlushQueue();
+			cls.key_dest = key_game;
+			return;
+		}
 	}
 
-	sprintf_s(smk_filepath, sizeof(smk_filepath), "%s/video/%s", path, name); //mxd. sprintf -> sprintf_s
-	Com_Printf("Opening cinematic file: '%s'...\n", smk_filepath);
-
-	if (!SMK_Open(smk_filepath))
-	{
-		Com_Printf("...Unable to open file\n");
-		SCR_FinishCinematic();
-
-		return;
-	}
-
-	cl.cinematictime = (int)((float)cls.realtime - 2000.0f / spi.fps);
-	cl.cinematictime = max(1, cl.cinematictime); //mxd. Ensure positive value (can get negative value here, because unlike original logic, cls.realtime starts from 0).
-
-	SCR_DoCinematicFrame(); // Advance cinematic_frame to match with cl.cinematictime in SCR_RunCinematic()...
-
-	Cvar_SetValue("paused", 0);
-	cls.state = ca_connected;
-
-	//mxd. Originally called in SCR_RunCinematic().
-	SCR_EndLoadingPlaque();
-
-	In_FlushQueue(); // YQ2
-	cls.key_dest = key_game;
+	// No HD video found; skip this cinematic.
+	Com_Printf("No HD video found for '%s', skipping cinematic.\n", name);
+	SCR_FinishCinematic();
 }
 
 void SCR_DrawCinematic(void) // Called every rendered frame.
 {
-	if (cl.cinematictime > 0)
-		re.DrawCinematic(spi.video_frame, (const paletteRGB_t*)spi.palette);
+	if (cl.cinematictime <= 0)
+		return;
+
+	if (MP4_IsOpen())
+		re.DrawCinematic(MP4_GetVideoFrame(), NULL); // NULL palette = BGRA MP4 frame
 }
 
 void SCR_RunCinematic(void) // Called every rendered frame.
@@ -201,38 +206,43 @@ void SCR_RunCinematic(void) // Called every rendered frame.
 	if (cl.cinematictime < 1)
 		return;
 
-	// Pause if menu or console is up.
-	if (cls.key_dest != key_game)
-	{
-		cl.cinematictime = (int)((float)cls.realtime - (float)(spi.frame * 1000) / spi.fps); // Q2: / 14
-		return;
-	}
-
-	//mxd. Do before SCR_DoCinematicFrame() call to allow the last smk frame to render.
-	if (spi.frame >= spi.total_frames)
+	if (!MP4_IsOpen())
 	{
 		SCR_FinishCinematic();
 		return;
 	}
 
-	const int frame = (int)((float)(cls.realtime - cl.cinematictime) * spi.fps / 1000.0f);
+	const float fps = MP4_GetFPS();
+	const int   cur = MP4_GetFrame();
 
-	if (frame <= spi.frame) //mxd. Original code waits using SmackWait function.
-		return;
-
-	if (frame > spi.frame + 1)
+	// Pause if menu or console is up.
+	if (cls.key_dest != key_game)
 	{
-		Com_Printf("Dropped frame: %i > %i\n", frame, spi.frame + 1);
-		cl.cinematictime = (int)((float)cls.realtime - (float)(spi.frame * 1000) / spi.fps); // Q2: / 14
+		cl.cinematictime = (int)((float)cls.realtime - (float)(cur * 1000) / fps);
+		return;
 	}
 
-	SCR_DoCinematicFrame();
+	if (MP4_AtEnd())
+	{
+		SCR_FinishCinematic();
+		return;
+	}
+
+	const int frame = (int)((float)(cls.realtime - cl.cinematictime) * fps / 1000.0f);
+	if (frame <= cur)
+		return;
+
+	if (frame > cur + 1)
+		cl.cinematictime = (int)((float)cls.realtime - (float)(cur * 1000) / fps);
+
+	MP4_NextFrame();
 }
 
 void SCR_StopCinematic(void)
 {
 	cl.cinematictime = 0; // Done
-	SMK_Shutdown(); // H2
+	if (MP4_IsOpen())
+		MP4_Shutdown();
 }
 
 // Called when either the cinematic completes, or it is aborted.

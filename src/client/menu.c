@@ -270,10 +270,6 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 		case K_AUX5:
 		case K_AUX6:
 		case K_AUX7:
-		case K_AUX8:
-		case K_AUX9:
-		case K_AUX10:
-		case K_AUX11:
 		case K_AUX12:
 		case K_AUX13:
 		case K_AUX14:
@@ -309,6 +305,9 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 
 		case K_UPARROW:
 		case K_KP_UPARROW:
+		case K_AUX8:	// D-pad up
+		case 'w':
+		case 'W':
 			if (menu != NULL)
 			{
 				menu->cursor--;
@@ -320,6 +319,9 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 		case K_TAB:
 		case K_DOWNARROW:
 		case K_KP_DOWNARROW:
+		case K_AUX9:	// D-pad down
+		case 's':
+		case 'S':
 			if (menu != NULL)
 			{
 				menu->cursor++;
@@ -330,10 +332,16 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 
 		case K_LEFTARROW:
 		case K_KP_LEFTARROW:
+		case K_AUX10:	// D-pad left
+		case 'a':
+		case 'A':
 			return (menu != NULL && Menu_SlideItem(menu, -1) ? SND_MENU_TOGGLE : NULL);
 
 		case K_RIGHTARROW:
 		case K_KP_RIGHTARROW:
+		case K_AUX11:	// D-pad right
+		case 'd':
+		case 'D':
 			return (menu != NULL && Menu_SlideItem(menu, 1) ? SND_MENU_TOGGLE : NULL);
 
 		default:

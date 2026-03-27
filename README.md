@@ -1,14 +1,9 @@
-# Heretic2Remastered
+# Heretic2R
 
-Heretic2Remastered is a heavily remastered port of Heretic 2 from Raven Software, based on Heretic2R (Reverse Engineered Source Port).
+Heretic2R is Heretic II (1998, Raven Software) reverse-engineered source port.
 
 ## Features
 
-* OpenGL 3.3 Renderer (Core Profile, Modern)
-* HD Textures
-* Bloom, AO, modern lighting support
-* Modern controller support
-* HD Video playback
 * Widescreen support (with automatic HUD scaling).
 * Rendering framerate decoupled from network packets sending rate (with theoretical maximum of 1000 FPS).
 * OGG music playback.
@@ -16,6 +11,9 @@ Heretic2Remastered is a heavily remastered port of Heretic 2 from Raven Software
 * Improved map loading times. 
 * Lots of cosmetic improvements (so the game plays as you remember it, not as it actually played). 
 * Many bugfixes.
+* Gamepad support via SDL3 (xinput/dinput/HID controllers).
+* HiDPI / high-resolution display support.
+* Experimental **OpenGL 3.3 Core Profile** renderer (`ref_gl3.dll`) alongside the classic `ref_gl1` renderer.
 
 ## Installation
 
@@ -44,16 +42,13 @@ To enable OGG music playback, rip Heretic II CD tracks as **track02.ogg - track1
 * H2R is **NOT** compatible with H2 sound backends (because of API changes).
 * H2R is **NOT** compatible with H2 gamex86/Player/Client Effects libraries (because of API changes).
 * GameSpy online multiplayer logic is not implemented.
-* Gamepad support is currently not implemented.
-* HiDPI support is currently not implemented.
 * Framerates above 60 FPS are not tested.
 * Screen resolutions above FullHD are not tested.
 
 ## Planned features
 
-* OpenGL 3 renderer.
 * OpenAL sound backend.
-* Gamepad support.
+* Complete 3D world/entity rendering in `ref_gl3` (currently uses fixed-function GL1 path).
 
 ## Used libraries
 

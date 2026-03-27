@@ -1,0 +1,22 @@
+﻿  gl3_Draw.c
+  gl3_FlexModel.c
+  gl3_Image.c
+  gl3_Light.c
+  gl3_Lightmap.c
+  gl3_Main.c
+  gl3_Misc.c
+  gl3_Model.c
+  gl3_SDL.c
+  gl3_Shaders.c
+  gl3_Sky.c
+  gl3_Sprite.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Image.c(516,39): warning C4013: 'tolower' undefined; assuming extern returning int
+  gl3_StbImage.c
+  gl3_Surface.c
+  gl3_Warp.c
+  Hunk.c
+  r_SkeletonLerp.c
+  r_Skeletons.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Surface.c(78,4): warning C4013: 'R_DrawSpriteModel' undefined; assuming extern returning int
+     Creating library ..\..\build\ref_gl3.lib and object ..\..\build\ref_gl3.exp
+  ref_gl3.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\ref_gl3.dll

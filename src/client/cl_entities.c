@@ -1094,12 +1094,24 @@ void CL_AddEntities(void)
 	if (cls.state != ca_active)
 		return;
 
-	if (cl.time > cl.frame.servertime)
-		cl.lerpfrac = 1.0f;
-	else if (cl.time < cl.frame.servertime - 100)
-		cl.lerpfrac = 0.0f;
+	//mxd. Use a float render-frame accumulator for smooth sub-frame entity interpolation,
+	// instead of the integer-truncated cl.time (cl.time += timedelta/1000 loses fractional ms).
+	// Mirrors the camera frame_delta and prediction origin_lerp patterns.
+	static float render_lerp_time; // Accumulated render time within current server frame (0..0.1 seconds).
+	static int last_serverframe;
+
+	if (cl.frame.serverframe != last_serverframe)
+	{
+		last_serverframe = cl.frame.serverframe;
+		// Re-sync to cl.time position within the new server frame window.
+		render_lerp_time = Clamp((float)(cl.time - (cl.frame.servertime - 100)) * 0.001f, 0.0f, 0.1f);
+	}
 	else
-		cl.lerpfrac = 1.0f - (float)(cl.frame.servertime - cl.time) * 0.01f;
+	{
+		render_lerp_time = min(0.1f, render_lerp_time + cls.rframetime);
+	}
+
+	cl.lerpfrac = render_lerp_time * 10.0f;
 
 	if ((int)cl_timedemo->value)
 		cl.lerpfrac = 1.0f;

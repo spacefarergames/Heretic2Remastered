@@ -12,16 +12,16 @@
 
 #define	BASEDIRNAME			"base"
 
-#define VERSION_MAJOR		"1"
+#define VERSION_MAJOR		"2"
 #define VERSION_MINOR		"06"
 #define VERSION_LOCAL		"01"
-#define VERSION_DATE		"0504"
+#define VERSION_DATE		"2703"
 #define VERSION_ITERATION	"01"
 
-#define VERSIONDISP			"R3" // Shown in console. //mxd. (VERSION_MAJOR"."VERSION_MINOR) in original logic.
+#define VERSIONDISP			"R6" // Shown in console. //mxd. (VERSION_MAJOR"."VERSION_MINOR) in original logic.
 #define VERSIONFULL			(VERSION_MAJOR"."VERSION_MINOR"."VERSION_LOCAL"."VERSION_DATE"."VERSION_ITERATION) // Stored in version cvar.
 
-#define GAME_NAME			"Heretic2R" //mxd
+#define GAME_NAME			"Heretic 2 Remastered" //mxd
 #define GAME_FULLNAME		GAME_NAME" "VERSIONDISP //mxd
 
 #ifdef _WIN32

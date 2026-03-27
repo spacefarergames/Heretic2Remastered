@@ -195,24 +195,232 @@ static void IN_MouseMove(usercmd_t* cmd)
 
 #pragma region ========================== GAMEPAD CONTROL ==========================
 
+static SDL_Gamepad* controller = NULL;
+static SDL_JoystickID controller_id = 0;
+
+// Controller cvars:
+static cvar_t* joy_enable;
+static cvar_t* joy_deadzone;
+static cvar_t* joy_sensitivity_yaw;
+static cvar_t* joy_sensitivity_pitch;
+static cvar_t* joy_sensitivity_move;
+static cvar_t* joy_trigger_threshold;
+static cvar_t* joy_invert_y;
+static cvar_t* joy_layout; // 0 = default, 1 = southpaw
+
+// Accumulated stick state (reset each move frame).
+static float joy_axis_lx;
+static float joy_axis_ly;
+static float joy_axis_rx;
+static float joy_axis_ry;
+static float joy_trigger_left;
+static float joy_trigger_right;
+
+// Translates an SDL gamepad button to a Quake 2 key.
+static int IN_TranslateGamepadButton(const SDL_GamepadButton button)
+{
+	switch (button)
+	{
+		case SDL_GAMEPAD_BUTTON_SOUTH:			return K_JOY1;	// A / Cross
+		case SDL_GAMEPAD_BUTTON_EAST:			return K_JOY2;	// B / Circle
+		case SDL_GAMEPAD_BUTTON_WEST:			return K_JOY3;	// X / Square
+		case SDL_GAMEPAD_BUTTON_NORTH:			return K_JOY4;	// Y / Triangle
+		case SDL_GAMEPAD_BUTTON_BACK:			return K_AUX1;
+		case SDL_GAMEPAD_BUTTON_GUIDE:			return K_AUX2;
+		case SDL_GAMEPAD_BUTTON_START:			return K_AUX3;
+		case SDL_GAMEPAD_BUTTON_LEFT_STICK:		return K_AUX4;
+		case SDL_GAMEPAD_BUTTON_RIGHT_STICK:	return K_AUX5;
+		case SDL_GAMEPAD_BUTTON_LEFT_SHOULDER:	return K_AUX6;
+		case SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER:	return K_AUX7;
+		case SDL_GAMEPAD_BUTTON_DPAD_UP:		return K_AUX8;
+		case SDL_GAMEPAD_BUTTON_DPAD_DOWN:		return K_AUX9;
+		case SDL_GAMEPAD_BUTTON_DPAD_LEFT:		return K_AUX10;
+		case SDL_GAMEPAD_BUTTON_DPAD_RIGHT:		return K_AUX11;
+		default:								return 0;
+	}
+}
+
+// Applies deadzone and normalizes axis value to -1.0 .. 1.0.
+static float IN_ApplyDeadzone(const float value, const float deadzone)
+{
+	if (fabsf(value) < deadzone)
+		return 0.0f;
+
+	// Rescale from deadzone..1.0 to 0.0..1.0.
+	const float sign = (value > 0.0f) ? 1.0f : -1.0f;
+	return sign * (fabsf(value) - deadzone) / (1.0f - deadzone);
+}
+
 static void IN_InitController(void)
 {
-	//TODO: implement later...
+	joy_enable = Cvar_Get("joy_enable", "1", CVAR_ARCHIVE);
+	joy_deadzone = Cvar_Get("joy_deadzone", "0.2", CVAR_ARCHIVE);
+	joy_sensitivity_yaw = Cvar_Get("joy_sensitivity_yaw", "240", CVAR_ARCHIVE);
+	joy_sensitivity_pitch = Cvar_Get("joy_sensitivity_pitch", "150", CVAR_ARCHIVE);
+	joy_sensitivity_move = Cvar_Get("joy_sensitivity_move", "1.0", CVAR_ARCHIVE);
+	joy_trigger_threshold = Cvar_Get("joy_trigger_threshold", "0.12", CVAR_ARCHIVE);
+	joy_invert_y = Cvar_Get("joy_invert_y", "0", CVAR_ARCHIVE);
+	joy_layout = Cvar_Get("joy_layout", "0", CVAR_ARCHIVE);
+
+	joy_axis_lx = 0.0f;
+	joy_axis_ly = 0.0f;
+	joy_axis_rx = 0.0f;
+	joy_axis_ry = 0.0f;
+	joy_trigger_left = 0.0f;
+	joy_trigger_right = 0.0f;
 }
 
 static void IN_StartupController(void) // YQ2: IN_Controller_Init().
 {
-	//TODO: implement later...
+	if (!(int)joy_enable->value)
+	{
+		Com_Printf("Gamepad input disabled by joy_enable cvar.\n");
+		return;
+	}
+
+	if (!SDL_WasInit(SDL_INIT_GAMEPAD))
+	{
+		if (!SDL_Init(SDL_INIT_GAMEPAD))
+		{
+			Com_Printf("Couldn't initialize SDL gamepad subsystem: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	// Try to open the first available gamepad.
+	int num_joysticks = 0;
+	SDL_JoystickID* joysticks = SDL_GetJoysticks(&num_joysticks);
+
+	if (joysticks != NULL)
+	{
+		for (int i = 0; i < num_joysticks; i++)
+		{
+			if (SDL_IsGamepad(joysticks[i]))
+			{
+				controller = SDL_OpenGamepad(joysticks[i]);
+				if (controller != NULL)
+				{
+					controller_id = joysticks[i];
+					Com_Printf("Gamepad opened: %s\n", SDL_GetGamepadName(controller));
+					break;
+				}
+			}
+		}
+
+		SDL_free(joysticks);
+	}
+
+	if (controller == NULL)
+		Com_Printf("No gamepad found.\n");
 }
 
 static void IN_ShutdownController(void) // YQ2: IN_Controller_Shutdown().
 {
-	//TODO: implement later...
+	if (controller != NULL)
+	{
+		SDL_CloseGamepad(controller);
+		controller = NULL;
+		controller_id = 0;
+	}
+
+	if (SDL_WasInit(SDL_INIT_GAMEPAD))
+		SDL_QuitSubSystem(SDL_INIT_GAMEPAD);
 }
 
 static void IN_ControllerMove(usercmd_t* cmd)
 {
-	//TODO: implement later...
+	if (controller == NULL || !(int)joy_enable->value)
+		return;
+
+	if (CL_IgnoreInput())
+		return;
+
+	const float deadzone = joy_deadzone->value;
+	const float move_scale = joy_sensitivity_move->value;
+
+	// Determine stick assignment based on layout.
+	float move_x, move_y, look_x, look_y;
+
+	if ((int)joy_layout->value == 1)
+	{
+		// Southpaw: right stick moves, left stick looks.
+		move_x = IN_ApplyDeadzone(joy_axis_rx, deadzone);
+		move_y = IN_ApplyDeadzone(joy_axis_ry, deadzone);
+		look_x = IN_ApplyDeadzone(joy_axis_lx, deadzone);
+		look_y = IN_ApplyDeadzone(joy_axis_ly, deadzone);
+	}
+	else
+	{
+		// Default: left stick moves, right stick looks.
+		move_x = IN_ApplyDeadzone(joy_axis_lx, deadzone);
+		move_y = IN_ApplyDeadzone(joy_axis_ly, deadzone);
+		look_x = IN_ApplyDeadzone(joy_axis_rx, deadzone);
+		look_y = IN_ApplyDeadzone(joy_axis_ry, deadzone);
+	}
+
+	// Apply movement.
+	cmd->sidemove += (short)(move_x * move_scale * 127.0f);
+	cmd->forwardmove -= (short)(move_y * move_scale * 127.0f);
+
+	// Apply look.
+	const float frame_time = cls.rframetime;
+	cl.delta_inputangles[YAW] -= look_x * joy_sensitivity_yaw->value * frame_time;
+
+	const float pitch_sign = (int)joy_invert_y->value ? -1.0f : 1.0f;
+	cl.delta_inputangles[PITCH] += look_y * joy_sensitivity_pitch->value * frame_time * pitch_sign;
+
+	// Reset accumulated axis values.
+	joy_axis_lx = 0.0f;
+	joy_axis_ly = 0.0f;
+	joy_axis_rx = 0.0f;
+	joy_axis_ry = 0.0f;
+	joy_trigger_left = 0.0f;
+	joy_trigger_right = 0.0f;
+}
+
+// Fires virtual arrow-key events from the left stick while a menu is open.
+// Supports an initial delay then a repeat rate, like keyboard auto-repeat.
+#define JOY_MENU_NAV_INITIAL	300	// ms before first repeat after initial press.
+#define JOY_MENU_NAV_REPEAT		150	// ms between subsequent repeats.
+
+static void IN_ControllerMenuNav(void)
+{
+	if (controller == NULL || !(int)joy_enable->value || cls.key_dest != key_menu)
+		return;
+
+	const float deadzone = joy_deadzone->value;
+	const float nav_y = IN_ApplyDeadzone(joy_axis_ly, deadzone);
+	const float nav_x = IN_ApplyDeadzone(joy_axis_lx, deadzone);
+
+	// [0]=up, [1]=down, [2]=left, [3]=right
+	static const int nav_keys[4] = { K_UPARROW, K_DOWNARROW, K_LEFTARROW, K_RIGHTARROW };
+	static int nav_next[4];	// Next curtime at which to fire; 0 = direction not active.
+
+	const qboolean active[4] = { nav_y < 0.0f, nav_y > 0.0f, nav_x < 0.0f, nav_x > 0.0f };
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (active[i])
+		{
+			if (nav_next[i] == 0)
+			{
+				// First frame in this direction: fire immediately, then set initial delay.
+				Key_Event(nav_keys[i], true, (uint)curtime);
+				Key_Event(nav_keys[i], false, (uint)curtime);
+				nav_next[i] = curtime + JOY_MENU_NAV_INITIAL;
+			}
+			else if (curtime >= nav_next[i])
+			{
+				Key_Event(nav_keys[i], true, (uint)curtime);
+				Key_Event(nav_keys[i], false, (uint)curtime);
+				nav_next[i] = curtime + JOY_MENU_NAV_REPEAT;
+			}
+		}
+		else
+		{
+			nav_next[i] = 0;
+		}
+	}
 }
 
 #pragma endregion
@@ -353,9 +561,87 @@ void IN_Update(void) // YQ2
 				break;
 
 			case SDL_EVENT_QUIT:
-				Com_Quit();
+					Com_Quit();
+
+				// Gamepad events:
+				case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
+				case SDL_EVENT_GAMEPAD_BUTTON_UP:
+				{
+					const int key = IN_TranslateGamepadButton((SDL_GamepadButton)event.gbutton.button);
+					if (key != 0)
+					{
+						const uint time = (uint)(event.gbutton.timestamp / NANOSECONDS_IN_MILLISECOND);
+						Key_Event(key, (event.type == SDL_EVENT_GAMEPAD_BUTTON_DOWN), time);
+					}
+				} break;
+
+				case SDL_EVENT_GAMEPAD_AXIS_MOTION:
+				{
+					const float value = event.gaxis.value / 32767.0f;
+
+					switch (event.gaxis.axis)
+					{
+						case SDL_GAMEPAD_AXIS_LEFTX:	joy_axis_lx = value; break;
+						case SDL_GAMEPAD_AXIS_LEFTY:	joy_axis_ly = value; break;
+						case SDL_GAMEPAD_AXIS_RIGHTX:	joy_axis_rx = value; break;
+						case SDL_GAMEPAD_AXIS_RIGHTY:	joy_axis_ry = value; break;
+
+						case SDL_GAMEPAD_AXIS_LEFT_TRIGGER:
+						{
+							const qboolean was_down = (joy_trigger_left >= joy_trigger_threshold->value);
+							joy_trigger_left = value;
+							const qboolean is_down = (value >= joy_trigger_threshold->value);
+
+							if (is_down != was_down)
+							{
+								const uint time = (uint)(event.gaxis.timestamp / NANOSECONDS_IN_MILLISECOND);
+								Key_Event(K_AUX12, is_down, time);
+							}
+						} break;
+
+						case SDL_GAMEPAD_AXIS_RIGHT_TRIGGER:
+						{
+							const qboolean was_down = (joy_trigger_right >= joy_trigger_threshold->value);
+							joy_trigger_right = value;
+							const qboolean is_down = (value >= joy_trigger_threshold->value);
+
+							if (is_down != was_down)
+							{
+								const uint time = (uint)(event.gaxis.timestamp / NANOSECONDS_IN_MILLISECOND);
+								Key_Event(K_AUX13, is_down, time);
+							}
+						} break;
+					}
+				} break;
+
+				case SDL_EVENT_GAMEPAD_ADDED:
+				{
+					if (controller == NULL)
+					{
+						controller = SDL_OpenGamepad(event.gdevice.which);
+						if (controller != NULL)
+						{
+							controller_id = event.gdevice.which;
+							Com_Printf("Gamepad connected: %s\n", SDL_GetGamepadName(controller));
+						}
+					}
+				} break;
+
+				case SDL_EVENT_GAMEPAD_REMOVED:
+				{
+					if (controller != NULL && event.gdevice.which == controller_id)
+					{
+						Com_Printf("Gamepad disconnected.\n");
+						SDL_CloseGamepad(controller);
+						controller = NULL;
+						controller_id = 0;
+					}
+				} break;
 		}
 	}
+
+	// Drive menu navigation from the left stick when a menu is open.
+	IN_ControllerMenuNav();
 
 	// Grab and ungrab the mouse if the console is opened.
 	// Calling GLimp_GrabInput() each frame is a bit ugly but simple and should work.
