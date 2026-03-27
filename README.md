@@ -1,9 +1,14 @@
-# Heretic2R
+# Heretic2Remastered
 
-Heretic2R is Heretic II (1998, Raven Software) reverse-engineered source port.
+Heretic2Remastered is a heavily remastered port of Heretic 2 from Raven Software, based on Heretic2R (Reverse Engineered Source Port).
 
 ## Features
 
+* OpenGL 3.3 Renderer (Core Profile, Modern)
+* HD Textures
+* Bloom, AO, modern lighting support
+* Modern controller support
+* HD Video playback
 * Widescreen support (with automatic HUD scaling).
 * Rendering framerate decoupled from network packets sending rate (with theoretical maximum of 1000 FPS).
 * OGG music playback.
