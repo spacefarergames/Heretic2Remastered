@@ -5,6 +5,7 @@
 Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, Raven Software), with HD enhancements and modern engine improvements.
 
 ![Screenshot1](CorvusNight.png)
+![Screenshot2](EnterThePalace.png)
 
 ## Features
 
