@@ -47,7 +47,6 @@ Heretic II Remastered requires Heretic II game data in order to run.
 - Make sure you've downloaded the latest version of Remastered, which includes the base.pak, containing all the necessary HD textures, music OGGs, and HD videos. If you have an older version without base.pak, you can either update to the latest version or extract `base.pak` from the latest release and place it in the `base` folder.
 - If you have the original game CD, you can also copy the required files from there, but make sure to update to v1.06 as described below, otherwise the game will not work correctly because of missing models/textures/sounds.
 - If you don't have the original game CD, you can purchase Heretic II from GOG or Steam, which both include the necessary game data files. Just make sure to point Remastered to the correct `base` folder where those files are located.
-- 
 
 ---
 **NOTICE**: make sure your copy of Heretic II is updated to v1.06, otherwise the game will not work correctly because of missing models/textures/sounds.
