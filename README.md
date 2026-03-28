@@ -18,7 +18,7 @@ Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, R
 * Many bugfixes.
 * Gamepad support via SDL3 (xinput/dinput/HID controllers).
 * HiDPI / high-resolution display support.
-* **OpenGL 3.3 Core Profile** renderer (`ref_gl3.dll`).
+* **OpenGL 3.3 Core Profile** renderer (`ref_gl3.dll`). Allows support for ReShade (all latest versions) as FPO is supported with Depth Buffer (Upside down, flip to use in global preprocessor settings)
 * **With the OpenGL 3.3 renderer, the game can run on modern Linux and macOS via Wine/Proton** (untested, but should work in theory).
 * **Windows Media Foundation** video playback backend (`winmf_video.dll`) for MP4/MKV support and better performance compared to libsmacker.
 * **stb_vorbis** OGG music playback backend (`stbv_music.dll`) for better performance and lower memory usage compared to libvorbis.
