@@ -37,6 +37,7 @@ Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, R
 * **HD video playback** — MP4/MKV cinematics via Windows Media Foundation.
 * **PAK2 archive format** — extended PAK format supporting filenames up to 128 characters (see below).
 * **`base.pak` support** — all game data (textures, models, sounds, music, HD textures, HD videos) can be distributed as a single `base.pak` archive.
+* **Automatic CD detection** — if a Heretic II CD is in any CD/DVD drive, the engine automatically extracts the required PAK files (no manual copying needed).
 
 ## Installation
 
@@ -45,7 +46,7 @@ Heretic II Remastered requires Heretic II game data in order to run.
  
 – Copy "`Htic2-0.pak` and `Htic2-1.pak`) into the `base` folder of Heretic II Remastered.
 - Make sure you've downloaded the latest version of Remastered, which includes the base.pak, containing all the necessary HD textures, music OGGs, and HD videos. If you have an older version without base.pak, you can either update to the latest version or extract `base.pak` from the latest release and place it in the `base` folder.
-- If you have the original game CD, you can also copy the required files from there, but make sure to update to v1.06 as described below, otherwise the game will not work correctly because of missing models/textures/sounds.
+- If you have the original game CD, the engine will **automatically detect it** and extract the required PAK files — see the **CD Auto-Detection** section below. You can also copy the files manually, but make sure to update to v1.06 as described below, otherwise the game will not work correctly because of missing models/textures/sounds.
 - If you don't have the original game CD, you can purchase Heretic II from GOG or Steam, which both include the necessary game data files. Just make sure to point Remastered to the correct `base` folder where those files are located.
 
 ---
@@ -61,6 +62,15 @@ HD textures can also be loaded from `base.pak`.
 **HD videos:**  
 Place MP4 or MKV cinematics in "**base\video**". The game will play them in place of the original `.cin`/`.smk` files.  
 HD videos can also be loaded from `base.pak`.
+
+## CD Auto-Detection
+
+On startup, the engine scans all CD/DVD drives for the original Heretic II disc. If the disc is found (identified by the presence of `Setup/zip/h2.zip`), the engine automatically extracts `Htic2-0.pak` and `Htic2-1.pak` from the CD's installer ZIP archive into the `base` directory. A splash screen is displayed during extraction.
+
+- If both PAK files already exist in the `base` folder, extraction is skipped.
+- The built-in ZIP/DEFLATE decompressor requires no external libraries.
+- After extraction, you should still apply the v1.06 patch as described above.
+- 
 ## Controller Guide
 
 Heretic II Remastered has full gamepad support via SDL3. Any XInput, DirectInput, or HID controller should work out of the box. Analog sticks provide smooth movement and camera control — the left stick moves, the right stick looks (swappable via `joy_layout 1` for southpaw).
