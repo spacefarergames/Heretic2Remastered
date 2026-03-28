@@ -18,10 +18,8 @@ Heretic2R is Heretic II (1998, Raven Software) reverse-engineered source port.
 ## Installation
 
 **Game data:**  
-Heretic2R requires Heretic II game data in order to run. You can either:  
-– Overwrite Heretic II binaries with the Heretic2R ones.  
-**or**  
-– Copy "**Heretic II\base**" folder (excluding all .dll files) to Heretic2R folder.
+Heretic2R requires Heretic II game data in order to run.
+You'll need to copy both Htic2-0.pak and Htic2-1.pak into the 'base' folder. Inside the base folder is our 'base.pak' file. This contains all the needed data for the Remaster.
 
 ---
 **NOTICE**: make sure your copy of Heretic II is updated to v1.06, otherwise Heretic2R will not work correctly because of missing models/textures/sounds. 
