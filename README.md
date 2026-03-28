@@ -62,6 +62,50 @@ HD textures can also be loaded from `base.pak`.
 Place MP4 or MKV cinematics in "**base\video**". The game will play them in place of the original `.cin`/`.smk` files.  
 HD videos can also be loaded from `base.pak`.
 
+🎮 Controller Layout — Heretic 2 Remastered
+Analog Sticks (handled by the engine)
+Stick	Default (layout 0)	Southpaw (layout 1)
+Left Stick	Movement (walk/run)	Camera look
+Right Stick	Camera look (yaw/pitch)	Movement (walk/run)
+Face Buttons
+Xbox	PlayStation	Key	Binding	Action
+A	Cross	Joy1	+moveup	Jump / Swim up
+B	Circle	Joy2	+quickturn	Quick 180° turn (Back in menus)
+X	Square	Joy3	+action	Interact / Use
+Y	Triangle	Joy4	+movedown	Crouch / Swim down
+Triggers & Bumpers
+Xbox	PlayStation	Key	Binding	Action
+RT	R2	Aux13	+attack	Attack
+LT	L2	Aux12	+defend	Defend / Block
+RB	R1	Aux7	weapnext	Next weapon
+LB	L1	Aux6	weapprev	Previous weapon
+Stick Clicks
+Xbox	PlayStation	Key	Binding	Action
+L3	L3	Aux4	+speed	Run / Sprint
+R3	R3	Aux5	+creep	Creep / Sneak
+D-Pad
+Direction	Key	Binding	Action
+Up	Aux8	defnext	Next defense
+Down	Aux9	defprev	Previous defense
+Left	Aux10	weapprev	Previous weapon
+Right	Aux11	weapnext	Next weapon
+System Buttons
+Xbox	PlayStation	Key	Binding	Action
+Start	Options	Aux3	menu_main	Open / Close menu
+Back	Select	Aux1	+inventory	Open inventory
+Cvars for Tuning
+Cvar	Default	Description
+joy_enable	1	Enable/disable gamepad
+joy_deadzone	0.2	Stick deadzone (0.0–1.0)
+joy_sensitivity_yaw	240	Horizontal look speed
+joy_sensitivity_pitch	150	Vertical look speed
+joy_sensitivity_move	1.0	Movement stick multiplier
+joy_trigger_threshold	0.12	Trigger press threshold
+joy_invert_y	0	Invert camera Y axis
+joy_response_curve	1.5	Look stick curve (1.0 = linear)
+joy_layout	0	0 = default, 1 = southpaw
+
+
 ## base.pak and the PAK2 format
 
 All Remastered game data — including HD textures, music OGGs, and HD videos — can be packed into a single `base.pak` archive using the included **MakePak** tool. When present in the `base` directory, `base.pak` is automatically loaded by the engine alongside the original `Htic2-0.pak` / `Htic2-1.pak` files.
