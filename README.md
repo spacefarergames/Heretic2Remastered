@@ -1,6 +1,6 @@
 # Heretic II Remastered
 
-![Logo](https://user-images.githubusercontent.com/xxxxxxx.png](https://github.com/spacefarergames/Heretic2Remastered/blob/main/Logo.png?raw=true))
+![Logo](logo.png))
 
 Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, Raven Software), with HD enhancements and modern engine improvements.
 
