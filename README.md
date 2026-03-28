@@ -61,50 +61,94 @@ HD textures can also be loaded from `base.pak`.
 **HD videos:**  
 Place MP4 or MKV cinematics in "**base\video**". The game will play them in place of the original `.cin`/`.smk` files.  
 HD videos can also be loaded from `base.pak`.
+## Controller Guide
 
-🎮 Controller Layout — Heretic 2 Remastered
-Analog Sticks (handled by the engine)
-Stick	Default (layout 0)	Southpaw (layout 1)
-Left Stick	Movement (walk/run)	Camera look
-Right Stick	Camera look (yaw/pitch)	Movement (walk/run)
-Face Buttons
-Xbox	PlayStation	Key	Binding	Action
-A	Cross	Joy1	+moveup	Jump / Swim up
-B	Circle	Joy2	+quickturn	Quick 180° turn (Back in menus)
-X	Square	Joy3	+action	Interact / Use
-Y	Triangle	Joy4	+movedown	Crouch / Swim down
-Triggers & Bumpers
-Xbox	PlayStation	Key	Binding	Action
-RT	R2	Aux13	+attack	Attack
-LT	L2	Aux12	+defend	Defend / Block
-RB	R1	Aux7	weapnext	Next weapon
-LB	L1	Aux6	weapprev	Previous weapon
-Stick Clicks
-Xbox	PlayStation	Key	Binding	Action
-L3	L3	Aux4	+speed	Run / Sprint
-R3	R3	Aux5	+creep	Creep / Sneak
-D-Pad
-Direction	Key	Binding	Action
-Up	Aux8	defnext	Next defense
-Down	Aux9	defprev	Previous defense
-Left	Aux10	weapprev	Previous weapon
-Right	Aux11	weapnext	Next weapon
-System Buttons
-Xbox	PlayStation	Key	Binding	Action
-Start	Options	Aux3	menu_main	Open / Close menu
-Back	Select	Aux1	+inventory	Open inventory
-Cvars for Tuning
-Cvar	Default	Description
-joy_enable	1	Enable/disable gamepad
-joy_deadzone	0.2	Stick deadzone (0.0–1.0)
-joy_sensitivity_yaw	240	Horizontal look speed
-joy_sensitivity_pitch	150	Vertical look speed
-joy_sensitivity_move	1.0	Movement stick multiplier
-joy_trigger_threshold	0.12	Trigger press threshold
-joy_invert_y	0	Invert camera Y axis
-joy_response_curve	1.5	Look stick curve (1.0 = linear)
-joy_layout	0	0 = default, 1 = southpaw
+Heretic II Remastered has full gamepad support via SDL3. Any XInput, DirectInput, or HID controller should work out of the box. Analog sticks provide smooth movement and camera control — the left stick moves, the right stick looks (swappable via `joy_layout 1` for southpaw).
 
+### Button Mapping
+
+> Names follow Xbox layout. PlayStation equivalents in parentheses.
+
+#### Face Buttons
+
+| Button | Action |
+|---|---|
+| **A** (Cross) | Jump / Swim up |
+| **B** (Circle) | Quick 180° turn *(also Back in menus)* |
+| **X** (Square) | Interact / Use |
+| **Y** (Triangle) | Crouch / Swim down |
+
+#### Triggers & Bumpers
+
+| Button | Action |
+|---|---|
+| **RT** (R2) | Attack |
+| **LT** (L2) | Defend / Block |
+| **RB** (R1) | Next weapon |
+| **LB** (L1) | Previous weapon |
+
+#### Stick Clicks
+
+| Button | Action |
+|---|---|
+| **L3** | Run / Sprint |
+| **R3** | Creep / Sneak |
+
+#### D-Pad
+
+| Direction | Action |
+|---|---|
+| Up | Next defense |
+| Down | Previous defense |
+| Left | Previous weapon |
+| Right | Next weapon |
+
+#### System
+
+| Button | Action |
+|---|---|
+| **Start** (Options) | Open / Close menu |
+| **Back** (Select) | Open inventory |
+
+### Analog Sticks
+
+| Stick | Default (`joy_layout 0`) | Southpaw (`joy_layout 1`) |
+|---|---|---|
+| Left Stick | Movement | Camera look |
+| Right Stick | Camera look | Movement |
+
+The right stick (or left in southpaw) controls yaw and pitch with an adjustable response curve for fine-grained aiming at low deflections.
+
+### Controller Cvars
+
+All controller settings are saved automatically and can be tuned in the console:
+
+| Cvar | Default | Description |
+|---|---|---|
+| `joy_enable` | `1` | Enable / disable gamepad input |
+| `joy_deadzone` | `0.2` | Stick deadzone (0.0 – 1.0) |
+| `joy_sensitivity_yaw` | `240` | Horizontal look speed (°/sec at full deflection) |
+| `joy_sensitivity_pitch` | `150` | Vertical look speed (°/sec at full deflection) |
+| `joy_sensitivity_move` | `1.0` | Movement stick multiplier |
+| `joy_trigger_threshold` | `0.12` | Trigger activation threshold |
+| `joy_invert_y` | `0` | Invert camera Y axis |
+| `joy_response_curve` | `1.5` | Look stick response curve exponent (1.0 = linear, higher = more precision at low deflections) |
+| `joy_layout` | `0` | Stick layout: 0 = default, 1 = southpaw |
+
+### Rebinding
+
+All buttons can be rebound via the console. The key names are:
+
+```
+Face:     Joy1 (A)  Joy2 (B)  Joy3 (X)  Joy4 (Y)
+Bumpers:  Aux6 (LB) Aux7 (RB)
+Triggers: Aux12 (LT) Aux13 (RT)
+Sticks:   Aux4 (L3) Aux5 (R3)
+D-pad:    Aux8 (Up) Aux9 (Down) Aux10 (Left) Aux11 (Right)
+System:   Aux1 (Back) Aux3 (Start)
+```
+
+Example: `bind Joy1 "+attack"` to put attack on the A button.
 
 ## base.pak and the PAK2 format
 
