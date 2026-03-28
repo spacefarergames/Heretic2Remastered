@@ -1,0 +1,808 @@
+﻿  anorms.c
+  Message.c
+  netmsg_read.c
+  turbsin.c
+  fx_BarrelExplode.c
+  fx_CorpseRemove.c
+  fx_Explosion.c
+  fx_GibTrail.c
+  fx_HitPuffs.c
+  fx_Leader.c
+  fx_PhoenixMissile.c
+  fx_WaterParticles.c
+  fx_WaterSplash.c
+  ce_DefaultMessageHandler.c
+  ce_DLight.c
+  ce_Message.c
+  Client Effects.c
+  Client Entities.c
+  fx_AmmoPickup.c
+  fx_animate.c
+  fx_assassin.c
+  fx_blood.c
+  fx_BlueRing.c
+  fx_bubbler.c
+  fx_crosshair.c
+  fx_cwatcher.c
+  fx_debris.c
+  fx_DefensePickup.c
+  fx_Dripper.c
+  fx_dust.c
+  fx_dustpuff.c
+  fx_fire.c
+  fx_firehands.c
+  fx_flamethrow.c
+  fx_flyingfist.c
+  fx_Fountain.c
+  fx_halo.c
+  fx_HealthPickup.c
+  fx_HellStaff.c
+  fx_HighPriestessProjectiles.c
+  fx_HighPriestessStaff.c
+  fx_LightningHit.c
+  fx_insectstaff.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client effects\fx_halo.c(78,31): warning C4311: 'type cast': pointer truncation from 'client_entity_t *' to 'int'
+  fx_lensflare.c
+  fx_lightning.c
+  fx_Maceball.c
+  fx_magicmissile.c
+  fx_meteorbarrier.c
+  fx_mist.c
+  fx_mork.c
+  fx_MorphOvum.c
+  fx_PhoenixExplode.c
+  fx_pickup.c
+  fx_PuzzlePickup.c
+  fx_PlagueElfSpells.c
+  fx_PlagueMist.c
+  fx_PlagueMistExplode.c
+  fx_portal.c
+  fx_quake.c
+  fx_RedRain.c
+  fx_redrainglow.c
+  fx_remotecamera.c
+  fx_Ripples.c
+  fx_rope.c
+  fx_scorchmark.c
+  fx_shadow.c
+  fx_Shield.c
+  fx_shrine.c
+  fx_smoke.c
+  fx_sound.c
+  fx_sparks.c
+  fx_spellchange.c
+  fx_spellhands.c
+  fx_sphereofannihlation.c
+  fx_spoo.c
+  fx_ssithra.c
+  fx_staff.c
+  fx_StaffHit.c
+  fx_tbeast.c
+  fx_teleport.c
+  fx_tome.c
+  fx_Torch.c
+  fx_tornado.c
+  fx_Wall.c
+  fx_waterentrysplash.c
+  fx_waterwake.c
+  fx_WeaponPickup.c
+  fx_FeetTrail.c
+  fx_ArmorHit.c
+  LevelMaps.c
+  LightStyles.c
+  Main.c
+  Particle.c
+  fx_PlayerPersistent.c
+  fx_TestBBox.c
+  Utilities.c
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Client Effects.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Client Effects.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Client Effects.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Client Effects.exp
+Message.obj : error LNK2019: unresolved external symbol __imp_Sys_Error referenced in function MSG_GetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_AtEnd referenced in function MSG_GetParms
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_AtEnd
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_AtLast referenced in function MSG_SetParms
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_AtLast
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Increment referenced in function MSG_SetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_PostIncrement referenced in function MSG_GetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Front referenced in function MSG_GetParms
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_Front
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_ReplaceCurrent referenced in function MSG_SetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Push referenced in function MSG_Queue
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_InsertAfter referenced in function MSG_SetParms
+netmsg_read.obj : error LNK2019: unresolved external symbol __imp_Com_Error referenced in function MSG_ReadDir
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+netmsg_read.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_TestBBox.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Torch.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_WeaponPickup.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_remotecamera.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_PuzzlePickup.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_HealthPickup.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_Dripper.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_AmmoPickup.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_bubbler.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+netmsg_read.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_spellchange.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_LightningHit.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_AmmoPickup.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+netmsg_read.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+Utilities.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_WeaponPickup.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_flrand
+Particle.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_waterwake.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_tbeast.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_smoke.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_sound.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_spellchange.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_scorchmark.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_PlagueMist.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_PlagueMistExplode.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_mist.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_LightningHit.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_HealthPickup.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_dustpuff.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_Dripper.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_dust.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_assassin.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_bubbler.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_WaterSplash.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_AmmoPickup.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_CorpseRemove.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_GibTrail.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_flrand
+fx_WeaponPickup.obj : error LNK2019: unresolved external symbol __imp_irand referenced in function WeaponPickupAddToView
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_TestBBox.obj : error LNK2001: unresolved external symbol __imp_irand
+Utilities.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_sound.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_smoke.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_PlagueMist.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_PlagueMistExplode.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_halo.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_HealthPickup.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_Dripper.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_dust.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_dustpuff.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_assassin.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_bubbler.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_WaterSplash.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_AmmoPickup.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_animate.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_Explosion.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_irand
+fx_BarrelExplode.obj : error LNK2019: unresolved external symbol __imp_RealAngleVectors referenced in function FXBarrelExplode
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_RealAngleVectors
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_waterwake.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_PlagueMist.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_bubbler.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_Explosion.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+fx_waterentrysplash.obj : error LNK2019: unresolved external symbol __imp_VectorScale referenced in function DoWaterEntrySplash
+fx_waterwake.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_tbeast.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_PlagueMist.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_PlagueMistExplode.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_dust.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_dustpuff.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_CorpseRemove.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+Main.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_Torch.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_spellchange.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_HighPriestessStaff.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_bubbler.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_BarrelExplode.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+fx_CorpseRemove.obj : error LNK2019: unresolved external symbol __imp_ClampI referenced in function FXCorpseRemove
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_ClampI
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_ClampI
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+LightStyles.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_TestBBox.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_StaffHit.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_Torch.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_spellchange.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_smoke.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_PlagueMistExplode.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_HealthPickup.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_fire.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_flamethrow.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_dustpuff.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+ce_DLight.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_AmmoPickup.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_CorpseRemove.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_GibTrail.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_Leader.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+fx_waterwake.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+fx_StaffHit.obj : error LNK2019: unresolved external symbol __imp_VectorRandomCopy referenced in function StaffStrikeLevel2
+fx_ArmorHit.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_spoo.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_PlagueMist.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_LightningHit.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_HitPuffs.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+fx_FeetTrail.obj : error LNK2019: unresolved external symbol __imp_VectorClear referenced in function FeetTrailUpdate
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_Leader.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+ce_DLight.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_tbeast.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_tornado.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_smoke.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+fx_ssithra.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize2 referenced in function FXSsithraArrow
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_PlagueElfSpells.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+fx_PhoenixMissile.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+fx_FeetTrail.obj : error LNK2019: unresolved external symbol __imp_VectorSubtract referenced in function FeetTrailUpdate
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_sparks.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_MorphOvum.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+fx_tome.obj : error LNK2019: unresolved external symbol __imp_VectorAdd referenced in function TomeOfPowerSpawnSparks
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+fx_WaterParticles.obj : error LNK2019: unresolved external symbol __imp_VectorSeparationSquared referenced in function WaterParticleGeneratorUpdate
+Particle.obj : error LNK2001: unresolved external symbol __imp_VectorSeparationSquared
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_HighPriestessStaff.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+fx_staff.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_FeetTrail.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_spellhands.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_WaterParticles.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_firehands.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_HighPriestessStaff.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_Matrix3FromAngles
+ce_DLight.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Con referenced in function InitDLightMngr
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Con
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Con
+Particle.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Con
+ce_DLight.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Des referenced in function ReleaseDLightMngr
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Des
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Des
+Particle.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Des
+ce_DLight.obj : error LNK2019: unresolved external symbol __imp_ResMngr_AllocateResource referenced in function CE_DLight_new
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_ResMngr_AllocateResource
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_ResMngr_AllocateResource
+Particle.obj : error LNK2001: unresolved external symbol __imp_ResMngr_AllocateResource
+Particle.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+ce_DLight.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+ce_Message.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+Main.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_DefaultCon referenced in function CE_PostMessage
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_SLList_DefaultCon
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Des referenced in function CE_ClearMessageQueue
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_SLList_Des
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_IsEmpty referenced in function CE_ClearMessageQueue
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_PushEmpty referenced in function CE_PostMessage
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Pop referenced in function CE_ClearMessageQueue
+ce_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Chop referenced in function CE_ProcessMessages
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+Main.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+fx_Dripper.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+fx_sound.obj : error LNK2001: unresolved external symbol __imp_Com_DPrintf
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_PerpendicularVector
+Client Entities.obj : error LNK2019: unresolved external symbol __imp_AnglesFromDirI referenced in function ClientEntity_new
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDirI
+Client Entities.obj : error LNK2019: unresolved external symbol __imp_DotProduct referenced in function AddEffectsToView
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+Utilities.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+Client Entities.obj : error LNK2019: unresolved external symbol __imp_vec3_right referenced in function ClientEntity_new
+fx_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_ssithra.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_waterwake.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+Client Entities.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_cwatcher.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_flyingfist.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+fx_animate.obj : error LNK2019: unresolved external symbol __imp_VectorDegreesToRadians referenced in function FXAnimate
+fx_PuzzlePickup.obj : error LNK2001: unresolved external symbol __imp_VectorDegreesToRadians
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorDegreesToRadians
+fx_blood.obj : error LNK2019: unresolved external symbol __imp_VectorGetOffsetOrigin referenced in function LinkedBloodUpdate
+fx_blood.obj : error LNK2019: unresolved external symbol __imp_VectorInverse referenced in function ThrowBlood
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+Utilities.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_RedRain.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_blood.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_dustpuff.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_halo.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+fx_blood.obj : error LNK2019: unresolved external symbol __imp_vec3_down referenced in function ThrowBlood
+fx_dust.obj : error LNK2001: unresolved external symbol __imp_vec3_down
+Utilities.obj : error LNK2001: unresolved external symbol __imp_vec3_down
+fx_mist.obj : error LNK2019: unresolved external symbol __imp_Clamp referenced in function MistUpdate
+fx_shadow.obj : error LNK2001: unresolved external symbol __imp_Clamp
+fx_BlueRing.obj : error LNK2001: unresolved external symbol __imp_Clamp
+fx_crosshair.obj : error LNK2001: unresolved external symbol __imp_Clamp
+fx_debris.obj : error LNK2001: unresolved external symbol __imp_Clamp
+fx_halo.obj : error LNK2001: unresolved external symbol __imp_Clamp
+fx_bubbler.obj : error LNK2019: unresolved external symbol __imp_GetTimeToReachDistance referenced in function FXBubble
+fx_Fountain.obj : error LNK2001: unresolved external symbol __imp_GetTimeToReachDistance
+fx_smoke.obj : error LNK2001: unresolved external symbol __imp_GetTimeToReachDistance
+Utilities.obj : error LNK2001: unresolved external symbol __imp_GetTimeToReachDistance
+fx_debris.obj : error LNK2019: unresolved external symbol __imp_Q_signf referenced in function BodyPart_Throw
+fx_DefensePickup.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+fx_Shield.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+fx_debris.obj : error LNK2019: unresolved external symbol __imp_LerpFloat referenced in function Debris_UpdateAngles
+fx_lensflare.obj : error LNK2001: unresolved external symbol __imp_LerpFloat
+fx_tome.obj : error LNK2001: unresolved external symbol __imp_LerpFloat
+fx_debris.obj : error LNK2019: unresolved external symbol __imp_VectorRandomAdd referenced in function FXDebris
+fx_debris.obj : error LNK2019: unresolved external symbol __imp_Vec3IsZeroEpsilon referenced in function Debris_Collision
+fx_debris.obj : error LNK2019: unresolved external symbol __imp_ReflectVelocity referenced in function Debris_Collision
+fx_Fountain.obj : error LNK2019: unresolved external symbol __imp_GetPositionOverTime referenced in function FountainUpdate
+Utilities.obj : error LNK2001: unresolved external symbol __imp_GetPositionOverTime
+fx_Fountain.obj : error LNK2019: unresolved external symbol __imp_CreateYawMatrix referenced in function CreateFountainSplash
+Main.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+fx_halo.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+fx_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+fx_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+fx_HellStaff.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+fx_HighPriestessProjectiles.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+fx_insectstaff.obj : error LNK2019: unresolved external symbol __imp_VectorCompare referenced in function InsectSpear2Update
+fx_PhoenixExplode.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_Wall.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_waterentrysplash.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_insectstaff.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_lightning.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_Maceball.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+fx_lensflare.obj : error LNK2019: unresolved external symbol __imp_va referenced in function PreCacheFlare
+fx_mork.obj : error LNK2001: unresolved external symbol __imp_va
+Utilities.obj : error LNK2001: unresolved external symbol __imp_va
+fx_mist.obj : error LNK2019: unresolved external symbol __imp_Approach referenced in function MistUpdate
+fx_mork.obj : error LNK2019: unresolved external symbol __imp_Q_sign referenced in function BuoyUpdate
+fx_mork.obj : error LNK2019: unresolved external symbol __imp_anglemod referenced in function MorkBeamCircleUpdate
+Main.obj : error LNK2001: unresolved external symbol __imp_anglemod
+fx_PlagueElfSpells.obj : error LNK2019: unresolved external symbol __imp_Com_Printf referenced in function FXPESpell
+Main.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+fx_portal.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+fx_redrainglow.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+fx_shrine.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+fx_sound.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+fx_RedRain.obj : error LNK2019: unresolved external symbol __imp_GetDistanceOverTime referenced in function RedRainDropSpawnerUpdate
+fx_sound.obj : error LNK2019: unresolved external symbol __imp_pv referenced in function AmbientSoundUpdate
+fx_sound.obj : error LNK2019: unresolved external symbol __imp_Cvar_Get referenced in function AmbientSoundUpdate
+Main.obj : error LNK2001: unresolved external symbol __imp_Cvar_Get
+fx_FeetTrail.obj : error LNK2019: unresolved external symbol __imp_Vec3NotZero referenced in function FeetTrailUpdate
+Main.obj : error LNK2019: unresolved external symbol __imp_LerpAngle referenced in function AddServerEntities
+Main.obj : error LNK2019: unresolved external symbol __imp_VectorLengthSquared referenced in function AddServerEntities
+Utilities.obj : error LNK2019: unresolved external symbol __imp_AnglesFromDirAndUp referenced in function LinkedEntityUpdatePlacement
+Utilities.obj : error LNK2019: unresolved external symbol __imp_GetVelocityOverTime referenced in function AdvanceParticle
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\H2Common.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\quake2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\base\Client Effects.dll : fatal error LNK1120: 84 unresolved externals

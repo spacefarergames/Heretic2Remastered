@@ -1,0 +1,5 @@
+﻿  main.c
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Heretic2R.exe) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\Heretic2R.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+main.obj : error LNK2019: unresolved external symbol __imp_Quake2Main referenced in function WinMain
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\quake2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\Heretic2R.exe : fatal error LNK1120: 1 unresolved externals

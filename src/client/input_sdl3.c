@@ -561,7 +561,8 @@ void IN_Update(void) // YQ2
 				break;
 
 			case SDL_EVENT_QUIT:
-					Com_Quit();
+				Com_Quit();
+				break;
 
 				// Gamepad events:
 				case SDL_EVENT_GAMEPAD_BUTTON_DOWN:

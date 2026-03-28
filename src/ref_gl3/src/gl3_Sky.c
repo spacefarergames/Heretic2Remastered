@@ -12,8 +12,17 @@
 
 #include <math.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #define MAX_CLIP_VERTS	64
 #define ON_EPSILON		0.1f // Point on plane side epsilon.
+
+#define SKY_CLOUD_GRID		8
+#define SKY_CLOUD_ALPHA		0.35f
+#define SKY_CLOUD_SPEED		0.02f
+#define SKY_STAR_COUNT		400
 
 static float skyrotate;
 static vec3_t skyaxis;
@@ -23,6 +32,161 @@ static float skymins[2][6];
 static float skymaxs[2][6];
 static float sky_min;
 static float sky_max;
+
+static void R_MakeSkyVec(float s, float t, const int axis, vec3_t out_pos, float* out_s, float* out_t);
+
+static float R_GetSkyClipDist(void)
+{
+	if ((int)r_fog->value)
+		return r_farclipdist->value;
+
+	return r_farclipdist->value * 0.5773503f;
+}
+
+static float R_SkyNoise(const vec3_t dir, const float time, const float scale)
+{
+	const float n0 = sinf(dir[0] * (2.3f * scale) + time * (0.9f * scale));
+	const float n1 = sinf(dir[1] * (3.1f * scale) - time * (0.7f * scale));
+	const float n2 = sinf(dir[2] * (2.7f * scale) + time * (0.6f * scale));
+	return (n0 + n1 + n2) * (1.0f / 3.0f);
+}
+
+static float R_SkyCloudAlpha(const vec3_t dir, const float time)
+{
+	const float n0 = R_SkyNoise(dir, time, 0.6f);
+	const float n1 = R_SkyNoise(dir, time * 1.7f, 1.3f);
+	float n = (n0 * 0.6f + n1 * 0.4f) * 0.5f + 0.5f;
+
+	float alpha = Clamp((n - 0.55f) / 0.3f, 0.0f, 1.0f);
+	alpha *= alpha;
+	return alpha * SKY_CLOUD_ALPHA;
+}
+
+static float R_SkyRand01(uint* seed)
+{
+	*seed = (*seed * 1664525u) + 1013904223u;
+	return (float)((*seed >> 8) & 0x00FFFFFF) * (1.0f / 16777216.0f);
+}
+
+static void R_DrawSkyClouds(void)
+{
+	const float time = r_newrefdef.time * SKY_CLOUD_SPEED;
+
+	glBindTexture(GL_TEXTURE_2D, gl3state.whiteTexture);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthMask(GL_FALSE);
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (skymins[0][i] >= skymaxs[0][i] || skymins[1][i] >= skymaxs[1][i])
+			continue;
+
+		for (int y = 0; y < SKY_CLOUD_GRID; y++)
+		{
+			const float t0 = skymins[1][i] + (skymaxs[1][i] - skymins[1][i]) * ((float)y / (float)SKY_CLOUD_GRID);
+			const float t1 = skymins[1][i] + (skymaxs[1][i] - skymins[1][i]) * ((float)(y + 1) / (float)SKY_CLOUD_GRID);
+
+			float quad[(SKY_CLOUD_GRID + 1) * 2 * 9];
+			int vert = 0;
+
+			for (int x = 0; x <= SKY_CLOUD_GRID; x++)
+			{
+				const float s = skymins[0][i] + (skymaxs[0][i] - skymins[0][i]) * ((float)x / (float)SKY_CLOUD_GRID);
+
+				vec3_t pos0;
+				float s0, t0c;
+				R_MakeSkyVec(s, t0, i, pos0, &s0, &t0c);
+				vec3_t dir0;
+				VectorNormalize2(pos0, dir0);
+				const float a0 = R_SkyCloudAlpha(dir0, time);
+
+				quad[vert++] = pos0[0];
+				quad[vert++] = pos0[1];
+				quad[vert++] = pos0[2];
+				quad[vert++] = 0.0f;
+				quad[vert++] = 0.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = a0;
+
+				vec3_t pos1;
+				float s1, t1c;
+				R_MakeSkyVec(s, t1, i, pos1, &s1, &t1c);
+				vec3_t dir1;
+				VectorNormalize2(pos1, dir1);
+				const float a1 = R_SkyCloudAlpha(dir1, time);
+
+				quad[vert++] = pos1[0];
+				quad[vert++] = pos1[1];
+				quad[vert++] = pos1[2];
+				quad[vert++] = 0.0f;
+				quad[vert++] = 0.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = 1.0f;
+				quad[vert++] = a1;
+			}
+
+			GL3_Draw3DPoly(GL_TRIANGLE_STRIP, quad, vert / 9);
+		}
+	}
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+}
+
+static void R_DrawSkyStars(void)
+{
+	const float clipdist = R_GetSkyClipDist();
+    const float twinkle_time = r_newrefdef.time * 0.7f;
+	uint seed = 0x1a2b3c4du;
+
+	glBindTexture(GL_TEXTURE_2D, gl3state.whiteTexture);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glDepthMask(GL_FALSE);
+	glPointSize(2.0f);
+
+	float verts[SKY_STAR_COUNT * 9];
+	int vert = 0;
+
+	for (int i = 0; i < SKY_STAR_COUNT; i++)
+	{
+		const float u = R_SkyRand01(&seed);
+		const float v = R_SkyRand01(&seed);
+		const float w = R_SkyRand01(&seed);
+		const float phase = R_SkyRand01(&seed) * (2.0f * (float)M_PI);
+
+		const float theta = u * (2.0f * (float)M_PI);
+		const float z = 0.2f + 0.8f * v;
+		const float r = sqrtf(max(0.0f, 1.0f - z * z));
+
+		vec3_t dir = { r * cosf(theta), r * sinf(theta), z };
+		vec3_t pos;
+		VectorScale(dir, clipdist, pos);
+
+        const float base_intensity = 0.6f + 0.4f * w;
+		const float twinkle = 0.75f + 0.25f * sinf(twinkle_time + phase);
+		const float intensity = base_intensity * twinkle;
+
+		verts[vert++] = pos[0];
+		verts[vert++] = pos[1];
+		verts[vert++] = pos[2];
+		verts[vert++] = 0.0f;
+		verts[vert++] = 0.0f;
+		verts[vert++] = intensity;
+		verts[vert++] = intensity;
+		verts[vert++] = intensity;
+		verts[vert++] = 1.0f;
+	}
+
+	GL3_Draw3DPoly(GL_POINTS, verts, SKY_STAR_COUNT);
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+}
 
 // Q2 counterpart.
 static void R_DrawSkyPolygon(const int nump, vec3_t vecs)
@@ -392,6 +556,8 @@ void R_DrawSkyBox(void)
 			GL3_Draw3DPoly(GL_TRIANGLE_FAN, quad, 4);
 		}
 	}
+
+	R_DrawSkyStars();
 
 	// GL3: Restore world modelview matrix (equivalent of glPopMatrix).
 	GL3_UpdateModelview3D(r_world_matrix);

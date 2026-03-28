@@ -1,0 +1,51 @@
+﻿  p_actions.c
+  p_animactor.c
+  p_anims.c
+  p_anim_branch.c
+  p_anim_data.c
+  p_chicken.c
+  p_chicken_anim.c
+  p_items.c
+  p_main.c
+  p_utility.c
+  p_weapon.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\Player\p_items.c(740,15): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Player.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Player.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Player.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\Player.exp
+p_actions.obj : error LNK2019: unresolved external symbol __imp_Q_signf referenced in function PlayerJumpMoveForce
+p_actions.obj : error LNK2019: unresolved external symbol __imp_anglemod referenced in function GetGrabType
+p_actions.obj : error LNK2019: unresolved external symbol __imp_va referenced in function PlayerActionFootstep
+p_animactor.obj : error LNK2001: unresolved external symbol __imp_va
+p_chicken.obj : error LNK2001: unresolved external symbol __imp_va
+p_main.obj : error LNK2001: unresolved external symbol __imp_va
+p_actions.obj : error LNK2019: unresolved external symbol __imp_GetClientGroundSurfaceMaterialName referenced in function PlayerActionFootstep
+p_animactor.obj : error LNK2001: unresolved external symbol __imp_GetClientGroundSurfaceMaterialName
+p_main.obj : error LNK2001: unresolved external symbol __imp_irand
+p_actions.obj : error LNK2001: unresolved external symbol __imp_irand
+p_animactor.obj : error LNK2001: unresolved external symbol __imp_irand
+p_anims.obj : error LNK2001: unresolved external symbol __imp_irand
+p_chicken.obj : error LNK2001: unresolved external symbol __imp_irand
+p_actions.obj : error LNK2019: unresolved external symbol __imp_AngleVectors referenced in function GetGrabType
+p_anim_branch.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+p_chicken.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+p_actions.obj : error LNK2019: unresolved external symbol __imp_vectoangles referenced in function GetGrabType
+p_animactor.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize referenced in function PlayerJumpMoveForce
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize2 referenced in function PlayerJumpNudge
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorMA referenced in function GetGrabType
+p_anim_branch.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorLength referenced in function PlayerJumpNudge
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorSubtract referenced in function PlayerJumpMoveForce
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorAdd referenced in function GetGrabType
+p_actions.obj : error LNK2019: unresolved external symbol __imp_DotProduct referenced in function PlayerJumpNudge
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorCopy referenced in function GetGrabType
+p_actions.obj : error LNK2019: unresolved external symbol __imp_VectorScale referenced in function PlayerJumpMoveForce
+p_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+p_actions.obj : error LNK2019: unresolved external symbol __imp_Vec3ScaleAssign referenced in function PlayerJumpMoveForce
+p_actions.obj : error LNK2019: unresolved external symbol __imp_Vec3NotZero referenced in function PlayerPullupHeight
+p_animactor.obj : error LNK2019: unresolved external symbol __imp_Clamp referenced in function CalcJointAngles
+p_animactor.obj : error LNK2019: unresolved external symbol __imp_VectorClear referenced in function CalcJointAngles
+p_anims.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+p_animactor.obj : error LNK2019: unresolved external symbol __imp_Vec3SubtractAssign referenced in function CalcJointAngles
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\H2Common.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\base\Player.dll : fatal error LNK1120: 21 unresolved externals

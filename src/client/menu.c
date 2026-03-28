@@ -260,7 +260,6 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 		case K_MOUSE2:
 		case K_MOUSE3:
 		case K_JOY1:
-		case K_JOY2:
 		case K_JOY3:
 		case K_JOY4:
 		case K_AUX1:
@@ -300,6 +299,7 @@ char* Default_MenuKey(menuframework_t* menu, const int key)
 			break;
 
 		case K_ESCAPE:
+		case K_JOY2:	// B / Circle - go back
 			M_PopMenu();
 			return SND_MENU_CLOSE;
 

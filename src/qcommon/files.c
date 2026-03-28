@@ -28,7 +28,7 @@ cvar_t* fs_gamedirvar;
 
 typedef struct
 {
-	char name[MAX_QPATH];
+	char name[128]; // Increased from MAX_QPATH (64) to support PAK2 extended filenames.
 	int filepos;
 	int filelen;
 } packfile_t;
@@ -320,8 +320,6 @@ static int pakfile_comparer(const void* f1, const void* f2)
 
 static pack_t* FS_LoadPackFile(char* packfile)
 {
-	static dpackfile_t info[MAX_FILES_IN_PACK]; //mxd. Made static
-
 	FILE* packhandle;
 	dpackheader_t header;
 
@@ -329,10 +327,24 @@ static pack_t* FS_LoadPackFile(char* packfile)
 		return NULL;
 
 	fread(&header, 1, sizeof(header), packhandle);
-	if (header.ident != IDPAKHEADER)
-		Com_Error(ERR_FATAL, "%s is not a packfile", packfile);
 
-	const int numpackfiles = header.dirlen / (int)sizeof(dpackfile_t);
+	int numpackfiles;
+	qboolean is_pak2 = false;
+
+	if (header.ident == IDPAK2HEADER)
+	{
+		numpackfiles = header.dirlen / (int)sizeof(dpackfile2_t);
+		is_pak2 = true;
+	}
+	else if (header.ident == IDPAKHEADER)
+	{
+		numpackfiles = header.dirlen / (int)sizeof(dpackfile_t);
+	}
+	else
+	{
+		Com_Error(ERR_FATAL, "%s is not a packfile", packfile);
+		return NULL; // Unreachable, but silences compiler warning.
+	}
 
 	if (numpackfiles > MAX_FILES_IN_PACK)
 		Com_Error(ERR_FATAL, "%s has %i files", packfile, numpackfiles);
@@ -340,17 +352,32 @@ static pack_t* FS_LoadPackFile(char* packfile)
 	packfile_t* newfiles = Z_Malloc(numpackfiles * (int)sizeof(packfile_t));
 
 	fseek(packhandle, header.dirofs, SEEK_SET);
-	fread(info, 1, header.dirlen, packhandle);
 
-	// CRC the directory to check for modifications.
-	//Com_BlockChecksum(info, header.dirlen); //mxd. Skipped: checksum is unused
-
-	// Parse the directory
-	for (int i = 0; i < numpackfiles; i++)
+	if (is_pak2)
 	{
-		strcpy_s(newfiles[i].name, sizeof(newfiles[i].name), info[i].name); //mxd. strcpy -> strcpy_s
-		newfiles[i].filepos = info[i].filepos;
-		newfiles[i].filelen = info[i].filelen;
+		// Extended PAK2 format with 128-char filenames.
+		static dpackfile2_t info2[MAX_FILES_IN_PACK];
+		fread(info2, 1, header.dirlen, packhandle);
+
+		for (int i = 0; i < numpackfiles; i++)
+		{
+			strcpy_s(newfiles[i].name, sizeof(newfiles[i].name), info2[i].name);
+			newfiles[i].filepos = info2[i].filepos;
+			newfiles[i].filelen = info2[i].filelen;
+		}
+	}
+	else
+	{
+		// Original PAK format with 56-char filenames.
+		static dpackfile_t info[MAX_FILES_IN_PACK]; //mxd. Made static
+		fread(info, 1, header.dirlen, packhandle);
+
+		for (int i = 0; i < numpackfiles; i++)
+		{
+			strcpy_s(newfiles[i].name, sizeof(newfiles[i].name), info[i].name); //mxd. strcpy -> strcpy_s
+			newfiles[i].filepos = info[i].filepos;
+			newfiles[i].filelen = info[i].filelen;
+		}
 	}
 
 	// H2: sort newfiles by name
@@ -381,6 +408,21 @@ static void FS_AddGameDirectory(char* dir)
 		strcpy_s(search->filename, sizeof(search->filename), dir); //mxd. strcpy -> strcpy_s
 		search->next = fs_searchpaths;
 		fs_searchpaths = search;
+	}
+
+	// Load base.pak if present.
+	{
+		char pakfile[MAX_OSPATH];
+		Com_sprintf(pakfile, sizeof(pakfile), "%s/base.pak", dir);
+
+		pack_t* pak = FS_LoadPackFile(pakfile);
+		if (pak != NULL)
+		{
+			searchpath_t* search = Z_Malloc(sizeof(searchpath_t));
+			search->pack = pak;
+			search->next = fs_searchpaths;
+			fs_searchpaths = search;
+		}
 	}
 
 	// Add any pak files in the format Htic2-0.pak .. Htic2-9.pak.

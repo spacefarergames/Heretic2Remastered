@@ -190,17 +190,11 @@ void Draw_BookPic(const char* name, const float scale, const float alpha) //mxd.
 	const float header_w = (float)book->bheader.total_w;
 	const float header_h = (float)book->bheader.total_h;
 
-	float vid_w = (float)viddef.width;
+  float vid_w = (float)viddef.width;
 	float vid_h = (float)viddef.height;
 
 	int offset_x = 0;
 	int offset_y = 0;
-
-	if (vid_w * 0.75f > vid_h) //mxd. Setup for widescreen aspect ratio.
-	{
-		vid_w = vid_h * 4 / 3;
-		offset_x = (viddef.width - (int)vid_w) / 2;
-	}
 
 	offset_x += (const int)((header_w - header_w * scale) * 0.5f * (vid_w / header_w));
 	offset_y += (const int)((header_h - header_h * scale) * 0.5f * (vid_h / header_h));

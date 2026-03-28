@@ -9,7 +9,7 @@
 
 #include "gl3_Local.h"
 
-extern void R_EmitWaterPolys(const msurface_t* fa, qboolean undulate);
+extern void R_EmitWaterPolys(const msurface_t* fa, qboolean undulate, qboolean use_reflect);
 extern void R_EmitUnderwaterPolys(const msurface_t* fa);
 extern void R_EmitQuakeFloorPolys(const msurface_t* fa);
 extern void R_SubdivideSurface(const model_t* mdl, msurface_t* fa);

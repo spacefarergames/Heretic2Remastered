@@ -27,11 +27,17 @@ extern void GL3_Set3DColor(float r, float g, float b, float a);
 extern void GL3_DrawLMPoly(const float* verts, int numverts);
 // GL3_Draw3DPoly: 9 floats/vert (pos3+tc2+col4), uses shader3D.
 extern void GL3_Draw3DPoly(GLenum mode, const float* verts, int numverts);
+// GL3_DrawWaterPoly: 9 floats/vert (pos3+tc2+col4), uses shaderWater (samples reflection TMU1).
+extern void GL3_DrawWaterPoly(GLenum mode, const float* verts, int numverts);
 
 // FBO management and HDR composite.
 extern qboolean GL3_InitFBO(int width, int height);
 extern void GL3_ShutdownFBO(void);
 extern void GL3_CompositeHDR(int w, int h, float exposure, float bloom_strength, float ao_strength);
+
+// Reflection FBO management.
+extern qboolean GL3_InitReflect(int width, int height);
+extern void GL3_ShutdownReflect(void);
 
 // Bloom post-process: bright-pass extract + separable Gaussian blur.
 extern qboolean GL3_InitBloom(int width, int height);

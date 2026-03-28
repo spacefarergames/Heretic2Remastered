@@ -109,6 +109,7 @@ static cvar_t* r_ssao_radius;
 static cvar_t* r_ssao_bias;
 static cvar_t* r_ssao_strength;
 static cvar_t* r_shadows;
+cvar_t* r_reflections;
 
 cvar_t* gl_noartifacts;
 
@@ -235,7 +236,8 @@ static void R_Register(void)
 	r_ssao_radius     = ri.Cvar_Get("r_ssao_radius",     "16.0",CVAR_ARCHIVE);
 	r_ssao_bias       = ri.Cvar_Get("r_ssao_bias",       "0.5", CVAR_ARCHIVE);
 	r_ssao_strength   = ri.Cvar_Get("r_ssao_strength",   "1.0", CVAR_ARCHIVE);
-	r_shadows         = ri.Cvar_Get("r_shadows",          "1",   CVAR_ARCHIVE);
+	r_shadows         = ri.Cvar_Get("r_shadows",         "1",   CVAR_ARCHIVE);
+	r_reflections     = ri.Cvar_Get("r_reflections",     "1",   CVAR_ARCHIVE);
 
 	gl_noartifacts = ri.Cvar_Get("gl_noartifacts", "0", 0);
 
@@ -399,6 +401,7 @@ static qboolean RI_Init(void)
 	GL3_InitFBO(viddef.width, viddef.height);
 	GL3_InitBloom(viddef.width, viddef.height);
 	GL3_InitSSAO(viddef.width, viddef.height);
+	GL3_InitReflect(viddef.width, viddef.height);
 
 	R_SetDefaultState();
 	R_InitImages();
@@ -428,6 +431,7 @@ static void RI_Shutdown(void)
 	Mod_FreeAll();
 	R_ShutdownImages();
 	R_ShutdownShadows();
+	GL3_ShutdownReflect();
 	GL3_ShutdownSSAO();
 	GL3_ShutdownBloom();
 	GL3_ShutdownFBO();
@@ -638,6 +642,80 @@ static void R_DrawEntitiesOnList(void)
 	}
 }
 
+static void R_RenderReflection(const float water_z)
+{
+	if (!(int)r_reflections->value || gl3state.fboReflect == 0)
+		return;
+	if (r_worldmodel == NULL || (r_newrefdef.rdflags & RDF_NOWORLDMODEL))
+		return;
+
+	// Save main-frame state.
+	const refdef_t saved_refdef = r_newrefdef;
+	vec3_t saved_vpn, saved_vright, saved_vup;
+	VectorCopy(vpn, saved_vpn);
+	VectorCopy(vright, saved_vright);
+	VectorCopy(vup, saved_vup);
+	cplane_t saved_frustum[4];
+	memcpy(saved_frustum, frustum, sizeof(frustum));
+	const int saved_viewcluster  = r_viewcluster;
+	const int saved_viewcluster2 = r_viewcluster2;
+	msurface_t* const saved_alpha = R_GetAlphaSurfaces();
+	R_SetAlphaSurfaces(NULL);
+
+	// Build reflected refdef: flip camera Z across water plane, negate pitch+roll.
+	r_newrefdef.vieworg[2] = 2.0f * water_z - r_newrefdef.vieworg[2];
+	r_newrefdef.viewangles[0] = -r_newrefdef.viewangles[0];
+	r_newrefdef.viewangles[2] = -r_newrefdef.viewangles[2];
+	VectorCopy(r_newrefdef.vieworg, r_origin);
+	AngleVectors(r_newrefdef.viewangles, vpn, vright, vup);
+	R_SetFrustum();
+
+	// Render reflected scene into fboReflect.
+	glBindFramebuffer(GL_FRAMEBUFFER, gl3state.fboReflect);
+	glViewport(0, 0, gl3state.reflect_width, gl3state.reflect_height);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glCullFace(GL_BACK);
+
+	const float aspect = (float)r_newrefdef.width / (float)r_newrefdef.height;
+	GL3_UpdateProjection3D(r_newrefdef.fov_y, aspect, 1.0f, r_farclipdist->value);
+	R_Mat4x4_Identity(r_world_matrix);
+	R_Mat4x4_Rotate(r_world_matrix, -90.0f, 1.0f, 0.0f, 0.0f);
+	R_Mat4x4_Rotate(r_world_matrix,  90.0f, 0.0f, 0.0f, 1.0f);
+	R_Mat4x4_Rotate(r_world_matrix, -r_newrefdef.viewangles[2], 1.0f, 0.0f, 0.0f);
+	R_Mat4x4_Rotate(r_world_matrix, -r_newrefdef.viewangles[0], 0.0f, 1.0f, 0.0f);
+	R_Mat4x4_Rotate(r_world_matrix, -r_newrefdef.viewangles[1], 0.0f, 0.0f, 1.0f);
+	R_Mat4x4_Translate(r_world_matrix, -r_newrefdef.vieworg[0], -r_newrefdef.vieworg[1], -r_newrefdef.vieworg[2]);
+	GL3_UpdateModelview3D(r_world_matrix);
+
+	R_SetReflectionPass(true);
+	R_MarkLeaves();
+	R_ResetBmodelTransforms();
+	R_DrawWorld();
+	R_SetReflectionPass(false);
+
+	// Discard alpha surfaces accumulated during reflection.
+	R_SetAlphaSurfaces(NULL);
+
+	// Restore main FBO and state.
+	glBindFramebuffer(GL_FRAMEBUFFER, gl3state.fbo3D != 0 ? gl3state.fbo3D : 0);
+
+	r_newrefdef = saved_refdef;
+	VectorCopy(r_newrefdef.vieworg, r_origin);
+	VectorCopy(saved_vpn, vpn);
+	VectorCopy(saved_vright, vright);
+	VectorCopy(saved_vup, vup);
+	memcpy(frustum, saved_frustum, sizeof(frustum));
+	r_viewcluster  = saved_viewcluster;
+	r_viewcluster2 = saved_viewcluster2;
+	r_oldviewcluster  = -1;
+	r_oldviewcluster2 = -1;
+	R_SetAlphaSurfaces(saved_alpha);
+
+	// Re-mark leaves and restore 3D matrices/viewport for main camera.
+	R_MarkLeaves();
+	R_SetupGL3D();
+}
+
 static void R_DrawParticles(const int num_particles, const particle_t* particles, const qboolean alpha_particle)
 {
 	static const GLfloat particle_st_coords[NUM_PARTICLE_TYPES][4] =
@@ -797,6 +875,13 @@ static void R_RenderView(const refdef_t* fd)
 	R_SetupGL3D();
 	GL3_UpdateDlights();
 	R_MarkLeaves();
+
+	{
+		float water_z;
+		if (R_GetLastWaterPlaneZ(&water_z))
+			R_RenderReflection(water_z);
+	}
+
 	R_ResetBmodelTransforms();
 	R_DrawWorld();
 	if ((int)r_shadows->value && (int)r_drawentities->value)

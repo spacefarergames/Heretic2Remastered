@@ -270,6 +270,7 @@
     <ClCompile Include="..\client\cl_camera.c">
       <Filter>client</Filter>
     </ClCompile>
+    <ClCompile Include="..\client\cl_mp4.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\qcommon\qcommon.h">

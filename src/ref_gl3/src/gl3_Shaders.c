@@ -282,6 +282,47 @@ static const char* fragmentSourceSSAOBlur =
 	"    FragColor = result / 16.0;\n"
 	"}\n";
 
+// --- Water surface shader (9-float vertex layout: pos3+tc2+col4, adds projective reflection) ---
+static const char* vertexSourceWater =
+	"#version 330 core\n"
+	"layout(location = 0) in vec3 aPos;\n"
+	"layout(location = 1) in vec2 aTexCoord;\n"
+	"layout(location = 2) in vec4 aColor;\n"
+	"uniform mat4 uProjection;\n"
+	"uniform mat4 uModelview;\n"
+	"out vec2 vTexCoord;\n"
+	"out vec4 vColor;\n"
+	"out vec4 vClipPos;\n"
+	"void main() {\n"
+	"    gl_Position = uProjection * uModelview * vec4(aPos, 1.0);\n"
+	"    vClipPos    = gl_Position;\n"
+	"    vTexCoord   = aTexCoord;\n"
+	"    vColor      = aColor;\n"
+	"}\n";
+
+static const char* fragmentSourceWater =
+	"#version 330 core\n"
+	"in vec2 vTexCoord;\n"
+	"in vec4 vColor;\n"
+	"in vec4 vClipPos;\n"
+	"uniform sampler2D uTexture;\n"
+	"uniform sampler2D uReflectTex;\n"
+	"uniform vec4  uColor;\n"
+	"uniform float uReflectAmt;\n"
+	"uniform float uTime;\n"
+	"out vec4 FragColor;\n"
+	"void main() {\n"
+	"    vec4 waterColor = texture(uTexture, vTexCoord) * vColor * uColor;\n"
+	"    if (waterColor.a < 0.01) discard;\n"
+	"    float dx = sin(vTexCoord.y * 25.0 + uTime * 1.5) * 0.010\n"
+	"             + sin(vTexCoord.x * 17.0 + uTime * 2.3) * 0.006;\n"
+	"    float dy = cos(vTexCoord.x * 25.0 + uTime * 1.5) * 0.010\n"
+	"             + cos(vTexCoord.y * 17.0 + uTime * 2.3) * 0.006;\n"
+	"    vec2 screenUV = clamp(vClipPos.xy / vClipPos.w * 0.5 + 0.5 + vec2(dx, dy), 0.0, 1.0);\n"
+	"    vec3 reflectColor = texture(uReflectTex, screenUV).rgb;\n"
+	"    FragColor = vec4(mix(waterColor.rgb, reflectColor, uReflectAmt), waterColor.a);\n"
+	"}\n";
+
 static GLuint CompileShader(GLenum type, const char* source)
 {
 	const GLuint shader = glCreateShader(type);
@@ -551,6 +592,27 @@ qboolean GL3_InitShaders(void)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
+	// --- Water surface shader ---
+	gl3state.shaderWater = CreateProgram(vertexSourceWater, fragmentSourceWater);
+	if (gl3state.shaderWater == 0)
+	{
+		ri.Con_Printf(PRINT_ALL, "GL3_InitShaders: failed to create water shader program\n");
+		return false;
+	}
+
+	gl3state.uniWater_projection = glGetUniformLocation(gl3state.shaderWater, "uProjection");
+	gl3state.uniWater_modelview  = glGetUniformLocation(gl3state.shaderWater, "uModelview");
+	gl3state.uniWater_color      = glGetUniformLocation(gl3state.shaderWater, "uColor");
+	gl3state.uniWater_reflectTex = glGetUniformLocation(gl3state.shaderWater, "uReflectTex");
+	gl3state.uniWater_reflectAmt = glGetUniformLocation(gl3state.shaderWater, "uReflectAmt");
+	gl3state.uniWater_time       = glGetUniformLocation(gl3state.shaderWater, "uTime");
+
+	GL3_UseShader(gl3state.shaderWater);
+	glUniform1i(gl3state.uniWater_reflectTex, 1);      // TMU1: reflection texture.
+	glUniform4f(gl3state.uniWater_color, 1.0f, 1.0f, 1.0f, 1.0f);
+	glUniform1f(gl3state.uniWater_reflectAmt, 0.35f);
+	glUniform1f(gl3state.uniWater_time, 0.0f);
+
 	ri.Con_Printf(PRINT_ALL, "GL3 shaders initialized.\n");
 
 	return true;
@@ -576,6 +638,7 @@ void GL3_ShutdownShaders(void)
 	if (gl3state.shader3DLightmap != 0) { glDeleteProgram(gl3state.shader3DLightmap); gl3state.shader3DLightmap = 0; }
 
 	if (gl3state.shaderPost != 0) { glDeleteProgram(gl3state.shaderPost); gl3state.shaderPost = 0; }
+	if (gl3state.shaderWater != 0) { glDeleteProgram(gl3state.shaderWater); gl3state.shaderWater = 0; }
 
 	if (gl3state.whiteTexture != 0) { glDeleteTextures(1, &gl3state.whiteTexture); gl3state.whiteTexture = 0; }
 
@@ -627,6 +690,12 @@ void GL3_UpdateProjection3D(const float fov_y, const float aspect, const float z
 	GL3_UseShader(gl3state.shader3DLightmap);
 	glUniformMatrix4fv(gl3state.uni3DLM_projection, 1, GL_FALSE, proj);
 
+	if (gl3state.shaderWater != 0)
+	{
+		GL3_UseShader(gl3state.shaderWater);
+		glUniformMatrix4fv(gl3state.uniWater_projection, 1, GL_FALSE, proj);
+	}
+
 	// Store projection matrix for software queries.
 	memcpy(r_projection_matrix, proj, sizeof(proj));
 
@@ -647,6 +716,12 @@ void GL3_UpdateModelview3D(const float* matrix4x4)
 
 	GL3_UseShader(gl3state.shader3DLightmap);
 	glUniformMatrix4fv(gl3state.uni3DLM_modelview, 1, GL_FALSE, matrix4x4);
+
+	if (gl3state.shaderWater != 0)
+	{
+		GL3_UseShader(gl3state.shaderWater);
+		glUniformMatrix4fv(gl3state.uniWater_modelview, 1, GL_FALSE, matrix4x4);
+	}
 }
 
 void GL3_UpdateModelviewLM(const float* matrix4x4)
@@ -665,6 +740,12 @@ void GL3_Set3DColor(const float r, const float g, const float b, const float a)
 {
 	GL3_UseShader(gl3state.shader3D);
 	glUniform4f(gl3state.uni3D_color, r, g, b, a);
+
+	if (gl3state.shaderWater != 0)
+	{
+		GL3_UseShader(gl3state.shaderWater);
+		glUniform4f(gl3state.uniWater_color, r, g, b, a);
+	}
 }
 
 // ============================================================
@@ -685,6 +766,26 @@ void GL3_DrawLMPoly(const float* verts, const int numverts)
 void GL3_Draw3DPoly(const GLenum mode, const float* verts, const int numverts)
 {
 	GL3_UseShader(gl3state.shader3D);
+	glBindVertexArray(gl3state.vao3D);
+	glBindBuffer(GL_ARRAY_BUFFER, gl3state.vbo3D);
+	glBufferData(GL_ARRAY_BUFFER, numverts * 9 * sizeof(float), verts, GL_STREAM_DRAW);
+	glDrawArrays(mode, 0, numverts);
+}
+
+// Draw a water polygon using shaderWater (same 9 floats/vert as GL3_Draw3DPoly).
+// Binds the reflection texture to TMU1; TMU0 must already be bound to the water diffuse.
+void GL3_DrawWaterPoly(const GLenum mode, const float* verts, const int numverts)
+{
+	GL3_UseShader(gl3state.shaderWater);
+
+	// Update per-draw time uniform for animated distortion.
+	glUniform1f(gl3state.uniWater_time, r_newrefdef.time);
+
+	// Bind the reflection texture to TMU1 without disturbing the cached TMU0 state.
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, gl3state.fboTexReflect);
+	glActiveTexture(GL_TEXTURE0);
+
 	glBindVertexArray(gl3state.vao3D);
 	glBindBuffer(GL_ARRAY_BUFFER, gl3state.vbo3D);
 	glBufferData(GL_ARRAY_BUFFER, numverts * 9 * sizeof(float), verts, GL_STREAM_DRAW);
@@ -748,6 +849,60 @@ void GL3_ShutdownFBO(void)
 
 	gl3state.fbo_width  = 0;
 	gl3state.fbo_height = 0;
+}
+
+// ============================================================
+// Reflection FBO management.
+// ============================================================
+
+qboolean GL3_InitReflect(const int width, const int height)
+{
+	gl3state.reflect_width  = (width  > 1) ? width  / 2 : 1;
+	gl3state.reflect_height = (height > 1) ? height / 2 : 1;
+
+	// RGBA16F color texture (sampled by the water shader).
+	glGenTextures(1, &gl3state.fboTexReflect);
+	glBindTexture(GL_TEXTURE_2D, gl3state.fboTexReflect);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, gl3state.reflect_width, gl3state.reflect_height, 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// Depth renderbuffer (not sampled; only needed for depth testing during reflection render).
+	glGenRenderbuffers(1, &gl3state.rboReflectDepth);
+	glBindRenderbuffer(GL_RENDERBUFFER, gl3state.rboReflectDepth);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, gl3state.reflect_width, gl3state.reflect_height);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glGenFramebuffers(1, &gl3state.fboReflect);
+	glBindFramebuffer(GL_FRAMEBUFFER, gl3state.fboReflect);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gl3state.fboTexReflect, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gl3state.rboReflectDepth);
+
+	const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	if (status != GL_FRAMEBUFFER_COMPLETE)
+	{
+		ri.Con_Printf(PRINT_ALL, "GL3_InitReflect: framebuffer incomplete (status 0x%x)\n", (unsigned)status);
+		GL3_ShutdownReflect();
+		return false;
+	}
+
+	ri.Con_Printf(PRINT_ALL, "GL3 reflection FBO initialized (%dx%d RGBA16F).\n", gl3state.reflect_width, gl3state.reflect_height);
+	return true;
+}
+
+void GL3_ShutdownReflect(void)
+{
+	if (gl3state.fboTexReflect   != 0) { glDeleteTextures(1,      &gl3state.fboTexReflect);   gl3state.fboTexReflect   = 0; }
+	if (gl3state.rboReflectDepth != 0) { glDeleteRenderbuffers(1, &gl3state.rboReflectDepth); gl3state.rboReflectDepth = 0; }
+	if (gl3state.fboReflect      != 0) { glDeleteFramebuffers(1,  &gl3state.fboReflect);      gl3state.fboReflect      = 0; }
+
+	gl3state.reflect_width  = 0;
+	gl3state.reflect_height = 0;
 }
 
 // ============================================================

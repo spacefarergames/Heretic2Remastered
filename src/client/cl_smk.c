@@ -8,6 +8,8 @@
 #include "cl_mp4.h"
 #include <libsmacker/smacker.h>
 
+static char cin_temp_file[MAX_OSPATH]; // Temp file path for PAK-extracted video.
+
 typedef struct SMKPlaybackInfo_s
 {
 	smk smk_obj;
@@ -164,26 +166,67 @@ void SCR_PlayCinematic(const char* name)
 
 		char hd_relpath[MAX_OSPATH];
 		sprintf_s(hd_relpath, sizeof(hd_relpath), "HDVideos/%s", hd_name);
+
+		// First try finding as a loose file on disk.
 		const char* hd_basepath = FS_GetPath(hd_relpath);
 
-		if (hd_basepath == NULL)
-			continue;
-
-		char hd_filepath[MAX_OSPATH];
-		sprintf_s(hd_filepath, sizeof(hd_filepath), "%s/HDVideos/%s", hd_basepath, hd_name);
-		Com_Printf("Opening HD cinematic: '%s'...\n", hd_filepath);
-
-		if (MP4_Open(hd_filepath))
+		if (hd_basepath != NULL)
 		{
-			cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
-			cl.cinematictime = max(1, cl.cinematictime);
-			MP4_NextFrame(); // Prime first frame.
-			Cvar_SetValue("paused", 0);
-			cls.state = ca_connected;
-			SCR_EndLoadingPlaque();
-			In_FlushQueue();
-			cls.key_dest = key_game;
-			return;
+			char hd_filepath[MAX_OSPATH];
+			sprintf_s(hd_filepath, sizeof(hd_filepath), "%s/HDVideos/%s", hd_basepath, hd_name);
+			Com_Printf("Opening HD cinematic: '%s'...\n", hd_filepath);
+
+			if (MP4_Open(hd_filepath))
+			{
+				cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
+				cl.cinematictime = max(1, cl.cinematictime);
+				MP4_NextFrame(); // Prime first frame.
+				Cvar_SetValue("paused", 0);
+				cls.state = ca_connected;
+				SCR_EndLoadingPlaque();
+				In_FlushQueue();
+				cls.key_dest = key_game;
+				return;
+			}
+		}
+
+		// Try loading from PAK filesystem (extract to temp file for WMF).
+		void* data;
+		const int data_len = FS_LoadFile(hd_relpath, &data);
+
+		if (data != NULL && data_len > 0)
+		{
+			// Write to a temp file in the game directory.
+			sprintf_s(cin_temp_file, sizeof(cin_temp_file), "%s/cin_temp.%s", FS_Gamedir(), hd_exts[e]);
+
+			FILE* tmp;
+			if (fopen_s(&tmp, cin_temp_file, "wb") == 0)
+			{
+				fwrite(data, 1, data_len, tmp);
+				fclose(tmp);
+
+				Com_Printf("Opening HD cinematic from PAK: '%s'...\n", hd_relpath);
+
+				if (MP4_Open(cin_temp_file))
+				{
+					FS_FreeFile(data);
+					cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
+					cl.cinematictime = max(1, cl.cinematictime);
+					MP4_NextFrame();
+					Cvar_SetValue("paused", 0);
+					cls.state = ca_connected;
+					SCR_EndLoadingPlaque();
+					In_FlushQueue();
+					cls.key_dest = key_game;
+					return;
+				}
+
+				// MP4_Open failed, clean up temp file.
+				remove(cin_temp_file);
+				cin_temp_file[0] = '\0';
+			}
+
+			FS_FreeFile(data);
 		}
 	}
 
@@ -243,6 +286,13 @@ void SCR_StopCinematic(void)
 	cl.cinematictime = 0; // Done
 	if (MP4_IsOpen())
 		MP4_Shutdown();
+
+	// Clean up temp file extracted from PAK.
+	if (cin_temp_file[0] != '\0')
+	{
+		remove(cin_temp_file);
+		cin_temp_file[0] = '\0';
+	}
 }
 
 // Called when either the cinematic completes, or it is aborted.

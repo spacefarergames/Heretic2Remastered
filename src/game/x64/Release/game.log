@@ -1,0 +1,1570 @@
+﻿  Message.c
+  p_dll.c
+  Skeletons.c
+  buoy.c
+  c_ai.c
+  c_corvus1.c
+  c_corvus1_anim.c
+  c_corvus2.c
+  c_corvus2_anim.c
+  c_corvus3.c
+  c_corvus3_anim.c
+  c_corvus4.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\buoy.c(140,31): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\buoy.c(173,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\buoy.c(207,38): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  c_corvus4_anim.c
+  c_corvus5.c
+  c_corvus5_anim.c
+  c_corvus6.c
+  c_corvus6_anim.c
+  c_corvus7.c
+  c_corvus7_anim.c
+  c_corvus8.c
+  c_corvus8_anim.c
+  c_corvus9.c
+  c_corvus9_anim.c
+  c_dranor.c
+  c_dranor_anim.c
+  c_elflord.c
+  c_elflord_anim.c
+  c_morcalavin.c
+  c_morcalavin_anim.c
+  c_priestess.c
+  c_priestess2.c
+  c_priestess2_anim.c
+  c_priestess_anim.c
+  c_siernan1.c
+  c_siernan1_anim.c
+  c_siernan2.c
+  c_siernan2_anim.c
+  c_ssithrascout.c
+  c_ssithrascout_anim.c
+  c_tome.c
+  c_tome_anim.c
+  c_victimSsithra.c
+  c_victimSsithra_anim.c
+  decals.c
+  g_ai.c
+  g_breakable.c
+  g_ClassStatics.c
+  g_cmds.c
+  g_combat.c
+  g_debris.c
+  g_DefaultMessageHandler.c
+  g_env.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_ai.c(29,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  g_field.c
+  g_flamethrower.c
+  g_func_Button.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_env.c(165,37): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_func_Door.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_field.c(407,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_func_MonsterSpawner.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_breakable.c(75,17): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_func_Plat.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_func_Door.c(27,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_func_Rotating.c
+  g_func_Timer.c
+  g_func_Train.c
+  g_func_Utility.c
+  g_HitLocation.c
+  g_items.c
+  g_light.c
+  g_main.c
+  g_Message.c
+  g_misc.c
+  g_monster.c
+  g_morcalavin_barrier.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_light.c(194,38): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_obj.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_main.c(410,36): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_monster.c(637,36): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_monster.c(661,36): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_PhysicsQ2.c
+  g_Physics.c
+  g_rope.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(454,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(469,24): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(631,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(1161,33): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(1218,49): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_misc.c(1297,49): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_morcalavin_barrier.c(19,33): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_save.c
+  g_save_defs.c
+  g_shrine.c
+  g_Skeletons.c
+  g_spawn.c
+  g_spawnf.c
+  g_svcmds.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_shrine.c(207,31): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_target.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_shrine.c(267,31): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_trigger.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(26,18): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(27,16): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(28,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(29,19): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(30,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(31,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(32,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(33,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(34,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(35,20): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(36,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(37,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(38,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(39,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(40,20): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(41,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(42,17): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(43,14): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(44,14): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(45,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(46,14): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(47,16): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(48,15): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(49,15): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(50,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(51,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(52,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(54,13): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(55,16): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(56,15): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(57,14): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(58,16): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(59,19): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(60,13): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(61,20): warning C4311: 'type cast': pointer truncation from 'MaterialID_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(62,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(63,15): warning C4311: 'type cast': pointer truncation from 'paletteRGBA_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(64,17): warning C4311: 'type cast': pointer truncation from 'paletteRGB_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(65,15): warning C4311: 'type cast': pointer truncation from 'short *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(66,16): warning C4311: 'type cast': pointer truncation from 'byte *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(67,19): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(68,23): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(69,26): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(70,29): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(71,21): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(72,24): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(73,16): warning C4311: 'type cast': pointer truncation from 'qboolean *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(74,17): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(75,21): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(76,19): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(79,13): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(80,17): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(81,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(82,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(83,18): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(84,14): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(85,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(86,13): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(87,18): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(88,16): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(89,16): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(90,16): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(91,17): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(92,17): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(93,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(94,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(95,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(96,22): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(97,16): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(98,14): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(99,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(100,18): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(101,18): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(102,19): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(103,19): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(105,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(106,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(107,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(108,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(109,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(110,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(111,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(112,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(113,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(114,15): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(115,16): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(126,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(127,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(128,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(129,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(130,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(131,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(132,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(133,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(134,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(135,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(136,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(137,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(138,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(139,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(140,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(141,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(142,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(143,8): warning C4311: 'type cast': pointer truncation from 'gclient_s **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(144,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(145,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(146,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(147,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(148,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(149,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(150,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(151,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(152,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(153,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(154,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(155,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(156,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(157,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(158,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(159,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(162,22): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,trace_s *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(163,22): warning C4311: 'type cast': pointer truncation from 'G_MessageHandler_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(164,18): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(165,16): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(166,19): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,trace_s *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(167,21): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,trace_s *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(168,18): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,cplane_t *,csurface_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(169,16): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(170,26): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(171,19): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(172,17): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,float,int)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(173,16): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,edict_t *,int,const float *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(174,20): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(175,20): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,cplane_t *,csurface_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(176,27): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,float,qboolean,qboolean)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(177,22): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(178,21): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(179,22): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(182,26): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(183,28): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(184,27): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *,float)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(185,28): warning C4311: 'type cast': pointer truncation from 'int (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(186,27): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(187,30): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *,int,HitLocation_t)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(188,27): warning C4311: 'type cast': pointer truncation from 'qboolean (__cdecl **)(edict_t *,alertent_t *,edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(189,31): warning C4311: 'type cast': pointer truncation from 'qboolean (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(190,31): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_s *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(193,26): warning C4311: 'type cast': pointer truncation from 'void (__cdecl **)(edict_t *)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(196,14): warning C4311: 'type cast': pointer truncation from 'const animmove_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(203,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(204,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(205,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(212,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(213,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(214,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(215,8): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  g_utils.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(222,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(223,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(224,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(225,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(226,8): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(228,8): warning C4311: 'type cast': pointer truncation from 'csurface_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(229,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(230,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(231,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(232,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(233,8): warning C4311: 'type cast': pointer truncation from 'gitem_t **' to 'int'
+  g_waterfx.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(312,27): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(320,29): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  g_weapon.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(328,27): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  mg_ai.c
+  mg_guide.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_target.c(266,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_trigger.c(276,35): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_trigger.c(538,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_trigger.c(570,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_trigger.c(727,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\mg_guide.c(926,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_assassin.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_utils.c(185,21): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_utils.c(255,43): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_utils.c(271,35): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_assassin_anim.c
+  m_beast.c
+  m_beast_anim.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_utils.c(299,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_weapon.c(416,36): warning C4312: 'type cast': conversion from 'unsigned int' to 'edict_t *' of greater size
+  m_bee.c
+  m_chicken.c
+  m_chicken_anim.c
+  m_elflord.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_beast.c(231,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_elflord_anim.c
+  m_fish.c
+  m_fish_anim.c
+  m_gkrokon.c
+  m_gkrokon_anim.c
+  m_gorgon.c
+  m_gorgon_anim.c
+  m_harpy.c
+  m_harpy_anim.c
+  m_imp.c
+  m_imp_anim.c
+  m_morcalavin.c
+  m_morcalavin_anim.c
+  m_mother.c
+  m_mother_anim.c
+  m_move.c
+  m_mssithra.c
+  m_mssithra_anim.c
+  m_ogle.c
+  m_ogle_anim.c
+  m_plagueElf.c
+  m_plagueElf_anim.c
+  m_plagueSsithra.c
+  m_plagueSsithra_anim.c
+  m_priestess.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(214,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(228,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(242,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(322,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(787,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_priestess_anim.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(1312,32): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_ogle.c(1538,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_rat.c
+  m_rat_anim.c
+  m_seraph.c
+  m_seraph_anim.c
+  m_seraph_guard.c
+  m_seraph_guard_anim.c
+  m_spreader.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_priestess.c(527,44): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  m_spreadermist.c
+  m_spreader_anim.c
+  m_stats.c
+  m_tcheckrik.c
+  m_tcheckrik_anim.c
+  m_tcheckrik_spells.c
+  p_client.c
+  p_funcs.c
+  p_hud.c
+  p_item.c
+  p_morph.c
+  p_teleport.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\m_tcheckrik.c(1078,34): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  p_view.c
+  q_shared.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_funcs.c(661,39): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_funcs.c(706,38): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  sc_CScript.cpp
+  sc_EntityVar.cpp
+  sc_Event.cpp
+  sc_ExecuteEvent.cpp
+  sc_FieldDef.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_morph.c(70,55): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_morph.c(221,55): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1127,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1142,22): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1156,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1147,26): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1182,31): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1197,25): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_teleport.c(101,25): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_teleport.c(112,24): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  sc_FieldVariableVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_hud.c(205,31): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_hud.c(210,23): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_hud.c(213,24): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_hud.c(220,24): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1583,35): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_hud.c(223,25): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+  sc_FloatVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2119,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2240,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  sc_IntVar.cpp
+  sc_Main.cpp
+  sc_MoveDoneEvent.cpp
+  sc_RotateDoneEvent.cpp
+  sc_Signaler.cpp
+  sc_StringVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_EntityVar.cpp(63,16): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(31,17): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(31,17): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(32,18): warning C4311: 'type cast': pointer truncation from 'physicsType_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(32,18): warning C4302: 'type cast': truncation from 'physicsType_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(33,21): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(33,21): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(34,18): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(34,18): warning C4302: 'type cast': truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(35,16): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(35,16): warning C4302: 'type cast': truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(36,15): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(36,15): warning C4302: 'type cast': truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(37,18): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(37,18): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(38,23): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(38,23): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(39,20): warning C4311: 'type cast': pointer truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(39,20): warning C4302: 'type cast': truncation from 'edict_t **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(40,19): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(40,19): warning C4302: 'type cast': truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(41,20): warning C4311: 'type cast': pointer truncation from 'byte *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(41,20): warning C4302: 'type cast': truncation from 'byte *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(42,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(42,16): warning C4302: 'type cast': truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(43,16): warning C4311: 'type cast': pointer truncation from 'solid_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(43,16): warning C4302: 'type cast': truncation from 'solid_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(44,17): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(44,17): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(45,21): warning C4311: 'type cast': pointer truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(45,21): warning C4302: 'type cast': truncation from 'vec3_t (*)' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(46,16): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(46,16): warning C4302: 'type cast': truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(47,17): warning C4311: 'type cast': pointer truncation from 'qboolean *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(47,17): warning C4302: 'type cast': truncation from 'qboolean *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(48,17): warning C4311: 'type cast': pointer truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(48,17): warning C4302: 'type cast': truncation from 'int *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(49,19): warning C4311: 'type cast': pointer truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(49,19): warning C4302: 'type cast': truncation from 'float *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(52,20): warning C4311: 'type cast': pointer truncation from 'damage_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_FieldDef.cpp(52,20): warning C4302: 'type cast': truncation from 'damage_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(45,41): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(45,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(53,33): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(53,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  sc_Utility.cpp
+  sc_Variable.cpp
+  sc_VariableVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(300,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(303,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(306,34): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(334,29): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(339,33): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(344,29): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(349,31): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(354,23): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(359,30): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(364,20): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+  sc_VectorVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(628,38): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(628,38): warning C4302: 'type cast': truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(654,38): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(654,38): warning C4302: 'type cast': truncation from 'char **' to 'int'
+  sc_WaitEvent.cpp
+  spl_blast.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(1711,39): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(2044,35): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(2044,35): warning C4302: 'type cast': truncation from 'char **' to 'int'
+  spl_BlueRing.c
+  spl_flyingfist.c
+  spl_HellStaff.c
+  spl_maceballs.c
+  spl_magicmissile.c
+  spl_meteorbarrier.c
+  spl_morph.c
+  spl_Phoenix.c
+  spl_powerup.c
+  spl_RedRain.c
+  spl_ripper.c
+  spl_shield.c
+  spl_sphereofannihlation.c
+  spl_teleport.c
+  spl_tornado.c
+  spl_wall.c
+  Utilities.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Utility.cpp(74,15): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(22,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(33,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(44,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(50,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(59,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\Utilities.c(68,28): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\spl_tornado.c(159,30): warning C4311: 'type cast': pointer truncation from 'char **' to 'int'
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\gamex86.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\gamex86.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\gamex86.exp
+Message.obj : error LNK2019: unresolved external symbol __imp_Sys_Error referenced in function MSG_GetParms
+p_dll.obj : error LNK2001: unresolved external symbol __imp_Sys_Error
+g_main.obj : error LNK2001: unresolved external symbol __imp_Sys_Error
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_AtEnd referenced in function MSG_GetParms
+g_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_AtEnd
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_AtLast referenced in function MSG_SetParms
+g_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_AtLast
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Increment referenced in function MSG_SetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_PostIncrement referenced in function MSG_GetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Front referenced in function MSG_GetParms
+g_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_Front
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_ReplaceCurrent referenced in function MSG_SetParms
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Push referenced in function MSG_Queue
+Message.obj : error LNK2019: unresolved external symbol __imp_SLList_InsertAfter referenced in function MSG_SetParms
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+p_dll.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+g_main.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+p_hud.obj : error LNK2001: unresolved external symbol __imp_Com_Printf
+buoy.obj : error LNK2019: unresolved external symbol __imp_pv referenced in function SP_info_buoy
+g_env.obj : error LNK2001: unresolved external symbol __imp_pv
+m_fish.obj : error LNK2001: unresolved external symbol __imp_pv
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_irand
+Utilities.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_shield.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_irand
+p_morph.obj : error LNK2001: unresolved external symbol __imp_irand
+p_teleport.obj : error LNK2001: unresolved external symbol __imp_irand
+p_view.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_blast.obj : error LNK2001: unresolved external symbol __imp_irand
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_irand
+p_client.obj : error LNK2001: unresolved external symbol __imp_irand
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_irand
+p_hud.obj : error LNK2001: unresolved external symbol __imp_irand
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_irand
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_irand
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_irand
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_irand
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_irand
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_irand
+m_rat.obj : error LNK2001: unresolved external symbol __imp_irand
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_irand
+m_mother.obj : error LNK2001: unresolved external symbol __imp_irand
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_irand
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_irand
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_irand
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_irand
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_irand
+m_imp.obj : error LNK2001: unresolved external symbol __imp_irand
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_irand
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_irand
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_irand
+m_fish.obj : error LNK2001: unresolved external symbol __imp_irand
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_irand
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_irand
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_irand
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_irand
+m_beast.obj : error LNK2001: unresolved external symbol __imp_irand
+g_rope.obj : error LNK2001: unresolved external symbol __imp_irand
+g_shrine.obj : error LNK2001: unresolved external symbol __imp_irand
+g_utils.obj : error LNK2001: unresolved external symbol __imp_irand
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_irand
+g_main.obj : error LNK2001: unresolved external symbol __imp_irand
+g_monster.obj : error LNK2001: unresolved external symbol __imp_irand
+g_morcalavin_barrier.obj : error LNK2001: unresolved external symbol __imp_irand
+g_obj.obj : error LNK2001: unresolved external symbol __imp_irand
+g_debris.obj : error LNK2001: unresolved external symbol __imp_irand
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_irand
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_irand
+g_items.obj : error LNK2001: unresolved external symbol __imp_irand
+buoy.obj : error LNK2001: unresolved external symbol __imp_irand
+g_ai.obj : error LNK2001: unresolved external symbol __imp_irand
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_irand
+g_combat.obj : error LNK2001: unresolved external symbol __imp_irand
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sc_FieldDef.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_hud.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_morph.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_move.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_utils.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_obj.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_items.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_light.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_main.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_field.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_func_Button.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+buoy.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+c_ai.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+decals.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_rat.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_move.obj : error LNK2001: unresolved external symbol __imp_anglemod
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_beast.obj : error LNK2001: unresolved external symbol __imp_anglemod
+m_fish.obj : error LNK2001: unresolved external symbol __imp_anglemod
+c_ai.obj : error LNK2001: unresolved external symbol __imp_anglemod
+c_elflord.obj : error LNK2001: unresolved external symbol __imp_anglemod
+g_ai.obj : error LNK2001: unresolved external symbol __imp_anglemod
+g_obj.obj : error LNK2001: unresolved external symbol __imp_anglemod
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+p_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+sc_FieldDef.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+p_morph.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_mother.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_utils.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+c_ai.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+Utilities.obj : error LNK2001: unresolved external symbol __imp_flrand
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_flrand
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_flrand
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_flrand
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_flrand
+p_client.obj : error LNK2001: unresolved external symbol __imp_flrand
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_rat.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_imp.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_fish.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_flrand
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_flrand
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_flrand
+m_beast.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_obj.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_target.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_waterfx.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_func_Timer.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_items.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_misc.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_monster.obj : error LNK2001: unresolved external symbol __imp_flrand
+c_corvus3.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_ai.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_combat.obj : error LNK2001: unresolved external symbol __imp_flrand
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_flrand
+spl_wall.obj : error LNK2019: unresolved external symbol __imp_AngleVectors referenced in function CreateFireWall
+Utilities.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+p_client.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_blast.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_rat.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_imp.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_beast.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+m_fish.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_utils.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_monster.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_obj.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_items.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_light.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_misc.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_field.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_flamethrower.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+c_corvus3.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_ai.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+g_env.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_blast.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_obj.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_light.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_field.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_func_Button.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+c_corvus3.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+g_debris.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+spl_ripper.obj : error LNK2019: unresolved external symbol __imp_VectorSet referenced in function RipperExplodeBallThink
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+p_morph.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+p_teleport.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_mother.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_bee.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_waterfx.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_obj.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_tome.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_victimSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+g_light.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_priestess2.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_siernan1.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_siernan2.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_ssithrascout.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_dranor.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+c_elflord.obj : error LNK2019: unresolved external symbol __imp_CreateYawMatrix referenced in function elflord_c_mist
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_CreateYawMatrix
+c_elflord.obj : error LNK2019: unresolved external symbol __imp_Matrix3MultByVec3 referenced in function elflord_c_mist
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_Matrix3MultByVec3
+spl_RedRain.obj : error LNK2019: unresolved external symbol __imp_Vec3AddAssign referenced in function RedRainMissileTouch
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+p_client.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_move.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_fish.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_rope.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_waterfx.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_items.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_obj.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+c_elflord.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_combat.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+Utilities.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_shield.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+p_view.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+p_client.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_rat.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_move.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_fish.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_imp.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_beast.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_rope.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_target.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_utils.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_monster.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_obj.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_light.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_main.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_misc.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_field.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+c_elflord.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_ai.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+g_combat.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_beast.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+m_fish.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_monster.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+decals.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_combat.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_debris.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_shield.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_morcalavin_barrier.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+spl_blast.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_shield.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_morcalavin_barrier.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_breakable.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+g_env.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_move.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_utils.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_ai.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+g_debris.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_vhlen
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_vhlen
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_vhlen
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_vhlen
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_vhlen
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_vhlen
+m_beast.obj : error LNK2001: unresolved external symbol __imp_vhlen
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_vhlen
+g_ai.obj : error LNK2001: unresolved external symbol __imp_vhlen
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_vhlen
+g_rope.obj : error LNK2001: unresolved external symbol __imp_vhlen
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_vhlen
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+Utilities.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+p_client.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_imp.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_beast.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_monster.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_ai.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_func_Button.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+p_client.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+m_beast.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_ai.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_combat.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_field.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+g_cmds.obj : error LNK2019: unresolved external symbol __imp_Com_sprintf referenced in function ClientCommand
+g_main.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+g_utils.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+p_hud.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_va
+p_view.obj : error LNK2001: unresolved external symbol __imp_va
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_va
+g_spawnf.obj : error LNK2001: unresolved external symbol __imp_va
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_va
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_va
+p_client.obj : error LNK2001: unresolved external symbol __imp_va
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_va
+g_obj.obj : error LNK2001: unresolved external symbol __imp_va
+g_rope.obj : error LNK2001: unresolved external symbol __imp_va
+g_save.obj : error LNK2001: unresolved external symbol __imp_va
+g_cmds.obj : error LNK2019: unresolved external symbol __imp_Info_ValueForKey referenced in function ClientModelTeam
+p_client.obj : error LNK2001: unresolved external symbol __imp_Info_ValueForKey
+p_hud.obj : error LNK2001: unresolved external symbol __imp_Info_ValueForKey
+Utilities.obj : error LNK2019: unresolved external symbol __imp_Vec3ScaleAssign referenced in function FindNearestVisibleActorInFrustum
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+p_client.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_move.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_beast.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+m_fish.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_obj.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_rope.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_waterfx.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_HitLocation.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_monster.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_cmds.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_combat.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+g_func_Plat.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_fish.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_utils.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_debris.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_env.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+spl_sphereofannihlation.obj : error LNK2019: unresolved external symbol __imp_VectorScale referenced in function CreateReflectedSphere
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+Utilities.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_ripper.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+p_client.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_shrine.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_morcalavin_barrier.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_func_Train.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_func_Utility.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_items.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_misc.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_combat.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+g_combat.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+g_misc.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_vec3_up
+g_combat.obj : error LNK2019: unresolved external symbol __imp_vec3_down referenced in function T_Damage
+m_rat.obj : error LNK2001: unresolved external symbol __imp_vec3_down
+m_move.obj : error LNK2001: unresolved external symbol __imp_Clamp
+p_client.obj : error LNK2001: unresolved external symbol __imp_Clamp
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Clamp
+Utilities.obj : error LNK2001: unresolved external symbol __imp_Clamp
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_Clamp
+m_fish.obj : error LNK2001: unresolved external symbol __imp_Clamp
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_Clamp
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Clamp
+g_debris.obj : error LNK2001: unresolved external symbol __imp_Clamp
+g_env.obj : error LNK2001: unresolved external symbol __imp_Clamp
+g_PhysicsQ2.obj : error LNK2001: unresolved external symbol __imp_Clamp
+g_spawnf.obj : error LNK2001: unresolved external symbol __imp_Clamp
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_trigger.obj : error LNK2001: unresolved external symbol __imp_ClampI
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_debris.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_main.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_obj.obj : error LNK2001: unresolved external symbol __imp_ClampI
+g_func_Button.obj : error LNK2019: unresolved external symbol __imp_VectorAbs referenced in function SP_func_button
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorAbs
+g_func_Door.obj : error LNK2019: unresolved external symbol __imp_AddPointToBounds referenced in function FuncDoorSpawnDoorTriggerThink
+g_func_Door.obj : error LNK2019: unresolved external symbol __imp_SnapAngleToNetworkPrecision referenced in function SP_func_door_rotating
+sc_CScript.obj : error LNK2001: unresolved external symbol __imp_SnapAngleToNetworkPrecision
+g_func_Door.obj : error LNK2019: unresolved external symbol __imp_VectorCompare referenced in function FuncDoorSecretUse
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+g_utils.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+g_func_Door.obj : error LNK2019: unresolved external symbol __imp_CrossProduct referenced in function FuncDoorDie
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+g_func_Door.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+g_func_Rotating.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+g_morcalavin_barrier.obj : error LNK2001: unresolved external symbol __imp_VectorInverse
+Utilities.obj : error LNK2019: unresolved external symbol __imp_VectorSeparationSquared referenced in function FindSpellTargetInRadius
+g_func_MonsterSpawner.obj : error LNK2001: unresolved external symbol __imp_VectorSeparationSquared
+g_main.obj : error LNK2001: unresolved external symbol __imp_VectorSeparationSquared
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorSeparationSquared
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorSeparationSquared
+g_items.obj : error LNK2019: unresolved external symbol __imp_Vec3Normalize referenced in function Drop_Item
+g_main.obj : error LNK2019: unresolved external symbol __imp_Cvar_Get referenced in function InitGame
+g_save.obj : error LNK2001: unresolved external symbol __imp_Cvar_Get
+g_main.obj : error LNK2019: unresolved external symbol __imp_SLList_Des referenced in function ShutdownGame
+g_Message.obj : error LNK2001: unresolved external symbol __imp_SLList_Des
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_SLList_Des
+g_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_DefaultCon referenced in function G_Message_New
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_SLList_DefaultCon
+g_spawnf.obj : error LNK2001: unresolved external symbol __imp_SLList_DefaultCon
+g_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_IsEmpty referenced in function G_ClearMessageQueues
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_SLList_IsEmpty
+g_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_PushEmpty referenced in function G_Message_New
+g_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Pop referenced in function G_ClearMessageQueues
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_SLList_Pop
+g_Message.obj : error LNK2019: unresolved external symbol __imp_SLList_Chop referenced in function G_ProcessMessages
+g_Message.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Con referenced in function G_InitMsgMngr
+g_Message.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Des referenced in function G_ReleaseMsgMngr
+g_Message.obj : error LNK2019: unresolved external symbol __imp_ResMngr_AllocateResource referenced in function G_Message_New
+g_Message.obj : error LNK2019: unresolved external symbol __imp_ResMngr_DeallocateResource referenced in function G_ClearMessageQueues
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+Utilities.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+p_view.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+p_client.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_imp.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_beast.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+g_misc.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+g_monster.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+g_rope.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+g_weapon.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+g_misc.obj : error LNK2019: unresolved external symbol __imp_VectorDec referenced in function SP_func_object
+g_misc.obj : error LNK2019: unresolved external symbol __imp_VectorInc referenced in function SP_func_object
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+g_monster.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+g_rope.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+m_beast.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_Q_signf
+spl_wall.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_maceballs.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_tcheckrik.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+p_view.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_seraph.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_seraph_guard.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_ogle.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_harpy.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_imp.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_beast.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_elflord.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+g_monster.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+g_rope.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize2
+g_Physics.obj : error LNK2019: unresolved external symbol __imp_BounceVelocity referenced in function MoveEntity_Bounce
+g_Physics.obj : error LNK2019: unresolved external symbol __imp_BoundVelocity referenced in function EntityPhysics
+Utilities.obj : error LNK2019: unresolved external symbol __imp_Vec3SubtractAssign referenced in function FindNearestVisibleActorInFrustum
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+g_rope.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+sc_VectorVar.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+m_move.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+g_Physics.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+mg_ai.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+m_beast.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+m_fish.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+g_shrine.obj : error LNK2019: unresolved external symbol __imp_DirFromAngles referenced in function SP_obj_shrine
+m_fish.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+spl_tornado.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+g_spawnf.obj : error LNK2019: unresolved external symbol __imp_COM_Parse referenced in function ED_ParseEdict
+g_spawnf.obj : error LNK2019: unresolved external symbol __imp_Cvar_SetValue referenced in function CheckCoopTimeout
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_Cvar_SetValue
+g_utils.obj : error LNK2019: unresolved external symbol __imp_VectorLengthSquared referenced in function FindInRadius
+spl_BlueRing.obj : error LNK2001: unresolved external symbol __imp_VectorLengthSquared
+g_waterfx.obj : error LNK2019: unresolved external symbol __imp_VectorLerp referenced in function SP_obj_fishhead1
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+g_weapon.obj : error LNK2019: unresolved external symbol __imp_Matrix3FromAngles referenced in function Weapon_CalcStartPos
+mg_ai.obj : error LNK2019: unresolved external symbol __imp_anglemod_old referenced in function MG_ChangeWhichYaw
+Utilities.obj : error LNK2019: unresolved external symbol __imp_VectorAverage referenced in function AdjustAimAngles
+mg_guide.obj : error LNK2001: unresolved external symbol __imp_VectorAverage
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorAverage
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_VectorAverage
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_VectorAverage
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_imp.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_beast.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_fish.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_AnglesFromDir
+m_assassin.obj : error LNK2019: unresolved external symbol __imp_VectorGetOffsetOrigin referenced in function assassin_attack
+m_chicken.obj : error LNK2001: unresolved external symbol __imp_VectorGetOffsetOrigin
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_VectorGetOffsetOrigin
+spl_sphereofannihlation.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_meteorbarrier.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_morph.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_RedRain.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_flyingfist.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_HellStaff.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+spl_magicmissile.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_mssithra.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_plagueElf.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_plagueSsithra.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_assassin.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_gkrokon.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_morcalavin.obj : error LNK2001: unresolved external symbol __imp_Create_rand_relect_vect
+m_beast.obj : error LNK2019: unresolved external symbol __imp_VectorRandomSet referenced in function tbeast_throw_toy
+m_gorgon.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+m_tcheckrik_spells.obj : error LNK2001: unresolved external symbol __imp_VectorRandomSet
+m_fish.obj : error LNK2019: unresolved external symbol __imp_VectorRadiansToDegrees referenced in function FishMoveToTarget
+m_fish.obj : error LNK2019: unresolved external symbol __imp_VectorDegreesToRadians referenced in function FishThink
+m_gorgon.obj : error LNK2019: unresolved external symbol __imp_LerpFloat referenced in function GorgonSetupJumpArc
+m_harpy.obj : error LNK2019: unresolved external symbol __imp_Q_sign referenced in function harpy_hover_move
+m_imp.obj : error LNK2001: unresolved external symbol __imp_Q_sign
+m_spreader.obj : error LNK2001: unresolved external symbol __imp_Q_sign
+m_spreadermist.obj : error LNK2001: unresolved external symbol __imp_Q_sign
+m_imp.obj : error LNK2019: unresolved external symbol __imp_Vec3IsZeroEpsilon referenced in function imp_tumble_move
+p_funcs.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZeroEpsilon
+spl_Phoenix.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZeroEpsilon
+m_mssithra.obj : error LNK2019: unresolved external symbol __imp_VectorRandomCopy referenced in function mssithra_arrow
+m_priestess.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+m_rat.obj : error LNK2001: unresolved external symbol __imp_VectorRandomCopy
+p_client.obj : error LNK2019: unresolved external symbol __imp_Info_Validate referenced in function ClientUserinfoChanged
+p_client.obj : error LNK2019: unresolved external symbol __imp_FS_FOpenFile referenced in function ClientUserinfoChanged
+p_client.obj : error LNK2019: unresolved external symbol __imp_FS_FCloseFile referenced in function ClientUserinfoChanged
+p_funcs.obj : error LNK2019: unresolved external symbol __imp_ReflectVelocity referenced in function G_PlayerActionCheckRopeMove
+p_funcs.obj : error LNK2019: unresolved external symbol __imp_VectorClamp referenced in function G_PlayerActionCheckRopeMove
+sc_CScript.obj : error LNK2019: unresolved external symbol Cvar_Set referenced in function "private: void __cdecl CScript::HandleFeature(bool)" (?HandleFeature@CScript@@AEAAX_N@Z)
+sc_VectorVar.obj : error LNK2019: unresolved external symbol __imp_VectorScaleByVector referenced in function "public: virtual class Variable * __cdecl VectorVar::operator*(class Variable *)" (??DVectorVar@@UEAAPEAVVariable@@PEAV1@@Z)
+spl_HellStaff.obj : error LNK2019: unresolved external symbol __imp_LerpAngles referenced in function FireHellLaser
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\H2Common.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\quake2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\base\gamex86.dll : fatal error LNK1120: 95 unresolved externals

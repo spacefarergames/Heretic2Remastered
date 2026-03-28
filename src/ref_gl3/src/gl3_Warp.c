@@ -23,7 +23,7 @@ static void WriteWarpVert(float* out, const float* v, float s, float t, float pz
 	out[5] = 1.0f; out[6] = 1.0f; out[7] = 1.0f; out[8] = 1.0f;
 }
 
-void R_EmitWaterPolys(const msurface_t* fa, const qboolean undulate)
+void R_EmitWaterPolys(const msurface_t* fa, const qboolean undulate, const qboolean use_reflect)
 {
 	float scroll;
 
@@ -57,7 +57,10 @@ void R_EmitWaterPolys(const msurface_t* fa, const qboolean undulate)
 			WriteWarpVert(&vbuf[i * 9], v, s, t, pz);
 		}
 
-		GL3_Draw3DPoly(GL_TRIANGLE_FAN, vbuf, p->numverts);
+		if (use_reflect)
+			GL3_DrawWaterPoly(GL_TRIANGLE_FAN, vbuf, p->numverts);
+		else
+			GL3_Draw3DPoly(GL_TRIANGLE_FAN, vbuf, p->numverts);
 	}
 }
 

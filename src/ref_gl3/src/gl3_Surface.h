@@ -16,3 +16,8 @@ extern void R_DrawWorld(void);
 extern void R_DrawBrushModel(entity_t* ent);
 extern void R_MarkLeaves(void);
 extern void R_SortAndDrawAlphaSurfaces(void);
+
+extern void R_SetReflectionPass(qboolean active);
+extern msurface_t* R_GetAlphaSurfaces(void);
+extern void R_SetAlphaSurfaces(msurface_t* surf);
+extern qboolean R_GetLastWaterPlaneZ(float* out_z);

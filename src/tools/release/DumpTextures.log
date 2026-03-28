@@ -1,5 +1,1 @@
-﻿  DumpTextures.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_image_write.h(776,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file 'DumpTextures.c')
-  
-  DumpTextures.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\DumpTextures.exe
+﻿  DumpTextures.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\DumpTextures.exe

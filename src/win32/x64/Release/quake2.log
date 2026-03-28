@@ -1,0 +1,449 @@
+﻿  smacker.c
+  cl_camera.c
+  cl_demo.c
+  cl_effects.c
+  cl_entities.c
+  cl_input.c
+  cl_inventory.c
+  cl_main.c
+  cl_messages.c
+  cl_parse.c
+  cl_player.c
+  cl_prediction.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(83,10): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(114,10): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(131,8): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(80,15): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(111,15): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(128,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(148,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(142,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(168,25): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(288,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(298,38): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(379,18): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(485,17): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1323,10): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1328,11): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1507,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1514,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1519,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1547,13): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1550,23): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1556,12): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1559,22): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1567,14): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1572,14): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1573,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1581,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1586,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1587,16): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  cl_screen.c
+  cl_skeletons.c
+  cl_smk.c
+  cl_mp4.c
+  cl_view.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_prediction.c(380,31): warning C4312: 'type cast': conversion from 'int' to 'void *' of greater size
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_parse.c(589,30): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  console.c
+  glimp_sdl3.c
+  input_sdl3.c
+  keys.c
+  menu.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(56,30): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(56,46): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
+  menu_addressbook.c
+  menu_cameracfg.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menu.c(1242,26): warning C4244: '-=': conversion from '__int64' to 'int', possible loss of data
+  menu_citymap.c
+  menu_credits.c
+  menu_dmoptions.c
+  menu_downloadoptions.c
+  menu_game.c
+  menu_help.c
+  menu_info.c
+  menu_joinserver.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(139,8): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(136,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+  menu_keys.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(608,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(609,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(610,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(611,21): warning C4310: cast truncates constant value
+  menu_loadcfg.c
+  menu_loadgame.c
+  menu_main.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_joinserver.c(59,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  menu_misc.c
+  menu_mousecfg.c
+  menu_multiplayer.c
+  menu_objectives.c
+  menu_options.c
+  menu_playerconfig.c
+  menu_quit.c
+  menu_savegame.c
+  menu_sound.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_playerconfig.c(74,23): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  menu_startserver.c
+  menu_video.c
+  menu_worldmap.c
+  q_shared.c
+  anorms.c
+  cmd.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_quit.c(104,1): warning C4702: unreachable code
+  cmodel.c
+  common.c
+  cvar.c
+  Debug.c
+  files.c
+  md4.c
+  netmsg_read.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\cmodel.c(757,12): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  netmsg_write.c
+  net_chan.c
+  pmove.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\common.c(422,19): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(181,31): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(185,31): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(189,32): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(193,32): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
+  p_dll.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(98,16): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(195,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(207,6): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+  Reference.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(224,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(263,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(271,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(356,15): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+  Skeletons.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c(294,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  tokens.c
+  turbsin.c
+  sv_ccmds.c
+  sv_effects.c
+  sv_entities.c
+  sv_game.c
+  sv_init.c
+  sv_main.c
+  sv_send.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(111,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(156,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(474,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  sv_user.c
+  sv_world.c
+  clfx_dll.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_user.c(58,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(19,24): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(23,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(40,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(62,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(228,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  net_wins.c
+  q_shwin.c
+  snd_dll.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(394,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(502,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(631,7): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(621,12): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_world.c(340,20): warning C4311: 'type cast': pointer truncation from 'link_t *' to 'int'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_world.c(400,20): warning C4311: 'type cast': pointer truncation from 'link_t *' to 'int'
+  sys_win.c
+  vid_dll.c
+  vid_Screenshot.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(124,20): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(134,28): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(370,43): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\sys_win.c(229,29): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(29,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(66,7): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(89,7): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(99,65): warning C4244: 'function': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(111,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(126,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(137,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(148,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(159,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(171,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(226,32): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(362,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,30): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,60): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,88): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,119): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\q_shwin.c(107,15): warning C4244: '=': conversion from 'intptr_t' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\q_shwin.c(156,26): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\quake2.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\quake2.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\quake2.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\quake2.exp
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_LerpAngle referenced in function CL_CalcViewValues
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_LerpFloat referenced in function CL_UpdateCameraOrientation
+pmove.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu_mousecfg.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu_video.obj : error LNK2001: unresolved external symbol __imp_Clamp
+cmodel.obj : error LNK2001: unresolved external symbol __imp_Clamp
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu_cameracfg.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu_downloadoptions.obj : error LNK2001: unresolved external symbol __imp_Clamp
+menu_misc.obj : error LNK2001: unresolved external symbol __imp_Clamp
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_Clamp
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_Clamp
+cl_input.obj : error LNK2001: unresolved external symbol __imp_Clamp
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_Clamp
+pmove.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+cl_view.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+cmodel.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize referenced in function CL_UpdateCameraOrientation
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+cl_view.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_VectorLerp referenced in function CL_UpdateCameraOrientation
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+cl_view.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+cmodel.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_VectorLength referenced in function CL_CalcViewValues
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+sv_entities.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+cmodel.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_Vec3IsZeroEpsilon referenced in function CL_CalcViewValues
+pmove.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZeroEpsilon
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+cmodel.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+pmove.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_VectorSet referenced in function CL_UpdateCameraOrientation
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+cl_screen.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+sv_send.obj : error LNK2019: unresolved external symbol __imp_VectorCopy referenced in function SV_Multicast
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sv_game.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+sv_init.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_view.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cmodel.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+netmsg_read.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_camera.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_input.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_Vec3SubtractAssign referenced in function CL_CalcViewValues
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_Vec3AddAssign referenced in function CL_CalcViewValues
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+cl_camera.obj : error LNK2019: unresolved external symbol __imp_Vec3ScaleAssign referenced in function CL_CalcViewValues
+netmsg_read.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+pmove.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+sys_win.obj : error LNK2019: unresolved external symbol __imp_Com_sprintf referenced in function Sys_LoadGameDll
+vid_dll.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+vid_Screenshot.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+sv_user.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+net_wins.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+q_shwin.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+snd_dll.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+files.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+sv_ccmds.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+sv_init.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+sv_main.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_video.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cmd.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+common.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cvar.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_quit.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_savegame.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_sound.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_startserver.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_mousecfg.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_multiplayer.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_options.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_playerconfig.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_loadcfg.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_loadgame.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_main.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_misc.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_game.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_info.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_joinserver.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_keys.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_cameracfg.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_citymap.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_dmoptions.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_downloadoptions.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+console.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+keys.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+menu_addressbook.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cl_demo.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cl_main.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cl_parse.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cl_screen.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+cl_effects.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Con referenced in function CL_InitClientEffects
+cl_main.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Con
+sv_game.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Con
+cl_effects.obj : error LNK2019: unresolved external symbol __imp_ResMngr_Des referenced in function CL_UnloadClientEffects
+cl_main.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Des
+sv_game.obj : error LNK2001: unresolved external symbol __imp_ResMngr_Des
+cl_effects.obj : error LNK2019: unresolved external symbol __imp_ResMngr_AllocateResource referenced in function CL_CreateEffect
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_ResMngr_AllocateResource
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_ResMngr_AllocateResource
+cl_effects.obj : error LNK2019: unresolved external symbol __imp_VectorAverage referenced in function Get_Crosshair
+sv_game.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+sv_init.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+sv_main.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+sv_world.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+cl_effects.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+pmove.obj : error LNK2001: unresolved external symbol __imp_vec3_origin
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_ClampI
+sv_main.obj : error LNK2001: unresolved external symbol __imp_ClampI
+sv_world.obj : error LNK2001: unresolved external symbol __imp_ClampI
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_ClampI
+cl_screen.obj : error LNK2001: unresolved external symbol __imp_ClampI
+menu.obj : error LNK2001: unresolved external symbol __imp_ClampI
+common.obj : error LNK2001: unresolved external symbol __imp_ClampI
+cl_entities.obj : error LNK2019: unresolved external symbol __imp_ResMngr_DeallocateResource referenced in function CL_ClearSkeletalEntities
+sv_main.obj : error LNK2001: unresolved external symbol __imp_ResMngr_DeallocateResource
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_view.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cmodel.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_entities.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_input.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_main.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_player.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+cl_entities.obj : error LNK2019: unresolved external symbol __imp_vec3_up referenced in function CL_ParsePlayerstate
+cl_main.obj : error LNK2019: unresolved external symbol __imp_BigShort referenced in function CL_Frame
+sv_ccmds.obj : error LNK2001: unresolved external symbol __imp_BigShort
+sv_main.obj : error LNK2001: unresolved external symbol __imp_va
+sv_user.obj : error LNK2001: unresolved external symbol __imp_va
+net_wins.obj : error LNK2001: unresolved external symbol __imp_va
+vid_Screenshot.obj : error LNK2001: unresolved external symbol __imp_va
+files.obj : error LNK2001: unresolved external symbol __imp_va
+net_chan.obj : error LNK2001: unresolved external symbol __imp_va
+sv_ccmds.obj : error LNK2001: unresolved external symbol __imp_va
+sv_init.obj : error LNK2001: unresolved external symbol __imp_va
+menu_savegame.obj : error LNK2001: unresolved external symbol __imp_va
+menu_startserver.obj : error LNK2001: unresolved external symbol __imp_va
+cmd.obj : error LNK2001: unresolved external symbol __imp_va
+common.obj : error LNK2001: unresolved external symbol __imp_va
+menu_addressbook.obj : error LNK2001: unresolved external symbol __imp_va
+menu_game.obj : error LNK2001: unresolved external symbol __imp_va
+menu_loadcfg.obj : error LNK2001: unresolved external symbol __imp_va
+menu_loadgame.obj : error LNK2001: unresolved external symbol __imp_va
+cl_main.obj : error LNK2001: unresolved external symbol __imp_va
+cl_parse.obj : error LNK2001: unresolved external symbol __imp_va
+cl_screen.obj : error LNK2001: unresolved external symbol __imp_va
+cl_smk.obj : error LNK2001: unresolved external symbol __imp_va
+cl_parse.obj : error LNK2019: unresolved external symbol __imp_COM_StripExtension referenced in function CL_CheckOrDownloadFile
+menu_credits.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+menu_options.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+common.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+cl_parse.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+cl_screen.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+console.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+menu.obj : error LNK2001: unresolved external symbol __imp_TextPalette
+cl_prediction.obj : error LNK2019: unresolved external symbol __imp_vectoangles referenced in function CL_PredictMovement_impl
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_vectoangles
+sv_entities.obj : error LNK2019: unresolved external symbol __imp_VectorCompare referenced in function SV_BuildClientFrame
+cl_prediction.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+cmodel.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+pmove.obj : error LNK2001: unresolved external symbol __imp_VectorCompare
+cl_prediction.obj : error LNK2019: unresolved external symbol __imp_Vec3NotZero referenced in function CL_PredictMovement_impl
+cmodel.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+netmsg_write.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+sv_world.obj : error LNK2001: unresolved external symbol __imp_Vec3NotZero
+cl_screen.obj : error LNK2019: unresolved external symbol __imp_COM_Parse referenced in function DrawAClientBlock
+menu_startserver.obj : error LNK2001: unresolved external symbol __imp_COM_Parse
+cmd.obj : error LNK2001: unresolved external symbol __imp_COM_Parse
+cl_view.obj : error LNK2019: unresolved external symbol __imp_flrand referenced in function Perform_Screen_Shake
+net_wins.obj : error LNK2001: unresolved external symbol __imp_flrand
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_free referenced in function InitDisplayModes
+input_sdl3.obj : error LNK2001: unresolved external symbol SDL_free
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetError referenced in function GLimp_GrabInput
+input_sdl3.obj : error LNK2001: unresolved external symbol SDL_GetError
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_CreateProperties referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_SetStringProperty referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_SetNumberProperty referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_DestroyProperties referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetCurrentVideoDriver referenced in function GLimp_Init
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetPrimaryDisplay referenced in function InitDisplayModes
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetDisplayUsableBounds referenced in function InitDisplayModes
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetFullscreenDisplayModes referenced in function InitDisplayModes
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetDesktopDisplayMode referenced in function InitDisplayModes
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetDisplayForWindow referenced in function InitDisplayModes
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_CreateWindowWithProperties referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetWindowSizeInPixels referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_SetWindowMouseGrab referenced in function GLimp_GrabInput
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_DestroyWindow referenced in function ShutdownGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GL_ResetAttributes referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_StartTextInput referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_SetWindowRelativeMouseMode referenced in function GLimp_GrabInput
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_ShowCursor referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_SetHint referenced in function GLimp_InitGraphics
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_Init referenced in function GLimp_Init
+input_sdl3.obj : error LNK2001: unresolved external symbol SDL_Init
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_QuitSubSystem referenced in function GLimp_Shutdown
+input_sdl3.obj : error LNK2001: unresolved external symbol SDL_QuitSubSystem
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_WasInit referenced in function GLimp_Init
+input_sdl3.obj : error LNK2001: unresolved external symbol SDL_WasInit
+glimp_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetVersion referenced in function GLimp_Init
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetClipboardText referenced in function IN_GetClipboardText
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetJoysticks referenced in function IN_Init
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_IsGamepad referenced in function IN_Init
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_OpenGamepad referenced in function IN_Init
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_GetGamepadName referenced in function IN_Init
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_CloseGamepad referenced in function IN_Shutdown
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_FlushEvents referenced in function In_FlushQueue
+input_sdl3.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function IN_Update
+menu.obj : error LNK2019: unresolved external symbol __imp_FloatIsZeroEpsilon referenced in function Menu_SlideItem
+pmove.obj : error LNK2001: unresolved external symbol __imp_FloatIsZeroEpsilon
+cmodel.obj : error LNK2019: unresolved external symbol __imp_Vec3IsZero referenced in function CM_BoxTrace
+pmove.obj : error LNK2001: unresolved external symbol __imp_Vec3IsZero
+cvar.obj : error LNK2019: unresolved external symbol __imp_Info_SetValueForKey referenced in function Cvar_BitInfo
+sv_main.obj : error LNK2001: unresolved external symbol __imp_Info_SetValueForKey
+netmsg_read.obj : error LNK2019: unresolved external symbol __imp_DirFromAngles referenced in function MSG_ReadShortYawPitch
+sv_effects.obj : error LNK2001: unresolved external symbol __imp_DirFromAngles
+pmove.obj : error LNK2019: unresolved external symbol __imp_Q_signf referenced in function PM_SnapPosition
+pmove.obj : error LNK2019: unresolved external symbol __imp_BounceVelocity referenced in function PM_StepSlideTryMove
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize2 referenced in function PM_LavaAndSlimeMove
+pmove.obj : error LNK2019: unresolved external symbol __imp_CrossProduct referenced in function PM_StepSlideTryMove
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorAdd referenced in function PM_StepSlideMove
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+pmove.obj : error LNK2019: unresolved external symbol __imp_vhlen referenced in function PM_TryStepUp
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorDec referenced in function PM_StepSlideTryMove
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorDec
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorInc referenced in function PM_StepSlideTryMove
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorInc
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorInverse referenced in function PM_StepSlideTryMove
+pmove.obj : error LNK2019: unresolved external symbol __imp_VectorScale referenced in function PM_LavaAndSlimeMove
+pmove.obj : error LNK2019: unresolved external symbol __imp_vec3_down referenced in function PM_StepSlideTryMove
+sv_entities.obj : error LNK2019: unresolved external symbol __imp_VectorSeparation referenced in function SV_BuildClientFrame
+sv_world.obj : error LNK2001: unresolved external symbol __imp_VectorSeparation
+sv_main.obj : error LNK2019: unresolved external symbol __imp_Info_ValueForKey referenced in function SVC_DirectConnect
+sv_world.obj : error LNK2019: unresolved external symbol __imp_pv referenced in function SV_LinkEdict
+sv_world.obj : error LNK2019: unresolved external symbol __imp_SLList_DefaultCon referenced in function SV_GetContentsAtPoint
+sv_world.obj : error LNK2019: unresolved external symbol __imp_SLList_Des referenced in function SV_GetContentsAtPoint
+sv_world.obj : error LNK2019: unresolved external symbol __imp_SLList_IsEmpty referenced in function SV_GetContentsAtPoint
+sv_world.obj : error LNK2019: unresolved external symbol __imp_SLList_Push referenced in function SV_FindEntitiesInBounds
+sv_world.obj : error LNK2019: unresolved external symbol __imp_SLList_Pop referenced in function SV_GetContentsAtPoint
+q_shwin.obj : error LNK2019: unresolved external symbol __imp_COM_FilePath referenced in function Sys_FindFirst
+sys_win.obj : error LNK2019: unresolved external symbol __imp_Set_Com_Printf referenced in function Sys_Init
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\lib\SDL3\SDL3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\H2Common.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\quake2.dll : fatal error LNK1120: 93 unresolved externals

@@ -650,32 +650,55 @@ static void R_UploadHD(byte* pixels, const image_t* image)
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, gl_config.max_anisotropy);
 }
 
-// Loads pixels from an absolute PNG file path using stdio.
-static byte* R_LoadPNGFile(const char* abs_path, int* width, int* height)
+// Loads pixels from a PNG file. Tries the PAK filesystem first (ri.FS_LoadFile),
+// then falls back to direct file I/O using an absolute path.
+static byte* R_LoadPNGData(const char* rel_path, const char* abs_path, int* width, int* height)
 {
-	FILE* f;
-	if (fopen_s(&f, abs_path, "rb") != 0 || f == NULL)
-		return NULL;
-
-	fseek(f, 0, SEEK_END);
-	const int file_len = ftell(f);
-	fseek(f, 0, SEEK_SET);
-
-	byte* file_data = malloc(file_len);
-	if (file_data == NULL)
+	// Try loading through the PAK filesystem (covers both PAK files and loose files in search paths).
+	if (rel_path != NULL)
 	{
-		fclose(f);
-		return NULL;
+		void* data;
+		const int len = ri.FS_LoadFile(rel_path, &data);
+
+		if (data != NULL && len > 0)
+		{
+			int channels;
+			byte* pixels = stbi_load_from_memory((const byte*)data, len, width, height, &channels, 4);
+			ri.FS_FreeFile(data);
+
+			return pixels;
+		}
 	}
 
-	fread(file_data, 1, file_len, f);
-	fclose(f);
+	// Fall back to direct file I/O (absolute path).
+	if (abs_path != NULL)
+	{
+		FILE* f;
+		if (fopen_s(&f, abs_path, "rb") != 0 || f == NULL)
+			return NULL;
 
-	int channels;
-	byte* pixels = stbi_load_from_memory(file_data, file_len, width, height, &channels, 4);
-	free(file_data);
+		fseek(f, 0, SEEK_END);
+		const int file_len = ftell(f);
+		fseek(f, 0, SEEK_SET);
 
-	return pixels;
+		byte* file_data = malloc(file_len);
+		if (file_data == NULL)
+		{
+			fclose(f);
+			return NULL;
+		}
+
+		fread(file_data, 1, file_len, f);
+		fclose(f);
+
+		int channels;
+		byte* pixels = stbi_load_from_memory(file_data, file_len, width, height, &channels, 4);
+		free(file_data);
+
+		return pixels;
+	}
+
+	return NULL;
 }
 
 // Reads the original M8/M32 file header to get its texture dimensions.
@@ -722,22 +745,36 @@ static qboolean R_GetOriginalTextureDims(const char* name, int* orig_w, int* ori
 	return false;
 }
 
+// Constructs a relative HD texture path: "HDTextures/<name_without_extension>.png"
+static void R_MakeHDRelPath(const char* name, char* out, const int out_size)
+{
+	// Strip extension from original name.
+	const char* dot = strrchr(name, '.');
+	const int base_len = dot ? (int)(dot - name) : (int)strlen(name);
+
+	sprintf_s(out, out_size, "%s/%.*s.png", HD_TEXTURES_DIR, base_len, name);
+
+	// Normalize separators.
+	for (char* p = out; *p; p++)
+		if (*p == '\\')
+			*p = '/';
+}
+
 // Tries to load an HD replacement PNG for the given texture name.
 // Returns NULL if no replacement exists.
 static image_t* R_LoadHDTexture(const char* name, const imagetype_t type)
 {
-	const char* hd_path = R_FindHDTexturePath(name);
-	if (hd_path == NULL)
-		return NULL;
+	// Construct relative HD path for PAK/filesystem lookup.
+	char hd_relpath[MAX_OSPATH];
+	R_MakeHDRelPath(name, hd_relpath, sizeof(hd_relpath));
 
+	// Try loading through PAK filesystem first, then fall back to hash table absolute path.
+	const char* hd_abs_path = R_FindHDTexturePath(name);
 	int hd_width, hd_height;
-	byte* pixels = R_LoadPNGFile(hd_path, &hd_width, &hd_height);
+	byte* pixels = R_LoadPNGData(hd_relpath, hd_abs_path, &hd_width, &hd_height);
 
 	if (pixels == NULL)
-	{
-		ri.Con_Printf(PRINT_ALL, "R_LoadHDTexture: failed to decode '%s'\n", hd_path);
 		return NULL;
-	}
 
 	// Get original texture dimensions for correct UV mapping.
 	int orig_w, orig_h;
@@ -763,10 +800,10 @@ static image_t* R_LoadHDTexture(const char* name, const imagetype_t type)
 	image->is_hd = true;
 	image->num_frames = 0;
 
-	// Store a copy of the resolved path for gamma reload.
-	const int path_len = (int)strlen(hd_path) + 1;
+	// Store relative path for reload (works with both PAK and loose files).
+	const int path_len = (int)strlen(hd_relpath) + 1;
 	image->hd_path = malloc(path_len);
-	strcpy_s(image->hd_path, path_len, hd_path);
+	strcpy_s(image->hd_path, path_len, hd_relpath);
 
 	glGenTextures(1, (GLuint*)&image->texnum);
 
@@ -774,7 +811,7 @@ static image_t* R_LoadHDTexture(const char* name, const imagetype_t type)
 	R_UploadHD(pixels, image);
 	stbi_image_free(pixels);
 
-	ri.Con_Printf(PRINT_DEVELOPER, "R_LoadHDTexture: '%s' -> '%s'\n", name, hd_path);
+	ri.Con_Printf(PRINT_DEVELOPER, "R_LoadHDTexture: '%s' -> '%s'\n", name, hd_relpath);
 
 	return image;
 }
@@ -786,7 +823,7 @@ static void R_ReloadHDTexture(image_t* image)
 		return;
 
 	int width, height;
-	byte* pixels = R_LoadPNGFile(image->hd_path, &width, &height);
+	byte* pixels = R_LoadPNGData(image->hd_path, NULL, &width, &height);
 	if (pixels == NULL)
 		return;
 

@@ -1,0 +1,157 @@
+﻿  glad.c
+  q_shared.c
+  anorms.c
+  Reference.c
+  Skeletons.c
+  turbsin.c
+  anormtab.c
+  gl1_Debug.c
+  gl1_Draw.c
+  gl1_DrawBook.c
+  gl1_DrawCinematic.c
+  gl1_FindSurface.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\glad-GL1.3\glad.c(97,38): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+  gl1_FlexModel.c
+  gl1_Image.c
+  gl1_Light.c
+  gl1_Lightmap.c
+  gl1_Main.c
+  gl1_Matrix4.c
+  gl1_Misc.c
+  gl1_Model.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_DrawCinematic.c(25,36): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  gl1_SDL.c
+  gl1_Sky.c
+  gl1_Sprite.c
+  gl1_Surface.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(437,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(518,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  gl1_Warp.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(539,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(601,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(694,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  Hunk.c
+  r_SkeletonLerp.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Surface.c(578,12): warning C4311: 'type cast': pointer truncation from 'glpoly_t *' to 'uint'
+  r_Skeletons.c
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\ref_gl1.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\ref_gl1.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\ref_gl1.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\ref_gl1.exp
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_pv referenced in function RI_AddDebugAnglesRad
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_PerpendicularVector referenced in function RI_AddDebugAnglesRad
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_DirFromAngles referenced in function RI_AddDebugAnglesRad
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorCompare referenced in function RI_AddDebugLabel
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize referenced in function RI_AddDebugAnglesRad
+gl1_FindSurface.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+r_Skeletons.obj : error LNK2001: unresolved external symbol __imp_VectorNormalize
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorNormalize2 referenced in function RI_AddDebugAnglesRad
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorMA referenced in function RI_AddDebugAnglesRad
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorMA
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorAverage referenced in function RI_AddDebugBbox
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorLerp referenced in function R_DrawDebugLabels
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_VectorLerp
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_CrossProduct referenced in function RI_AddDebugAnglesRad
+gl1_FindSurface.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_CrossProduct
+gl1_Surface.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+r_SkeletonLerp.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+gl1_Debug.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+gl1_FindSurface.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorSubtract
+gl1_Debug.obj : error LNK2019: unresolved external symbol __imp_VectorAdd referenced in function R_DrawDebugPrimitives
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+gl1_Surface.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+r_SkeletonLerp.obj : error LNK2001: unresolved external symbol __imp_VectorAdd
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+gl1_Debug.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+gl1_Misc.obj : error LNK2001: unresolved external symbol __imp_VectorSet
+r_Skeletons.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Surface.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Warp.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+r_SkeletonLerp.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Lightmap.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Main.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Model.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Debug.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_FindSurface.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_VectorCopy
+gl1_Surface.obj : error LNK2019: unresolved external symbol __imp_VectorScale referenced in function R_DrawWorld
+gl1_Warp.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+gl1_Debug.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+gl1_Main.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+gl1_Sprite.obj : error LNK2001: unresolved external symbol __imp_VectorScale
+gl1_Draw.obj : error LNK2019: unresolved external symbol __imp_Com_sprintf referenced in function Draw_FindPic
+gl1_Model.obj : error LNK2001: unresolved external symbol __imp_Com_sprintf
+gl1_DrawCinematic.obj : error LNK2019: unresolved external symbol __imp_TextPalette referenced in function Draw_Cinematic
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Surface.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Warp.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Main.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Matrix4.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Misc.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Model.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_FindSurface.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_Lightmap.obj : error LNK2001: unresolved external symbol __imp_DotProduct
+gl1_FindSurface.obj : error LNK2019: unresolved external symbol __imp_Vec3NotZero referenced in function FindSurfaceR
+gl1_FlexModel.obj : error LNK2019: unresolved external symbol __imp_LerpFloat referenced in function R_DrawFlexFrameLerp
+gl1_FlexModel.obj : error LNK2019: unresolved external symbol __imp_AngleVectors referenced in function R_CullFlexModel
+gl1_Main.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+gl1_Surface.obj : error LNK2001: unresolved external symbol __imp_AngleVectors
+gl1_Warp.obj : error LNK2019: unresolved external symbol __imp_Vec3AddAssign referenced in function R_SubdividePolygon
+r_SkeletonLerp.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+r_Skeletons.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+gl1_Misc.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_Vec3AddAssign
+r_Skeletons.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+gl1_FlexModel.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+gl1_Misc.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+r_SkeletonLerp.obj : error LNK2001: unresolved external symbol __imp_Vec3ScaleAssign
+gl1_Image.obj : error LNK2019: unresolved external symbol __imp_ClampI referenced in function R_InitGammaTable
+gl1_Light.obj : error LNK2001: unresolved external symbol __imp_ClampI
+gl1_Main.obj : error LNK2001: unresolved external symbol __imp_ClampI
+gl1_Light.obj : error LNK2019: unresolved external symbol __imp_Clamp referenced in function R_InitMinlight
+gl1_Sky.obj : error LNK2001: unresolved external symbol __imp_Clamp
+gl1_Light.obj : error LNK2019: unresolved external symbol __imp_VectorSeparation referenced in function R_LightPoint
+gl1_Light.obj : error LNK2019: unresolved external symbol __imp_VectorClear referenced in function R_SetPointColor
+gl1_Warp.obj : error LNK2001: unresolved external symbol __imp_VectorClear
+gl1_Light.obj : error LNK2019: unresolved external symbol __imp_Vec3IsZero referenced in function R_LightPoint
+gl1_Main.obj : error LNK2019: unresolved external symbol __imp_RotatePointAroundVector referenced in function R_RenderView
+gl1_Main.obj : error LNK2019: unresolved external symbol __imp_VectorLength referenced in function R_RenderView
+gl1_Model.obj : error LNK2001: unresolved external symbol __imp_VectorLength
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GetError referenced in function RI_InitContext
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_GetProcAddress referenced in function RI_InitContext
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_SetAttribute referenced in function RI_PrepareForWindow
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_CreateContext referenced in function RI_InitContext
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_SetSwapInterval referenced in function RI_InitContext
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_GetSwapInterval referenced in function RI_InitContext
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_SwapWindow referenced in function RI_EndFrame
+gl1_SDL.obj : error LNK2019: unresolved external symbol SDL_GL_DestroyContext referenced in function RI_ShutdownContext
+gl1_Sky.obj : error LNK2019: unresolved external symbol __imp_va referenced in function RI_SetSky
+gl1_Sky.obj : error LNK2019: unresolved external symbol __imp_VectorAbs referenced in function R_DrawSkyPolygon
+gl1_Sprite.obj : error LNK2019: unresolved external symbol __imp_DirAndUpFromAngles referenced in function R_DrawSpriteModel
+gl1_Warp.obj : error LNK2019: unresolved external symbol __imp_ClearBounds referenced in function R_BoundPoly
+r_SkeletonLerp.obj : error LNK2019: unresolved external symbol __imp_TransformPoint referenced in function LerpReferences
+r_SkeletonLerp.obj : error LNK2019: unresolved external symbol __imp_Vec3SubtractAssign referenced in function LerpStandardSkeleton
+r_Skeletons.obj : error LNK2001: unresolved external symbol __imp_Vec3SubtractAssign
+r_SkeletonLerp.obj : error LNK2019: unresolved external symbol __imp_HACK_Pitch_Adjust referenced in function LerpReferences
+r_Skeletons.obj : error LNK2019: unresolved external symbol __imp_Matrix3MultByMatrix3 referenced in function FinishJointRotations
+r_Skeletons.obj : error LNK2019: unresolved external symbol __imp_Matrix3MultByVec3 referenced in function SetupJointRotations
+r_Skeletons.obj : error LNK2019: unresolved external symbol __imp_Matrix3FromAngles referenced in function FinishJointRotations
+r_Skeletons.obj : error LNK2019: unresolved external symbol __imp_Matricies3FromDirAndUp referenced in function FinishJointRotations
+r_Skeletons.obj : error LNK2019: unresolved external symbol __imp_RotatePointAboutLocalOrigin referenced in function RotateDecendents
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\lib\SDL3\SDL3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\..\build\H2Common.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+..\..\build\ref_gl1.dll : fatal error LNK1120: 50 unresolved externals

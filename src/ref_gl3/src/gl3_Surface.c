@@ -36,6 +36,22 @@ static vec3_t modelorg; // Relative to viewpoint.
 
 static msurface_t* r_alpha_surfaces;
 
+// Reflection pass state.
+static qboolean r_reflection_pass = false;  // True while rendering the reflection FBO.
+static float    s_water_plane_z   = 0.0f;   // Z of the last detected horizontal water plane (previous frame).
+static qboolean s_has_water_plane = false;  // True when s_water_plane_z is valid.
+
+void R_SetReflectionPass(const qboolean on) { r_reflection_pass = on; }
+msurface_t* R_GetAlphaSurfaces(void)                        { return r_alpha_surfaces; }
+void        R_SetAlphaSurfaces(msurface_t* s)               { r_alpha_surfaces = s; }
+qboolean    R_GetLastWaterPlaneZ(float* out_z)
+{
+	if (!s_has_water_plane)
+		return false;
+	*out_z = s_water_plane_z;
+	return true;
+}
+
 #pragma region ========================== ALPHA SURFACES RENDERING ==========================
 
 static int AlphaSurfComp(const AlphaSurfaceSortInfo_t* info1, const AlphaSurfaceSortInfo_t* info2)
@@ -110,7 +126,8 @@ static void R_DrawAlphaSurface(const msurface_t* fa)
 	if (fa->flags & SURF_DRAWTURB)
 	{
 		GL3_Set3DColor(ii, ii, ii, alpha);
-		R_EmitWaterPolys(fa, fa->flags & SURF_UNDULATE);
+		const qboolean use_reflect = gl3state.fboTexReflect != 0 && (int)r_reflections->value && s_has_water_plane;
+		R_EmitWaterPolys(fa, fa->flags & SURF_UNDULATE, use_reflect);
 		GL3_Set3DColor(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	else
@@ -359,7 +376,8 @@ static void R_RenderBrushPoly(const entity_t* ent, msurface_t* fa)
 		// Warp texture, no lightmaps.
 		const float ii = gl_state.inverse_intensity;
 		GL3_Set3DColor(ii, ii, ii, 1.0f);
-		R_EmitWaterPolys(fa, fa->flags & SURF_UNDULATE);
+		const qboolean use_reflect = !r_reflection_pass && gl3state.fboTexReflect != 0 && (int)r_reflections->value && s_has_water_plane;
+		R_EmitWaterPolys(fa, fa->flags & SURF_UNDULATE, use_reflect);
 		GL3_Set3DColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 		return;
@@ -467,6 +485,10 @@ static void R_DrawTextureChains(const entity_t* ent)
 
 	// Render warping (water) surfaces (no lightmaps).
 	{
+		// Reset water plane detection once per main (non-reflection) frame.
+		if (!r_reflection_pass)
+			s_has_water_plane = false;
+
 		image_t* image = &gltextures[0];
 		for (int i = 0; i < numgltextures; i++, image++)
 		{
@@ -474,8 +496,30 @@ static void R_DrawTextureChains(const entity_t* ent)
 				continue;
 
 			for (msurface_t* s = image->texturechain; s != NULL; s = s->texturechain)
+			{
 				if (s->flags & SURF_DRAWTURB)
-					R_RenderBrushPoly(ent, s);
+				{
+					if (!r_reflection_pass)
+					{
+						// Detect first horizontal water plane for the reflection pass next frame.
+						if (!s_has_water_plane)
+						{
+							const float nz = s->plane->normal[2];
+							if (nz > 0.7f || nz < -0.7f)
+							{
+								const glpoly_t* p = s->polys;
+								if (p != NULL)
+								{
+									s_water_plane_z   = p->verts[0][2];
+									s_has_water_plane = true;
+								}
+							}
+						}
+						R_RenderBrushPoly(ent, s);
+					}
+					// Skip water rendering during reflection pass to prevent recursion.
+				}
+			}
 
 			image->texturechain = NULL;
 		}
@@ -537,7 +581,7 @@ static void R_DrawInlineBModel(const entity_t* ent)
 			{
 				R_RenderLightmappedPoly(ent, psurf);
 			}
-			else
+			else if (!r_reflection_pass || !(psurf->flags & SURF_DRAWTURB))
 			{
 				R_RenderBrushPoly(ent, psurf);
 			}

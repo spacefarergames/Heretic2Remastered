@@ -1,0 +1,19 @@
+﻿  q_shared.c
+  ByteOrder.c
+  Common.c
+  Console.c
+  DllMain.c
+  InfoStrings.c
+  Math.c
+  Matrix.c
+  Motion.c
+  q_Physics.c
+  Random.c
+  ResourceManager.c
+  SinglyLinkedList.c
+  SurfaceProps.c
+  TextPalette.c
+  Vector.c
+C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(1415,5): warning MSB8012: TargetPath(C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\H2Common.dll) does not match the Linker's OutputFile property value (C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\H2Common.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     Creating library C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\H2Common.lib and object C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\H2Common.exp
+  H2Common.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\x64\Release\H2Common.dll

@@ -16,6 +16,9 @@
 // The .pak files are just a linear collapse of a directory tree.
 #define IDPAKHEADER		(('K' << 24) + ('C' << 16) + ('A' << 8) + 'P')
 
+// Extended PAK format with longer filenames (128 chars instead of 56).
+#define IDPAK2HEADER	(('2' << 24) + ('K' << 16) + ('A' << 8) + 'P')
+
 typedef struct
 {
 	char name[56];
@@ -25,7 +28,14 @@ typedef struct
 
 typedef struct
 {
-	int ident; // == IDPAKHEADER
+	char name[128];
+	int filepos;
+	int filelen;
+} dpackfile2_t;
+
+typedef struct
+{
+	int ident; // == IDPAKHEADER or IDPAK2HEADER
 	int dirofs;
 	int dirlen;
 } dpackheader_t;

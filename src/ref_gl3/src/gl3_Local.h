@@ -53,6 +53,7 @@ extern cvar_t* r_fog_underwater;
 extern cvar_t* r_fog_underwater_lightmap_adjust;
 extern cvar_t* r_frameswap;
 extern cvar_t* r_references;
+extern cvar_t* r_reflections;
 
 extern cvar_t* gl_noartifacts;
 
@@ -308,6 +309,22 @@ typedef struct
 
 	// Projection params cached for SSAO reconstruction: {P[0], P[5], P[10], P[14]}.
 	float projParams[4];
+
+	// Planar water reflection FBO (half-res: reflect_width x reflect_height, RGBA16F, depth renderbuffer).
+	GLuint fboReflect;
+	GLuint fboTexReflect;     // RGBA16F color texture sampled by water shader.
+	GLuint rboReflectDepth;   // Depth renderbuffer (not sampled).
+	int    reflect_width;
+	int    reflect_height;
+
+	// Water surface shader (same 9-float vertex layout as shader3D, adds projective reflection).
+	GLuint shaderWater;
+	GLint  uniWater_projection;
+	GLint  uniWater_modelview;
+	GLint  uniWater_color;
+	GLint  uniWater_reflectTex;   // unit 1: reflection FBO texture.
+	GLint  uniWater_reflectAmt;   // blend factor.
+	GLint  uniWater_time;
 
 	// Lightmap GL texture IDs: [0] = dynamic, [1..MAX_LIGHTMAPS-1] = static.
 	GLuint lightmap_textures[MAX_LIGHTMAPS + 1];

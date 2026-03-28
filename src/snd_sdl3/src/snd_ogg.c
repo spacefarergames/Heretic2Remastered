@@ -26,6 +26,8 @@ static ogg_status_t ogg_status;
 static stb_vorbis* ogg_file;
 static qboolean ogg_started;
 
+static byte* ogg_pak_data; // Data buffer when loaded from PAK (must stay alive during playback).
+
 #define OGG_FADEIN_DURATION	1500 //mxd. In ms.
 static int ogg_fadein_time; //mxd.
 
@@ -86,17 +88,42 @@ void OGG_PlayTrack(const int track, const uint track_pos, const qboolean looping
 		OGG_Stop();
 	}
 
-	// Open ogg vorbis file.
-	char track_path[MAX_OSPATH];
-	sprintf_s(track_path, sizeof(track_path), "%s/music/Track%02i.ogg", si.FS_Gamedir(), track);
+	// Open ogg vorbis file. Try PAK filesystem first, then fall back to direct file I/O.
+	char rel_path[MAX_OSPATH];
+	sprintf_s(rel_path, sizeof(rel_path), "music/Track%02i.ogg", track);
 
 	int vorbis_error = VORBIS__no_error;
-	ogg_file = stb_vorbis_open_filename(track_path, &vorbis_error, NULL);
 
-	if (vorbis_error != VORBIS__no_error)
+	// Try loading from PAK filesystem (covers both PAK files and loose files in search paths).
+	void* data;
+	const int data_len = si.FS_LoadFile(rel_path, &data);
+
+	if (data != NULL && data_len > 0)
 	{
-		si.Com_Printf("OGG_PlayTrack: '%s' is not a valid Ogg Vorbis file (error %i).\n", track_path, vorbis_error);
-		return;
+		ogg_file = stb_vorbis_open_memory((const unsigned char*)data, data_len, &vorbis_error, NULL);
+
+		if (vorbis_error != VORBIS__no_error)
+		{
+			si.Com_Printf("OGG_PlayTrack: '%s' is not a valid Ogg Vorbis file (error %i).\n", rel_path, vorbis_error);
+			si.FS_FreeFile(data);
+			return;
+		}
+
+		ogg_pak_data = data; // Keep buffer alive for stb_vorbis streaming.
+	}
+	else
+	{
+		// Fall back to direct file path.
+		char track_path[MAX_OSPATH];
+		sprintf_s(track_path, sizeof(track_path), "%s/music/Track%02i.ogg", si.FS_Gamedir(), track);
+
+		ogg_file = stb_vorbis_open_filename(track_path, &vorbis_error, NULL);
+
+		if (vorbis_error != VORBIS__no_error)
+		{
+			si.Com_Printf("OGG_PlayTrack: '%s' is not a valid Ogg Vorbis file (error %i).\n", track_path, vorbis_error);
+			return;
+		}
 	}
 
 	if (track_pos > 0)
@@ -119,6 +146,13 @@ void OGG_Stop(void)
 		stb_vorbis_close(ogg_file);
 		ogg_status = OGG_STOP;
 		ogg_fadein_time = 0;
+
+		// Free PAK data buffer if it was used.
+		if (ogg_pak_data != NULL)
+		{
+			si.FS_FreeFile(ogg_pak_data);
+			ogg_pak_data = NULL;
+		}
 	}
 }
 
