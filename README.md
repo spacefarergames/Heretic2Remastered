@@ -56,12 +56,6 @@ In the event that it cannot find your installed copy, proceed to manual installa
 - If you have the original game CD, the engine will **automatically detect it** and extract the required PAK files — see the **CD Auto-Detection** section below. You can also copy the files manually, but make sure to update to v1.06 as described below, otherwise the game will not work correctly because of missing models/textures/sounds.
 - If you don't have the original game CD, you can purchase Heretic II from GOG or Steam, which both include the necessary game data files. Just make sure to point Remastered to the correct `base` folder where those files are located.
 
----
-**NOTICE**: make sure your copy of Heretic II is updated to v1.06, otherwise the game will not work correctly because of missing models/textures/sounds.
-- If you are not sure, the presence of "**base\models\items\Defense\tornado\tris.fm**" and "**base\models\items\Defense\tornado\!skin.pcx.m8**" files is a good indication that your copy is already updated to v1.06.
-- If said files are missing, you can either install [Heretic II v1.06 official patch](https://community.pcgamingwiki.com/files/file/1736-heretic-ii-enhancement-pack/) (also known as **Heretic II Enhancement Pack**), or extract [Heretic_II_Patch_106_for_H2R.zip](https://github.com/m-x-d/Heretic2R/tree/main/stuff) archive into Heretic II folder.
----
-
 **HD textures:**  
 Place PNG replacement textures in "**base\HDTextures**", mirroring the original texture paths. The renderer will automatically use them in place of the original `.m8`/`.m32` textures.  
 HD textures can also be loaded from `base.pak`.
@@ -228,7 +222,7 @@ The engine loads content from `base.pak`, `Htic2-0.pak` through `Htic2-9.pak`, a
 * Singleplayer works. The game is completable without any issues.
 * This version of the game does not include Multiplayer, and is not a planned feature.
 * By default, network protocol 55 is used (H2 protocol 51 is also supported, but not recommended). Can be changed using the "protocol" cvar.
-* Savegames are **NOT** compatible with original H2 savegames.
+* Savegames are **NOT** compatible with original H2 savegames nor prior 32bit builds.
 * **NOT** compatible with original H2 renderers (because of API changes).
 * **NOT** compatible with original H2 sound backends (because of API changes).
 * **NOT** compatible with original H2 gamex86/Player/Client Effects libraries (because of API changes).
@@ -236,7 +230,7 @@ The engine loads content from `base.pak`, `Htic2-0.pak` through `Htic2-9.pak`, a
 
 ## Planned features
 
-* None Currently, the project is complete.
+* See issues.
 
 ## Used libraries
 
