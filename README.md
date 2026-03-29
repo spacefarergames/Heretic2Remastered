@@ -43,6 +43,13 @@ Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, R
 
 **Game data:**  
 Heretic II Remastered requires Heretic II game data in order to run.
+
+**Automatic Installation**
+Since R7 release, Heretic 2 Remastered can automatically find and copy the required PAK files from any copy installed on your PC through Steam, GOG or original CD installation.
+If it finds the required data, it will copy in the background and start as soon as it's ready. No setup needed.
+In the event that it cannot find your installed copy, proceed to manual installation.
+
+**Manual Installation:**  
  
 – Copy "`Htic2-0.pak` and `Htic2-1.pak`) into the `base` folder of Heretic II Remastered.
 - Make sure you've downloaded the latest version of Remastered, which includes the base.pak, containing all the necessary HD textures, music OGGs, and HD videos. If you have an older version without base.pak, you can either update to the latest version or extract `base.pak` from the latest release and place it in the `base` folder.
