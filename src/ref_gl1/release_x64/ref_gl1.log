@@ -10,14 +10,14 @@
   gl1_Image.c
   gl1_Light.c
   gl1_Lightmap.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_DrawCinematic.c(25,36): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  gl1_Main.c
+  gl1_Misc.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(437,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(518,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(539,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(601,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(694,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_DrawCinematic.c(25,36): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-  gl1_Main.c
-  gl1_Misc.c
   gl1_Model.c
   gl1_SDL.c
   gl1_Sky.c

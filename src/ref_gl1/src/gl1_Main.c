@@ -96,6 +96,7 @@ static cvar_t* r_fog_underwater_color_a;
 static cvar_t* r_underwater_color;
 cvar_t* r_frameswap;
 cvar_t* r_references;
+cvar_t* r_antialiasing;
 
 cvar_t* gl_noartifacts;
 
@@ -665,6 +666,7 @@ static void R_Register(void)
 	r_underwater_color = ri.Cvar_Get("r_underwater_color", "0x70c06000", 0);
 	r_frameswap = ri.Cvar_Get("r_frameswap", "1.0", 0);
 	r_references = ri.Cvar_Get("r_references", "1.0", 0);
+	r_antialiasing = ri.Cvar_Get("r_antialiasing", "0", CVAR_ARCHIVE);
 
 	gl_noartifacts = ri.Cvar_Get("gl_noartifacts", "0", 0); // H2
 

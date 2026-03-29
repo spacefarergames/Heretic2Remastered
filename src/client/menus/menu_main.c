@@ -19,11 +19,12 @@
 #include <wininet.h>
 #pragma comment(lib, "wininet.lib")
 
-#define UPDATES_URL		"https://github.com/spacefarergames/Heretic2Remastered/releases"
-#define UPDATES_API_URL	"https://api.github.com/repos/spacefarergames/Heretic2Remastered/releases/latest"
+#define UPDATES_URL			"https://github.com/spacefarergames/Heretic2Remastered/releases"
+#define VERSIONDATE_URL		"https://raw.githubusercontent.com/spacefarergames/Heretic2Remastered/refs/heads/main/VERSIONDATE"
 
 cvar_t* m_banner_main;
 cvar_t* m_banner_updates;
+cvar_t* m_banner_online;
 
 static menuframework_t s_main_menu;
 
@@ -33,7 +34,10 @@ static menuaction_t s_video_action;
 static menuaction_t s_sound_action;
 static menuaction_t s_info_action;
 static menuaction_t s_updates_action;
+static menuaction_t s_online_action;
 static menuaction_t s_quit_action;
+
+static char name_updates[MAX_QPATH];
 
 static void MainGameFunc(void* data)		{ M_Menu_Game_f(); }
 static void MainOptionsFunc(void* data)		{ M_Menu_Options_f(); }
@@ -41,6 +45,11 @@ static void MainVideoFunc(void* data)		{ M_Menu_Video_f(); }
 static void MainSoundFunc(void* data)		{ M_Menu_Sound_f(); }
 static void MainInfoFunc(void* data)		{ M_Menu_Info_f(); }
 static void MainQuitFunc(void* data)		{ M_Menu_Quit_f(); }
+
+static void MainOnlineFunc(void* data)
+{
+	SDL_OpenURL("https://spacefarergames.com/heretic2remastered/");
+}
 
 static void MainCheckUpdatesFunc(void* data)
 {
@@ -51,7 +60,7 @@ static void MainCheckUpdatesFunc(void* data)
 		return;
 	}
 
-	HINTERNET h_url = InternetOpenUrlA(h_internet, UPDATES_API_URL, "Accept: application/vnd.github+json\r\n", (DWORD)-1,
+	HINTERNET h_url = InternetOpenUrlA(h_internet, VERSIONDATE_URL, NULL, 0,
 		INTERNET_FLAG_RELOAD | INTERNET_FLAG_SECURE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
 
 	if (h_url == NULL)
@@ -61,7 +70,7 @@ static void MainCheckUpdatesFunc(void* data)
 		return;
 	}
 
-	char response[4096];
+	char response[256];
 	DWORD bytes_read = 0;
 	DWORD total_read = 0;
 
@@ -83,45 +92,35 @@ static void MainCheckUpdatesFunc(void* data)
 		return;
 	}
 
-	// Parse "tag_name":"..." from JSON response.
-	const char* tag_key = "\"tag_name\":\"";
-	const char* tag_start = strstr(response, tag_key);
+	// Strip whitespace/newlines.
+	char* p = response;
+	while (*p == ' ' || *p == '\t' || *p == '\r' || *p == '\n')
+		p++;
 
-	if (tag_start == NULL)
-	{
-		// Try with space after colon.
-		tag_key = "\"tag_name\": \"";
-		tag_start = strstr(response, tag_key);
-	}
+	char* end = p + strlen(p) - 1;
+	while (end > p && (*end == ' ' || *end == '\t' || *end == '\r' || *end == '\n'))
+		*end-- = '\0';
 
-	if (tag_start == NULL)
+	const int remote_date = atoi(p);
+	const int local_date = atoi(VERSION_DATE);
+
+	if (remote_date <= 0)
 	{
-		Com_Printf("Check for Updates: could not parse release info.\n");
+		Com_Printf("Check for Updates: could not parse version date.\n");
 		return;
 	}
 
-	tag_start += strlen(tag_key);
-	const char* tag_end = strchr(tag_start, '"');
-
-	if (tag_end == NULL || tag_end - tag_start >= MAX_QPATH)
+	if (remote_date > local_date)
 	{
-		Com_Printf("Check for Updates: malformed tag in response.\n");
-		return;
-	}
-
-	char tag[MAX_QPATH];
-	const size_t tag_len = tag_end - tag_start;
-	memcpy(tag, tag_start, tag_len);
-	tag[tag_len] = '\0';
-
-	if (strcmp(tag, VERSIONDISP) != 0)
-	{
-		Com_Printf("New version available: %s (current: " VERSIONDISP ")\n", tag);
+		Com_Printf("New version available (remote: %d, local: %d).\n", remote_date, local_date);
 		SDL_OpenURL(UPDATES_URL);
 	}
 	else
 	{
 		Com_Printf("Up to date!\n");
+		Com_sprintf(name_updates, sizeof(name_updates), "\x02%s", "Up To Date");
+		s_updates_action.generic.width = re.BF_Strlen(name_updates);
+		s_updates_action.generic.flags |= QMF_GRAYED;
 	}
 }
 
@@ -132,7 +131,7 @@ static void Main_MenuInit(void)
 	static char name_video[MAX_QPATH];
 	static char name_sound[MAX_QPATH];
 	static char name_info[MAX_QPATH];
-	static char name_updates[MAX_QPATH];
+	static char name_online[MAX_QPATH];
 	static char name_quit[MAX_QPATH];
 
 	s_main_menu.nitems = 0;
@@ -199,11 +198,24 @@ static void Main_MenuInit(void)
 	if (Com_ServerState())
 		s_updates_action.generic.flags |= QMF_GRAYED;
 
+	Com_sprintf(name_online, sizeof(name_online), "\x02%s", m_banner_online->string);
+	s_online_action.generic.type = MTYPE_ACTION;
+	s_online_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
+	s_online_action.generic.x = 0;
+	s_online_action.generic.y = 192;
+	s_online_action.generic.name = name_online;
+	s_online_action.generic.width = re.BF_Strlen(name_online);
+	s_online_action.generic.callback = MainOnlineFunc;
+
+	// Disable when in-game.
+	if (Com_ServerState())
+		s_online_action.generic.flags |= QMF_GRAYED;
+
 	Com_sprintf(name_quit, sizeof(name_quit), "\x02%s", m_banner_quit->string);
 	s_quit_action.generic.type = MTYPE_ACTION;
 	s_quit_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_quit_action.generic.x = 0;
-	s_quit_action.generic.y = 192;
+	s_quit_action.generic.y = 224;
 	s_quit_action.generic.name = name_quit;
 	s_quit_action.generic.width = re.BF_Strlen(name_quit);
 	s_quit_action.generic.callback = MainQuitFunc;
@@ -214,6 +226,7 @@ static void Main_MenuInit(void)
 	Menu_AddItem(&s_main_menu, &s_sound_action);
 	Menu_AddItem(&s_main_menu, &s_info_action);
 	Menu_AddItem(&s_main_menu, &s_updates_action);
+	Menu_AddItem(&s_main_menu, &s_online_action);
 	Menu_AddItem(&s_main_menu, &s_quit_action);
 
 	Menu_Center(&s_main_menu);
@@ -237,6 +250,15 @@ static void M_Main_Draw(void)
 	s_main_menu.x = M_GetMenuLabelX(s_main_menu.width);
 	Menu_AdjustCursor(&s_main_menu, 1);
 	Menu_Draw(&s_main_menu);
+
+	// Draw version string in bottom-right corner when not in-game.
+	if (!Com_ServerState())
+	{
+		const int ver_x = viddef.width - ((int)strlen(VERSIONDISP) * ui_char_size + ui_char_size);
+		const int ver_y = viddef.height - ui_char_size * 2;
+		const paletteRGBA_t color = { .r = 255, .g = 255, .b = 255, .a = (byte)(cls.m_menualpha * 255.0f) };
+		DrawString(ver_x, ver_y, VERSIONDISP, color, -1);
+	}
 }
 
 static const char* M_Main_Key(const int key)

@@ -47,6 +47,7 @@ extern cvar_t* r_fog_underwater;
 extern cvar_t* r_fog_underwater_lightmap_adjust;
 extern cvar_t* r_frameswap;
 extern cvar_t* r_references;
+extern cvar_t* r_antialiasing;
 
 extern cvar_t* gl_noartifacts;
 

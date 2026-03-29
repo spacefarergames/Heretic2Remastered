@@ -55,6 +55,7 @@ extern cvar_t* r_frameswap;
 extern cvar_t* r_references;
 extern cvar_t* r_reflections;
 extern cvar_t* r_hd_textures;
+extern cvar_t* r_antialiasing;
 
 extern cvar_t* gl_noartifacts;
 

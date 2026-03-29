@@ -1,2 +1,18 @@
-﻿     Creating library ..\..\build\H2Common.lib and object ..\..\build\H2Common.exp
+﻿  q_shared.c
+  ByteOrder.c
+  Common.c
+  Console.c
+  DllMain.c
+  InfoStrings.c
+  Math.c
+  Matrix.c
+  Motion.c
+  q_Physics.c
+  Random.c
+  ResourceManager.c
+  SinglyLinkedList.c
+  SurfaceProps.c
+  TextPalette.c
+  Vector.c
+     Creating library ..\..\build\H2Common.lib and object ..\..\build\H2Common.exp
   H2Common.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\H2Common.dll

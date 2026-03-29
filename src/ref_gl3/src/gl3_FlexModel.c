@@ -546,15 +546,15 @@ static void R_DrawFlexFrameLerp(const fmdl_t* fmdl, entity_t* e, vec3_t shadelig
             if (num_verts == 0)
                 break;
 
-            GLenum prim;
+            qboolean is_fan;
             if (num_verts < 0)
             {
                 num_verts = -num_verts;
-                prim = GL_TRIANGLE_FAN;
+                is_fan = true;
             }
             else
             {
-                prim = GL_TRIANGLE_STRIP;
+                is_fan = false;
             }
 
             float vbuf[MAX_FM_VERTS * 9];
@@ -608,7 +608,40 @@ static void R_DrawFlexFrameLerp(const fmdl_t* fmdl, entity_t* e, vec3_t shadelig
                 order += 3;
             }
 
-            GL3_Draw3DPoly(prim, vbuf, num_verts);
+            // Expand triangle fans/strips into individual triangles to avoid
+            // driver-specific interpolation issues with legacy primitive types.
+            const int num_tris = num_verts - 2;
+            const int tri_verts = num_tris * 3;
+            static float tribuf[MAX_FM_VERTS * 3 * 9];
+
+            for (int t = 0; t < num_tris; t++)
+            {
+                float* dst = &tribuf[t * 3 * 9];
+
+                if (is_fan)
+                {
+                    memcpy(dst + 0 * 9, &vbuf[0 * 9], 9 * sizeof(float));
+                    memcpy(dst + 1 * 9, &vbuf[(t + 1) * 9], 9 * sizeof(float));
+                    memcpy(dst + 2 * 9, &vbuf[(t + 2) * 9], 9 * sizeof(float));
+                }
+                else
+                {
+                    if (t % 2 == 0)
+                    {
+                        memcpy(dst + 0 * 9, &vbuf[(t + 0) * 9], 9 * sizeof(float));
+                        memcpy(dst + 1 * 9, &vbuf[(t + 1) * 9], 9 * sizeof(float));
+                        memcpy(dst + 2 * 9, &vbuf[(t + 2) * 9], 9 * sizeof(float));
+                    }
+                    else
+                    {
+                        memcpy(dst + 0 * 9, &vbuf[(t + 1) * 9], 9 * sizeof(float));
+                        memcpy(dst + 1 * 9, &vbuf[(t + 0) * 9], 9 * sizeof(float));
+                        memcpy(dst + 2 * 9, &vbuf[(t + 2) * 9], 9 * sizeof(float));
+                    }
+                }
+            }
+
+            GL3_Draw3DPoly(GL_TRIANGLES, tribuf, tri_verts);
         }
 
         if (use_skin)

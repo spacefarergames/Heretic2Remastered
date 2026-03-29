@@ -755,6 +755,9 @@ void R_DrawSkyBox(void)
 {
 	static const int skytexorder[] = { 0, 2, 1, 3, 4, 5 };
 
+	if (sky_images[0] == NULL)
+		return;
+
 	// Disable depth writes to ensure skybox is always drawn behind everything.
 	glDepthMask(GL_FALSE);
 
@@ -810,6 +813,13 @@ void R_DrawSkyBox(void)
 		GL3_UpdateModelview3D(sky_mv);
 	}
 
+	// Sky panels must be visible from both the normal pass (glCullFace GL_FRONT)
+	// and the reflection pass (glCullFace GL_BACK). Disable face culling for the
+	// duration so the panels are never back-face-culled away.
+	GLboolean cull_was_enabled;
+	glGetBooleanv(GL_CULL_FACE, &cull_was_enabled);
+	glDisable(GL_CULL_FACE);
+
 	for (int i = 0; i < 6; i++)
 	{
 		// Always force full sky to draw to avoid culling artifacts.
@@ -851,6 +861,9 @@ void R_DrawSkyBox(void)
 
 		GL3_Draw3DPoly(GL_TRIANGLE_FAN, quad, 4);
 	}
+
+	if (cull_was_enabled)
+		glEnable(GL_CULL_FACE);
 
 	if (R_IsSilverpringMap())
 		R_DrawSkyStars();

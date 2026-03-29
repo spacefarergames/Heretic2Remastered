@@ -1,5 +1,5 @@
 //
-// snd_ogg.h
+// snd_sdl3.h
 //
 // Copyright 2025 mxd
 //
@@ -7,6 +7,8 @@
 #pragma once
 
 #include "snd_local.h"
+
+extern cvar_t* s_hrtf; //mxd. Toggle HRTF spatialization (OpenAL Soft Aureal 3D mode).
 
 extern qboolean SNDSDL3_BackendInit(void);
 extern void SNDSDL3_BackendShutdown(void);

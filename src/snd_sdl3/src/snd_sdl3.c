@@ -5,6 +5,7 @@
 //
 
 #include "snd_sdl3.h"
+#include "snd_al.h"
 #include "client.h"
 #include "snd_main.h"
 #include "snd_LowpassFilter.h"
@@ -32,6 +33,8 @@ static int snd_scaletable[32][256];
 static int snd_vol;
 
 static LpfContext_t lpf_context;
+
+cvar_t* s_hrtf; //mxd. Toggle HRTF spatialization (OpenAL Soft Aureal 3D mode).
 
 // Transfers a mixed "paint buffer" to the SDL output buffer and places it at the appropriate position.
 static void SNDSDL3_TransferPaintBuffer(const int endtime)
@@ -603,6 +606,80 @@ void SNDSDL3_RawSamples(const int num_samples, const uint rate, const int width,
 	}
 }
 
+// HRTF rendering path: uses OpenAL Soft loopback device with HRTF for per-source 3D spatialization.
+// Replaces the software mixer in SNDSDL3_PaintChannels when HRTF is active.
+static void SNDSDL3_PaintChannelsHRTF(const int endtime)
+{
+	static short al_render_buf[SDL_PAINTBUFFER_SIZE * 2]; // Stereo interleaved 16-bit.
+
+	AL_UpdateListener(listener_origin, listener_forward, listener_right, listener_up);
+
+	while (paintedtime < endtime)
+	{
+		// If paintbuffer is smaller than SDL buffer.
+		int end = min(endtime, paintedtime + SDL_PAINTBUFFER_SIZE);
+
+		// Start any playsounds.
+		while (true)
+		{
+			playsound_t* ps = s_pendingplays.next;
+
+			if (ps == NULL || ps == &s_pendingplays)
+				break;
+
+			if ((int)ps->begin <= paintedtime)
+			{
+				S_IssuePlaysound(ps);
+				continue;
+			}
+
+			if ((int)ps->begin < end)
+				end = (int)ps->begin;
+
+			break;
+		}
+
+		const int count = end - paintedtime;
+
+		// Sync engine channels to AL sources (starts, stops, repositions).
+		AL_UpdateSources(channels, MAX_CHANNELS);
+
+		// Render HRTF-spatialized audio from the loopback device.
+		memset(al_render_buf, 0, count * 2 * sizeof(short));
+		AL_RenderSamples(al_render_buf, count);
+
+		// Convert interleaved 16-bit stereo to paint buffer format (int left/right shifted up by 8).
+		for (int i = 0; i < count; i++)
+		{
+			paintbuffer[i].left = (int)al_render_buf[i * 2] << 8;
+			paintbuffer[i].right = (int)al_render_buf[i * 2 + 1] << 8;
+		}
+
+		// Apply underwater low-pass filter.
+		if ((int)s_camera_under_surface->value)
+			LPF_UpdateSamples(&lpf_context, count, paintbuffer);
+		else
+			lpf_context.is_history_initialized = false;
+
+		// Mix in raw samples (music / cinematics) — these are non-spatial.
+		if (s_rawend >= paintedtime)
+		{
+			const int stop = min(end, s_rawend);
+
+			for (int i = paintedtime; i < stop; i++)
+			{
+				const int s = i & (MAX_RAW_SAMPLES - 1);
+				paintbuffer[i - paintedtime].left += s_rawsamples[s].left;
+				paintbuffer[i - paintedtime].right += s_rawsamples[s].right;
+			}
+		}
+
+		// Transfer to SDL output buffer.
+		SNDSDL3_TransferPaintBuffer(end);
+		paintedtime = end;
+	}
+}
+
 // Runs every frame, handles all necessary sound calculations and fills the playback buffer.
 void SNDSDL3_Update(void)
 {
@@ -680,7 +757,11 @@ void SNDSDL3_Update(void)
 	endtime = (endtime + sound.submission_chunk - 1) & ~(sound.submission_chunk - 1);
 
 	const uint samps = sound.samples >> (sound.channels - 1);
-	SNDSDL3_PaintChannels(min(endtime, soundtime + samps));
+
+	if (AL_IsActive() && (int)s_hrtf->value)
+		SNDSDL3_PaintChannelsHRTF(min(endtime, soundtime + samps));
+	else
+		SNDSDL3_PaintChannels(min(endtime, soundtime + samps));
 }
 
 // Callback function for SDL. Writes sound data to SDL when requested.
@@ -806,6 +887,9 @@ qboolean SNDSDL3_BackendInit(void)
 	playpos = 0;
 	soundtime = 0;
 
+	// Register HRTF toggle cvar (disabled by default until loopback rendering issues are resolved).
+	s_hrtf = si.Cvar_Get("s_hrtf", "0", CVAR_ARCHIVE);
+
 	si.Com_Printf("SDL3 audio backend initialized.\n");
 
 	return true;
@@ -815,6 +899,9 @@ qboolean SNDSDL3_BackendInit(void)
 void SNDSDL3_BackendShutdown(void)
 {
 	si.Com_Printf("Closing SDL audio device...\n");
+
+	// Shut down OpenAL HRTF loopback device first.
+	AL_Shutdown();
 
 	SDL_PauseAudioDevice(SDL_GetAudioStreamDevice(stream));
 	SDL_DestroyAudioStream(stream);

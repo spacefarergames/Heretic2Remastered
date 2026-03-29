@@ -11,7 +11,7 @@
 #include "Vector.h"
 
 #define SNDLIB_DECLSPEC __declspec(dllexport)
-#define SNDLIB_NAME	"SDL3"
+#define SNDLIB_NAME	"SDL3 Aureal 3D"
 
 snd_import_t si;
 

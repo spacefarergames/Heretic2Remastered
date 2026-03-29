@@ -19,12 +19,14 @@ cvar_t* m_item_contrast;
 cvar_t* m_item_minlight; // YQ2
 cvar_t* m_item_detail;
 cvar_t* m_item_hd_mode;
+cvar_t* m_item_antialiasing;
 
 static float m_gamma;
 static float m_brightness;
 static float m_contrast;
 static float m_minlight; //mxd. gl_minlight when entering menu.
 static float m_hd_mode; //mxd. r_hd_textures when entering menu.
+static float m_antialiasing; //mxd. r_antialiasing when entering menu.
 
 static menuframework_t s_video_menu;
 
@@ -37,6 +39,7 @@ static menuslider_t s_contrast_slider;
 static menuslider_t s_minlight_slider; // YQ2
 static menuslider_t s_detail_slider;
 static menulist_t s_hd_mode_list;
+static menulist_t s_antialiasing_list;
 
 static const char* ref_list_titles[MAX_REFLIBS];
 static int initial_reflib_index; // vid_ref index when entering menu.
@@ -86,6 +89,12 @@ static void UpdateDetailFunc(void* self) // H2
 static void UpdateHDModeFunc(void* self)
 {
 	Cvar_SetValue("r_hd_textures", (float)s_hd_mode_list.curvalue);
+	vid_restart_required = true;
+}
+
+static void UpdateAntiAliasingFunc(void* self)
+{
+	Cvar_SetValue("r_antialiasing", (float)s_antialiasing_list.curvalue);
 	vid_restart_required = true;
 }
 
@@ -157,6 +166,7 @@ void VID_PreMenuInit(void)
 static void VID_MenuInit(void)
 {
 	static const char* target_fps_names[] = { "30", "60", "90", "120", "240", NULL }; //mxd
+	static const char* antialiasing_names[] = { "Off", "MSAA", "FXAA", NULL };
 
 	static char name_driver[MAX_QPATH];
 	static char name_vidmode[MAX_QPATH];
@@ -167,6 +177,7 @@ static void VID_MenuInit(void)
 	static char name_minlight[MAX_QPATH]; // YQ2
 	static char name_detail[MAX_QPATH];
 	static char name_hd_mode[MAX_QPATH];
+	static char name_antialiasing[MAX_QPATH];
 
 	VID_PreMenuInit();
 
@@ -175,12 +186,14 @@ static void VID_MenuInit(void)
 	m_contrast = Cvar_VariableValue("vid_contrast");
 	m_minlight = Cvar_VariableValue("gl_minlight"); // YQ2
 	m_hd_mode = Cvar_VariableValue("r_hd_textures");
+	m_antialiasing = Cvar_VariableValue("r_antialiasing");
 
 	s_video_menu.nitems = 0;
 
 	Cvar_SetValue("r_detail", Clamp(m_r_detail->value, 0.0f, 3.0f));
 	Cvar_SetValue("gl_minlight", Clamp(m_gl_minlight->value, 0.0f, 32.0f)); //mxd
 	Cvar_SetValue("vid_maxfps", Clamp(vid_maxfps->value, 30.0f, 240.0f)); //mxd
+	Cvar_SetValue("r_antialiasing", Clamp(Cvar_VariableValue("r_antialiasing"), 0.0f, 2.0f));
 
 	Com_sprintf(name_hd_mode, sizeof(name_hd_mode), "\x02%s", m_item_hd_mode->string);
 	s_hd_mode_list.generic.type = MTYPE_SPINCONTROL;
@@ -193,10 +206,21 @@ static void VID_MenuInit(void)
 	s_hd_mode_list.curvalue = (int)(Cvar_VariableValue("r_hd_textures") != 0.0f);
 	s_hd_mode_list.itemnames = yes_no_names;
 
+	Com_sprintf(name_antialiasing, sizeof(name_antialiasing), "\x02%s", m_item_antialiasing->string);
+	s_antialiasing_list.generic.type = MTYPE_SPINCONTROL;
+	s_antialiasing_list.generic.x = 0;
+	s_antialiasing_list.generic.y = 20;
+	s_antialiasing_list.generic.name = name_antialiasing;
+	s_antialiasing_list.generic.width = re.BF_Strlen(name_antialiasing);
+	s_antialiasing_list.generic.flags = QMF_SINGLELINE;
+	s_antialiasing_list.generic.callback = UpdateAntiAliasingFunc;
+	s_antialiasing_list.curvalue = (int)Cvar_VariableValue("r_antialiasing");
+	s_antialiasing_list.itemnames = antialiasing_names;
+
 	Com_sprintf(name_driver, sizeof(name_driver), "\x02%s", m_item_driver->string);
 	s_ref_list.generic.type = MTYPE_SPINCONTROL;
 	s_ref_list.generic.x = 0;
-	s_ref_list.generic.y = 20;
+	s_ref_list.generic.y = 40;
 	s_ref_list.generic.name = name_driver;
 	s_ref_list.generic.width = re.BF_Strlen(name_driver);
 	s_ref_list.curvalue = initial_reflib_index;
@@ -205,7 +229,7 @@ static void VID_MenuInit(void)
 	Com_sprintf(name_vidmode, sizeof(name_vidmode), "\x02%s", m_item_vidmode->string);
 	s_mode_list.generic.type = MTYPE_SPINCONTROL;
 	s_mode_list.generic.x = 0;
-	s_mode_list.generic.y = 60;
+	s_mode_list.generic.y = 80;
 	s_mode_list.generic.name = name_vidmode;
 	s_mode_list.generic.width = re.BF_Strlen(name_vidmode);
 	s_mode_list.curvalue = initial_vid_mode;
@@ -214,7 +238,7 @@ static void VID_MenuInit(void)
 	Com_sprintf(name_target_fps, sizeof(name_target_fps), "\x02%s", m_item_target_fps->string);
 	s_target_fps_list.generic.type = MTYPE_SPINCONTROL;
 	s_target_fps_list.generic.x = 0;
-	s_target_fps_list.generic.y = 100;
+	s_target_fps_list.generic.y = 120;
 	s_target_fps_list.generic.name = name_target_fps;
 	s_target_fps_list.generic.width = re.BF_Strlen(name_target_fps);
 	s_target_fps_list.generic.flags = QMF_SINGLELINE;
@@ -226,7 +250,7 @@ static void VID_MenuInit(void)
 	s_gamma_slider.generic.type = MTYPE_SLIDER;
 	s_gamma_slider.generic.flags = QMF_SELECT_SOUND;
 	s_gamma_slider.generic.x = 0;
-	s_gamma_slider.generic.y = 120;
+	s_gamma_slider.generic.y = 140;
 	s_gamma_slider.generic.name = name_gamma;
 	s_gamma_slider.generic.width = re.BF_Strlen(name_gamma);
 	s_gamma_slider.generic.callback = UpdateGammaFunc;
@@ -238,7 +262,7 @@ static void VID_MenuInit(void)
 	s_brightness_slider.generic.type = MTYPE_SLIDER;
 	s_brightness_slider.generic.flags = QMF_SELECT_SOUND;
 	s_brightness_slider.generic.x = 0;
-	s_brightness_slider.generic.y = 160;
+	s_brightness_slider.generic.y = 180;
 	s_brightness_slider.generic.name = name_brightness;
 	s_brightness_slider.generic.width = re.BF_Strlen(name_brightness);
 	s_brightness_slider.generic.callback = UpdateBrightnessFunc;
@@ -250,7 +274,7 @@ static void VID_MenuInit(void)
 	s_contrast_slider.generic.type = MTYPE_SLIDER;
 	s_contrast_slider.generic.flags = QMF_SELECT_SOUND;
 	s_contrast_slider.generic.x = 0;
-	s_contrast_slider.generic.y = 200;
+	s_contrast_slider.generic.y = 220;
 	s_contrast_slider.generic.name = name_contrast;
 	s_contrast_slider.generic.width = re.BF_Strlen(name_contrast);
 	s_contrast_slider.generic.callback = UpdateContrastFunc;
@@ -263,7 +287,7 @@ static void VID_MenuInit(void)
 	s_minlight_slider.generic.type = MTYPE_SLIDER;
 	s_minlight_slider.generic.flags = QMF_SELECT_SOUND;
 	s_minlight_slider.generic.x = 0;
-	s_minlight_slider.generic.y = 240;
+	s_minlight_slider.generic.y = 260;
 	s_minlight_slider.generic.name = name_minlight;
 	s_minlight_slider.generic.width = re.BF_Strlen(name_minlight);
 	s_minlight_slider.generic.callback = UpdateMinlightFunc;
@@ -275,7 +299,7 @@ static void VID_MenuInit(void)
 	s_detail_slider.generic.type = MTYPE_SLIDER;
 	s_detail_slider.generic.flags = QMF_SELECT_SOUND; //mxd. QMF_SELECT_SOUND flag was missing in original version.
 	s_detail_slider.generic.x = 0;
-	s_detail_slider.generic.y = 280;
+	s_detail_slider.generic.y = 300;
 	s_detail_slider.generic.name = name_detail;
 	s_detail_slider.generic.width = re.BF_Strlen(name_detail);
 	s_detail_slider.generic.callback = UpdateDetailFunc;
@@ -284,6 +308,7 @@ static void VID_MenuInit(void)
 	s_detail_slider.curvalue = m_r_detail->value; //mxd. Original version used Cvar_VariableValue("r_detail") here.
 
 	Menu_AddItem(&s_video_menu, &s_hd_mode_list);
+	Menu_AddItem(&s_video_menu, &s_antialiasing_list);
 	Menu_AddItem(&s_video_menu, &s_mode_list);
 	Menu_AddItem(&s_video_menu, &s_target_fps_list); //mxd
 	Menu_AddItem(&s_video_menu, &s_gamma_slider);

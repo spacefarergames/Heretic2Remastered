@@ -39,6 +39,7 @@ extern cvar_t* m_item_minlight; // YQ2
 extern cvar_t* m_item_detail;
 
 extern cvar_t* m_item_hd_mode;
+extern cvar_t* m_item_antialiasing;
 
 // Action keys.
 extern cvar_t* m_item_attack;

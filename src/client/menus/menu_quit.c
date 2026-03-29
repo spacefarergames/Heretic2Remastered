@@ -14,10 +14,20 @@ static menuframework_t s_quit_menu;
 static menuaction_t s_quit_yes_action;
 static menuaction_t s_quit_no_action;
 
-H2R_NORETURN static void QuitFunc(void* self) // H2
+static void QuitFunc(void* self) // H2
 {
-	cls.key_dest = key_console;
-	CL_Quit_f();
+	if (Com_ServerState())
+	{
+		// In-game: disconnect and return to main menu.
+		SV_Shutdown("Server quit\n", false);
+		CL_Disconnect();
+		M_Menu_Main_f();
+	}
+	else
+	{
+		cls.key_dest = key_console;
+		CL_Quit_f();
+	}
 }
 
 static void CancelFunc(void* self) // H2

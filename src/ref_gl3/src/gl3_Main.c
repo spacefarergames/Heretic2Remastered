@@ -113,6 +113,7 @@ static cvar_t* r_ssao_strength;
 static cvar_t* r_shadows;
 cvar_t* r_reflections;
 cvar_t* r_hd_textures;
+cvar_t* r_antialiasing;
 
 cvar_t* gl_noartifacts;
 
@@ -287,6 +288,7 @@ static void R_Register(void)
 	r_shadows         = ri.Cvar_Get("r_shadows",         "1",   CVAR_ARCHIVE);
 	r_reflections     = ri.Cvar_Get("r_reflections",     "1",   CVAR_ARCHIVE);
 	r_hd_textures     = ri.Cvar_Get("r_hd_textures",     "1",   CVAR_ARCHIVE);
+	r_antialiasing    = ri.Cvar_Get("r_antialiasing",    "0",   CVAR_ARCHIVE);
 
 	gl_noartifacts = ri.Cvar_Get("gl_noartifacts", "0", 0);
 
