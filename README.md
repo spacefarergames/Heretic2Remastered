@@ -7,6 +7,8 @@ Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, R
 ![Screenshot1](CorvusNight.png)
 ![Screenshot2](EnterThePalace.png)
 
+[VIDEO (YOUTUBE)](https://www.youtube.com/watch?v=xOLrOAykgWw&feature=youtu.be)
+
 ## Features
 
 * Widescreen support (with automatic HUD scaling).
