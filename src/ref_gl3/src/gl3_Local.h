@@ -54,6 +54,7 @@ extern cvar_t* r_fog_underwater_lightmap_adjust;
 extern cvar_t* r_frameswap;
 extern cvar_t* r_references;
 extern cvar_t* r_reflections;
+extern cvar_t* r_hd_textures;
 
 extern cvar_t* gl_noartifacts;
 
@@ -230,7 +231,7 @@ typedef struct
 	GLint uni3DLM_lightmap;
 	GLint uni3DLM_color;
 
-	// VAO/VBO for 2D drawing (8 floats/vert: pos2 + tc2 + col4).
+	// VAO/VBO for 2D drawing
 	GLuint vao2D;
 	GLuint vbo2D;
 
@@ -256,6 +257,16 @@ typedef struct
 	GLuint shaderPost;
 	GLint  uniPost_hdrBuffer;
 	GLint  uniPost_exposure;
+
+	// Fog uniforms for shaderPost (depth-based post-process fog).
+	GLint  uniPost_depthMap;
+	GLint  uniPost_fogEnabled;
+	GLint  uniPost_fogMode;
+	GLint  uniPost_fogColor;
+	GLint  uniPost_fogDensity;
+	GLint  uniPost_fogStart;
+	GLint  uniPost_fogEnd;
+	GLint  uniPost_fogNearFar;
 
 	// Full-screen quad VAO/VBO (4 verts: NDC pos2 + tc2).
 	GLuint vaoFSQ;
@@ -326,7 +337,7 @@ typedef struct
 	GLint  uniWater_reflectAmt;   // blend factor.
 	GLint  uniWater_time;
 
-	// Lightmap GL texture IDs: [0] = dynamic, [1..MAX_LIGHTMAPS-1] = static.
+	// Lightmap GL texture IDs
 	GLuint lightmap_textures[MAX_LIGHTMAPS + 1];
 } gl3state_t;
 

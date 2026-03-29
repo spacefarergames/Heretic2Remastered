@@ -22,6 +22,10 @@ extern void GL3_UpdateModelviewLM(const float* matrix4x4);
 extern void GL3_SetLMColor(float r, float g, float b, float a);
 extern void GL3_Set3DColor(float r, float g, float b, float a);
 
+// Fog configuration helpers.
+extern void GL3_SetFog(int enabled, int mode, float r, float g, float b, float density, float start, float end);
+extern void GL3_DisableFog(void);
+
 // Dynamic polygon drawing helpers.
 // GL3_DrawLMPoly: VERTEXSIZE=7 floats/vert (pos3+tc2+lmtc2), uses shader3DLightmap.
 extern void GL3_DrawLMPoly(const float* verts, int numverts);

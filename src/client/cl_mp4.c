@@ -32,6 +32,12 @@
 
 #define MP4_AUDIO_ACCUM_SIZE (512 * 1024) // 512 KB per-frame audio accumulator
 
+// Async loading states (accessed via InterlockedExchange).
+#define MP4_LOAD_IDLE     0  // No load in progress.
+#define MP4_LOAD_WORKING  1  // Background thread is running.
+#define MP4_LOAD_OK       2  // Thread finished successfully; main thread must finalise.
+#define MP4_LOAD_FAILED   3  // Thread finished with an error.
+
 typedef struct MP4PlaybackInfo_s
 {
 	IMFSourceReader* reader;
@@ -59,6 +65,11 @@ typedef struct MP4PlaybackInfo_s
 	qboolean valid;
 
 	qboolean com_initialized; // true if this call to MP4_Open did CoInitializeEx
+
+	// Async loading.
+	volatile LONG load_state;     // MP4_LOAD_* constant
+	HANDLE        load_thread;    // background thread handle
+	char          load_filepath[MAX_OSPATH]; // filepath passed to the worker
 } MP4PlaybackInfo_t;
 
 static MP4PlaybackInfo_t mpi;
@@ -146,12 +157,12 @@ static void ReadAudioForFrame(void)
 }
 
 // ============================================================
-// Public API.
+// Background loading thread.
 // ============================================================
 
-qboolean MP4_Open(const char* filepath)
+static DWORD WINAPI MP4_LoadThread(LPVOID param)
 {
-	memset(&mpi, 0, sizeof(mpi));
+	(void)param;
 
 	// Initialise COM on this thread (idempotent if already initialised).
 	HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
@@ -159,14 +170,14 @@ qboolean MP4_Open(const char* filepath)
 
 	if (FAILED(MFStartup(MF_VERSION, MFSTARTUP_NOSOCKET)))
 	{
-		Com_Printf("MP4_Open: MFStartup failed.\n");
 		if (mpi.com_initialized) CoUninitialize();
-		return false;
+		InterlockedExchange(&mpi.load_state, MP4_LOAD_FAILED);
+		return 1;
 	}
 
 	// Convert filepath to wide string for WMF.
 	WCHAR wpath[MAX_OSPATH];
-	MultiByteToWideChar(CP_ACP, 0, filepath, -1, wpath, MAX_OSPATH);
+	MultiByteToWideChar(CP_ACP, 0, mpi.load_filepath, -1, wpath, MAX_OSPATH);
 
 	// Enable automatic format conversion so the source reader will insert a
 	// colour-space/pixel-format MFT that converts to MFVideoFormat_RGB32.
@@ -181,10 +192,10 @@ qboolean MP4_Open(const char* filepath)
 
 	if (FAILED(create_hr))
 	{
-		Com_Printf("MP4_Open: MFCreateSourceReaderFromURL failed for '%s'.\n", filepath);
 		MFShutdown();
 		if (mpi.com_initialized) CoUninitialize();
-		return false;
+		InterlockedExchange(&mpi.load_state, MP4_LOAD_FAILED);
+		return 1;
 	}
 
 	// ---- Configure video output: MFVideoFormat_RGB32 (BGRA, bottom-up) ----
@@ -197,10 +208,7 @@ qboolean MP4_Open(const char* filepath)
 	IMFMediaType_Release(video_type);
 
 	if (FAILED(hr))
-	{
-		Com_Printf("MP4_Open: SetCurrentMediaType (video) failed.\n");
 		goto fail;
-	}
 
 	// Query actual video dimensions and frame rate.
 	IMFMediaType* actual_video = NULL;
@@ -242,11 +250,7 @@ qboolean MP4_Open(const char* filepath)
 	IMFMediaType_Release(actual_video);
 
 	if (fps_num == 0 || fps_den == 0 || mpi.vid_width == 0 || mpi.vid_height == 0)
-	{
-		Com_Printf("MP4_Open: invalid video format (fps=%u/%u, size=%dx%d).\n",
-			fps_num, fps_den, mpi.vid_width, mpi.vid_height);
 		goto fail;
-	}
 
 	mpi.fps = (float)fps_num / (float)fps_den;
 	mpi.frame_duration = (LONGLONG)(10000000.0 * fps_den / fps_num);
@@ -296,6 +300,62 @@ qboolean MP4_Open(const char* filepath)
 		mpi.audio_leftover_size = 0;
 	}
 
+	// Signal success — main thread will finalise (DrawInitCinematic, first frame).
+	InterlockedExchange(&mpi.load_state, MP4_LOAD_OK);
+	return 0;
+
+fail:
+	if (mpi.reader)        { IMFSourceReader_Release(mpi.reader); mpi.reader = NULL; }
+	if (mpi.video_frame)   { free(mpi.video_frame); mpi.video_frame = NULL; }
+	if (mpi.audio_accum)   { free(mpi.audio_accum); mpi.audio_accum = NULL; }
+	if (mpi.audio_leftover){ free(mpi.audio_leftover); mpi.audio_leftover = NULL; }
+	MFShutdown();
+	if (mpi.com_initialized) CoUninitialize();
+	InterlockedExchange(&mpi.load_state, MP4_LOAD_FAILED);
+	return 1;
+}
+
+// ============================================================
+// Public API.
+// ============================================================
+
+qboolean MP4_Open(const char* filepath)
+{
+	memset(&mpi, 0, sizeof(mpi));
+	strncpy(mpi.load_filepath, filepath, MAX_OSPATH - 1);
+	mpi.load_filepath[MAX_OSPATH - 1] = '\0';
+
+	InterlockedExchange(&mpi.load_state, MP4_LOAD_WORKING);
+
+	mpi.load_thread = CreateThread(NULL, 0, MP4_LoadThread, NULL, 0, NULL);
+	if (mpi.load_thread == NULL)
+	{
+		InterlockedExchange(&mpi.load_state, MP4_LOAD_IDLE);
+		Com_Printf("MP4_Open: CreateThread failed.\n");
+		return false;
+	}
+
+	Com_Printf("MP4_Open: loading '%s' on background thread...\n", filepath);
+	return true;
+}
+
+qboolean MP4_FinishOpen(void)
+{
+	if (mpi.load_thread != NULL)
+	{
+		WaitForSingleObject(mpi.load_thread, INFINITE);
+		CloseHandle(mpi.load_thread);
+		mpi.load_thread = NULL;
+	}
+
+	const LONG state = InterlockedCompareExchange(&mpi.load_state, MP4_LOAD_IDLE, MP4_LOAD_IDLE);
+	if (state != MP4_LOAD_OK)
+	{
+		Com_Printf("MP4_Open: background load failed for '%s'.\n", mpi.load_filepath);
+		memset(&mpi, 0, sizeof(mpi));
+		return false;
+	}
+
 	mpi.valid = true;
 
 	re.DrawInitCinematic(mpi.vid_width, mpi.vid_height);
@@ -305,21 +365,33 @@ qboolean MP4_Open(const char* filepath)
 		mpi.has_audio ? "on" : "off");
 
 	return true;
-
-fail:
-	if (mpi.reader)        { IMFSourceReader_Release(mpi.reader); mpi.reader = NULL; }
-	if (mpi.video_frame)   { free(mpi.video_frame); mpi.video_frame = NULL; }
-	if (mpi.audio_accum)   { free(mpi.audio_accum); mpi.audio_accum = NULL; }
-	if (mpi.audio_leftover){ free(mpi.audio_leftover); mpi.audio_leftover = NULL; }
-	MFShutdown();
-	if (mpi.com_initialized) CoUninitialize();
-	return false;
 }
 
 void MP4_Shutdown(void)
 {
+	// If a background load is still running, wait for it to finish.
+	if (mpi.load_thread != NULL)
+	{
+		WaitForSingleObject(mpi.load_thread, INFINITE);
+		CloseHandle(mpi.load_thread);
+		mpi.load_thread = NULL;
+	}
+
 	if (!mpi.valid)
+	{
+		// Thread may have allocated WMF resources before being shut down.
+		const LONG state = InterlockedCompareExchange(&mpi.load_state, MP4_LOAD_IDLE, MP4_LOAD_IDLE);
+		if (state == MP4_LOAD_OK || state == MP4_LOAD_FAILED)
+		{
+			if (mpi.reader)        { IMFSourceReader_Release(mpi.reader); mpi.reader = NULL; }
+			if (mpi.video_frame)   { free(mpi.video_frame); mpi.video_frame = NULL; }
+			if (mpi.audio_accum)   { free(mpi.audio_accum); mpi.audio_accum = NULL; }
+			if (mpi.audio_leftover){ free(mpi.audio_leftover); mpi.audio_leftover = NULL; }
+			if (state == MP4_LOAD_OK) { MFShutdown(); if (mpi.com_initialized) CoUninitialize(); }
+		}
+		memset(&mpi, 0, sizeof(mpi));
 		return;
+	}
 
 	re.DrawCloseCinematic();
 
@@ -336,6 +408,7 @@ void MP4_Shutdown(void)
 }
 
 qboolean MP4_IsOpen(void)    { return mpi.valid; }
+qboolean MP4_IsLoading(void) { return InterlockedCompareExchange(&mpi.load_state, MP4_LOAD_IDLE, MP4_LOAD_IDLE) == MP4_LOAD_WORKING; }
 qboolean MP4_AtEnd(void)     { return mpi.at_end; }
 int      MP4_GetWidth(void)  { return mpi.vid_width; }
 int      MP4_GetHeight(void) { return mpi.vid_height; }

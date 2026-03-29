@@ -9,7 +9,7 @@
 #include "H2Common.h"
 #include "GenericUnions.h"
 
-#define SLL_NODE_SIZE			8 //mxd. == sizeof(SinglyLinkedListNode_t)
+#define SLL_NODE_SIZE			(sizeof(GenericUnion4_t) + sizeof(void*)) //mxd. == sizeof(SinglyLinkedListNode_t)
 #define SLL_NODE_BLOCK_SIZE		256 //mxd
 
 typedef struct SinglyLinkedList_s

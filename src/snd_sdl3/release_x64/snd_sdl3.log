@@ -1,0 +1,384 @@
+﻿  snd_LowpassFilter.c
+  snd_main.c
+  snd_ogg.c
+  snd_sdl3.c
+  snd_wav.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1081,36): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1149,35): warning C4244: '=': conversion from 'int' to 'int16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1208,29): warning C4244: 'function': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1224,38): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1283,46): warning C4244: '=': conversion from 'unsigned int' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1348,11): warning C4244: 'return': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1556,22): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1613,14): warning C4456: declaration of 'z' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(1601,11):
+      see declaration of 'z'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2143,29): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2145,19): warning C4457: declaration of 'n' hides function parameter
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2104,75):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2157,23): warning C4456: declaration of 'z' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2140,20):
+      see declaration of 'z'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2159,23): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2189,29): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2191,19): warning C4457: declaration of 'n' hides function parameter
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2104,75):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2203,23): warning C4456: declaration of 'z' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2186,20):
+      see declaration of 'z'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2205,23): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2236,29): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2238,19): warning C4457: declaration of 'n' hides function parameter
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2104,75):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2255,23): warning C4456: declaration of 'c' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2109,8):
+      see declaration of 'c'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2263,26): warning C4457: declaration of 'n' hides function parameter
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(2104,75):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3213,25): warning C4244: '=': conversion from 'uint32' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3214,25): warning C4244: '=': conversion from 'uint32' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3223,19): warning C4456: declaration of 'n' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3183,14):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3231,22): warning C4456: declaration of 'n' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3183,14):
+      see declaration of 'n'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3232,41): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3257,51): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3259,59): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3262,42): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3264,42): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3267,31): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3331,11): warning C4456: declaration of 'n2' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3183,16):
+      see declaration of 'n2'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3332,14): warning C4457: declaration of 'm' hides function parameter
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3180,63):
+      see declaration of 'm'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3469,11): warning C4456: declaration of 'i' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3458,13):
+      see declaration of 'i'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3469,13): warning C4456: declaration of 'j' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3458,15):
+      see declaration of 'j'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3649,38): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3656,22): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3674,34): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3680,8): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3710,38): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3726,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3727,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3728,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3729,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3731,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3732,11): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3735,27): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3762,44): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3847,24): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3853,40): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3854,26): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3856,17): warning C4456: declaration of 'values' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3720,15):
+      see declaration of 'values'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3868,24): warning C4244: '=': conversion from 'int' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3873,17): warning C4456: declaration of 'len' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3583,8):
+      see declaration of 'len'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3929,23): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3940,27): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3944,21): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3945,20): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3946,29): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3947,30): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3948,32): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3949,45): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3951,31): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3957,26): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3959,42): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3964,52): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3965,38): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3967,42): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3975,46): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3976,25): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3983,38): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3990,23): warning C4244: '=': conversion from 'int' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4002,34): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4003,34): warning C4244: '=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4019,29): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4025,41): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4026,22): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4032,25): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4040,41): warning C4244: '=': conversion from 'uint32' to 'int16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4075,36): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4081,43): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4084,36): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4085,32): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4097,30): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4107,31): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4108,33): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4118,22): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4119,23): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4120,26): warning C4244: '=': conversion from 'uint32' to 'uint16', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4121,20): warning C4244: '=': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4161,11): warning C4456: declaration of 'i' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(3583,12):
+      see declaration of 'i'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4030,25): warning C4244: 'initializing': conversion from 'uint32' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4580,20): warning C4456: declaration of 'i' hides previous local declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4569,14):
+      see declaration of 'i'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4596,40): warning C4244: 'function': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4868,23): warning C4244: '+=': conversion from 'int' to 'uint8', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5028,52): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5174,17): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5198,24): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5238,25): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5288,25): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
+  (compiling source file 'src/snd_ogg.c')
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5309,65): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5328,53): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5346,59): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5386,62): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5426,65): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5453,53): warning C4459: declaration of 'channels' hides global declaration
+  (compiling source file 'src/snd_ogg.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
+      see declaration of 'channels'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_wav.c(166,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4758,1): warning C4701: potentially uninitialized local variable 'mid' used
+     Creating library ..\..\build\snd_sdl3.lib and object ..\..\build\snd_sdl3.exp
+  snd_sdl3.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\snd_sdl3.dll

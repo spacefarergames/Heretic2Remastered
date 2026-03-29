@@ -83,7 +83,8 @@ static const char* fragmentSource3D =
 	"        float atten = max(0.0, (uDlightPosRad[i].w - dist) / 256.0);\n"
 	"        dlightSum += uDlightColor[i].rgb * atten;\n"
 	"    }\n"
-	"    FragColor = vec4(base.rgb + dlightSum, base.a);\n"
+	"    vec3 lit = base.rgb + dlightSum;\n"
+	"    FragColor = vec4(lit, base.a);\n"
 	"}\n";
 
 // --- 3D color-only shader (no texture) ---
@@ -137,7 +138,8 @@ static const char* fragmentSource3DLM =
 	"void main() {\n"
 	"    vec4 diffuse = texture(uDiffuse, vTexCoord);\n"
 	"    vec4 lm = texture(uLightmap, vLMCoord);\n"
-	"    FragColor = vec4(diffuse.rgb * lm.rgb, diffuse.a) * uColor;\n"
+	"    vec3 lit = diffuse.rgb * lm.rgb;\n"
+	"    FragColor = vec4(lit, diffuse.a) * uColor;\n"
 	"    if (FragColor.a < 0.01) discard;\n"
 	"}\n";
 
@@ -159,16 +161,40 @@ static const char* fragmentSourcePost =
 	"uniform sampler2D uHDRBuffer;\n"
 	"uniform sampler2D uBloomBuffer;\n"
 	"uniform sampler2D uAOBuffer;\n"
+	"uniform sampler2D uDepthMap;\n"
 	"uniform float uExposure;\n"
 	"uniform float uBloomStrength;\n"
 	"uniform float uAOStrength;\n"
+	"uniform int  uFogEnabled;\n"
+	"uniform int  uFogMode;\n"
+	"uniform vec3 uFogColor;\n"
+	"uniform float uFogDensity;\n"
+	"uniform float uFogStart;\n"
+	"uniform float uFogEnd;\n"
+	"uniform vec2 uFogNearFar;\n"
 	"out vec4 FragColor;\n"
 	"void main() {\n"
 	"    vec3  hdr   = texture(uHDRBuffer,   vTexCoord).rgb;\n"
 	"    vec3  bloom = texture(uBloomBuffer, vTexCoord).rgb;\n"
 	"    float ao    = mix(1.0, texture(uAOBuffer, vTexCoord).r, uAOStrength);\n"
-	"    vec3  color = (hdr * ao + bloom * uBloomStrength) * uExposure;\n"
-	"    FragColor = vec4(color, 1.0);\n"
+	"    vec3  color = hdr * ao + bloom * uBloomStrength;\n"
+	"    if (uFogEnabled != 0) {\n"
+	"        float depth_ndc = texture(uDepthMap, vTexCoord).r * 2.0 - 1.0;\n"
+	"        float near = uFogNearFar.x;\n"
+	"        float far  = uFogNearFar.y;\n"
+	"        float linearDist = (2.0 * near * far) / (far + near - depth_ndc * (far - near));\n"
+	"        float fogFactor = 1.0;\n"
+	"        if (uFogMode == 0) {\n"
+	"            fogFactor = clamp((uFogEnd - linearDist) / (uFogEnd - uFogStart), 0.0, 1.0);\n"
+	"        } else if (uFogMode == 1) {\n"
+	"            fogFactor = exp(-uFogDensity * 0.5 * linearDist);\n"
+	"        } else {\n"
+	"            float d = uFogDensity * 0.5 * linearDist;\n"
+	"            fogFactor = exp(-d * d);\n"
+	"        }\n"
+	"        color = mix(uFogColor, color, fogFactor);\n"
+	"    }\n"
+	"    FragColor = vec4(color * uExposure, 1.0);\n"
 	"}\n";
 
 // --- Bloom bright-pass extract shader ---
@@ -294,7 +320,8 @@ static const char* vertexSourceWater =
 	"out vec4 vColor;\n"
 	"out vec4 vClipPos;\n"
 	"void main() {\n"
-	"    gl_Position = uProjection * uModelview * vec4(aPos, 1.0);\n"
+	"    vec4 viewPos = uModelview * vec4(aPos, 1.0);\n"
+	"    gl_Position = uProjection * viewPos;\n"
 	"    vClipPos    = gl_Position;\n"
 	"    vTexCoord   = aTexCoord;\n"
 	"    vColor      = aColor;\n"
@@ -320,7 +347,8 @@ static const char* fragmentSourceWater =
 	"             + cos(vTexCoord.y * 17.0 + uTime * 2.3) * 0.006;\n"
 	"    vec2 screenUV = clamp(vClipPos.xy / vClipPos.w * 0.5 + 0.5 + vec2(dx, dy), 0.0, 1.0);\n"
 	"    vec3 reflectColor = texture(uReflectTex, screenUV).rgb;\n"
-	"    FragColor = vec4(mix(waterColor.rgb, reflectColor, uReflectAmt), waterColor.a);\n"
+	"    vec3 blended = mix(waterColor.rgb, reflectColor, uReflectAmt);\n"
+	"    FragColor = vec4(blended, waterColor.a);\n"
 	"}\n";
 
 static GLuint CompileShader(GLenum type, const char* source)
@@ -457,7 +485,7 @@ qboolean GL3_InitShaders(void)
 	gl3state.uni3DLM_lightmap   = glGetUniformLocation(gl3state.shader3DLightmap, "uLightmap");
 	gl3state.uni3DLM_color      = glGetUniformLocation(gl3state.shader3DLightmap, "uColor");
 
-	// Bind sampler units once (they never change).
+	// Bind sampler units once
 	GL3_UseShader(gl3state.shader2D);
 	glUniform1i(gl3state.uni2D_texture, 0);
 	glUniform4f(gl3state.uni2D_color, 1.0f, 1.0f, 1.0f, 1.0f);
@@ -577,9 +605,20 @@ qboolean GL3_InitShaders(void)
 	gl3state.uniPost_hdrBuffer = glGetUniformLocation(gl3state.shaderPost, "uHDRBuffer");
 	gl3state.uniPost_exposure  = glGetUniformLocation(gl3state.shaderPost, "uExposure");
 
+	gl3state.uniPost_depthMap    = glGetUniformLocation(gl3state.shaderPost, "uDepthMap");
+	gl3state.uniPost_fogEnabled  = glGetUniformLocation(gl3state.shaderPost, "uFogEnabled");
+	gl3state.uniPost_fogMode     = glGetUniformLocation(gl3state.shaderPost, "uFogMode");
+	gl3state.uniPost_fogColor    = glGetUniformLocation(gl3state.shaderPost, "uFogColor");
+	gl3state.uniPost_fogDensity  = glGetUniformLocation(gl3state.shaderPost, "uFogDensity");
+	gl3state.uniPost_fogStart    = glGetUniformLocation(gl3state.shaderPost, "uFogStart");
+	gl3state.uniPost_fogEnd      = glGetUniformLocation(gl3state.shaderPost, "uFogEnd");
+	gl3state.uniPost_fogNearFar  = glGetUniformLocation(gl3state.shaderPost, "uFogNearFar");
+
 	GL3_UseShader(gl3state.shaderPost);
 	glUniform1i(gl3state.uniPost_hdrBuffer, 0);
 	glUniform1f(gl3state.uniPost_exposure, 1.0f);
+	glUniform1i(gl3state.uniPost_depthMap, 3);
+	glUniform1i(gl3state.uniPost_fogEnabled, 0);
 
 	// --- Create 1x1 white texture for color-only 2D drawing ---
 	{
@@ -793,6 +832,31 @@ void GL3_DrawWaterPoly(const GLenum mode, const float* verts, const int numverts
 }
 
 // ============================================================
+// Fog configuration helpers.
+// ============================================================
+
+void GL3_SetFog(const int enabled, const int mode, const float r, const float g, const float b, const float density, const float start, const float end)
+{
+	// Update post-process shader fog uniforms (depth-based fog applied after bloom).
+	GL3_UseShader(gl3state.shaderPost);
+	glUniform1i(gl3state.uniPost_fogEnabled, enabled);
+	if (enabled)
+	{
+		glUniform1i(gl3state.uniPost_fogMode, mode);
+		glUniform3f(gl3state.uniPost_fogColor, r, g, b);
+		glUniform1f(gl3state.uniPost_fogDensity, density);
+		glUniform1f(gl3state.uniPost_fogStart, start);
+		glUniform1f(gl3state.uniPost_fogEnd, end);
+		glUniform2f(gl3state.uniPost_fogNearFar, 1.0f, end);
+	}
+}
+
+void GL3_DisableFog(void)
+{
+	GL3_SetFog(0, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+}
+
+// ============================================================
 // FBO management.
 // ============================================================
 
@@ -811,17 +875,17 @@ qboolean GL3_InitFBO(const int width, const int height)
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gl3state.fboTex3D, 0);
 
-	// Depth texture (samplable by SSAO shader).
+	// Depth-stencil texture (depth samplable by SSAO shader, stencil used by shadow system).
 	glGenTextures(1, &gl3state.fboDepth3D);
 	glBindTexture(GL_TEXTURE_2D, gl3state.fboDepth3D);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, gl3state.fboDepth3D, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, gl3state.fboDepth3D, 0);
 
 	const GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -1050,6 +1114,11 @@ void GL3_CompositeHDR(const int w, const int h, const float exposure, const floa
 		? gl3state.fboTexSSAOBlur
 		: gl3state.whiteTexture;
 	glBindTexture(GL_TEXTURE_2D, ao_tex);
+
+	// Bind the depth texture to TMU3 for post-process fog.
+	glActiveTexture(GL_TEXTURE3);
+	if (gl3state.fboDepth3D != 0)
+		glBindTexture(GL_TEXTURE_2D, gl3state.fboDepth3D);
 
 	// Restore active unit to TMU0 so subsequent engine code isn't surprised.
 	glActiveTexture(GL_TEXTURE0);

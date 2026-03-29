@@ -675,6 +675,7 @@
     <ClCompile Include="g_save_defs.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="g_save_x86.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="decals.h">
@@ -1439,5 +1440,6 @@
     <ClInclude Include="m_plagueSsithra_moves.h">
       <Filter>src\Monsters\Plague Ssithra</Filter>
     </ClInclude>
+    <ClInclude Include="g_save_x86.h" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 //
 
 #include <setjmp.h>
+#include <windows.h>
 #include "client.h"
 #include "clfx_dll.h"
 #include "cl_camera.h"
@@ -14,6 +15,7 @@
 #include "cmodel.h"
 #include "ResourceManager.h"
 #include "snd_dll.h"
+#include "cd_audio.h"
 #include "Vector.h"
 #include "FlexModel.h"
 #include "g_playstats.h" //mxd
@@ -699,6 +701,93 @@ void CL_SaveConfig_f(void) // H2
 static void CL_Setenv_f(void)
 {
 	Com_Printf("setenv command not implemented\n"); //TODO: implement? What can it be used for?
+}
+
+// ============================================================
+// Async CM_LoadMap — runs BSP collision parsing on a background
+// thread so the main thread stays responsive (pumps messages
+// and renders the loading screen while waiting).
+// ============================================================
+
+#define LOADMAP_WORKING  0
+#define LOADMAP_OK       1
+#define LOADMAP_FAILED   2
+
+typedef struct
+{
+	char          mapname[MAX_QPATH];
+	qboolean      clientload;
+	uint           checksum;
+	volatile LONG  state; // LOADMAP_*
+} asyncloadmap_t;
+
+static asyncloadmap_t s_loadmap;
+
+static DWORD WINAPI CL_LoadMapThread(LPVOID param)
+{
+	(void)param;
+
+	// Install a thread-local setjmp target so that Com_Error(ERR_DROP) — which
+	// does longjmp(abortframe) — lands here instead of on the main thread's stack.
+	jmp_buf saved;
+	memcpy(saved, abortframe, sizeof(jmp_buf));
+
+	if (setjmp(abortframe) != 0)
+	{
+		// Com_Error fired — restore the main thread's abort target and signal failure.
+		memcpy(abortframe, saved, sizeof(jmp_buf));
+		InterlockedExchange(&s_loadmap.state, LOADMAP_FAILED);
+		return 1;
+	}
+
+	CM_LoadMap(s_loadmap.mapname, s_loadmap.clientload, &s_loadmap.checksum);
+
+	memcpy(abortframe, saved, sizeof(jmp_buf));
+	InterlockedExchange(&s_loadmap.state, LOADMAP_OK);
+	return 0;
+}
+
+// Runs CM_LoadMap on a background thread while keeping the main thread responsive.
+// On success, writes the map checksum to *out_checksum.
+// On failure, calls Com_Error on the main thread.
+static void CL_LoadMapAsync(const char* name, qboolean clientload, uint* out_checksum)
+{
+	strncpy(s_loadmap.mapname, name, MAX_QPATH - 1);
+	s_loadmap.mapname[MAX_QPATH - 1] = '\0';
+	s_loadmap.clientload = clientload;
+	s_loadmap.checksum = 0;
+	InterlockedExchange(&s_loadmap.state, LOADMAP_WORKING);
+
+	// Temporarily enable screen updates so the loading screen keeps rendering.
+	const qboolean saved_disable = cls.disable_screen;
+	cls.disable_screen = false;
+
+	HANDLE thread = CreateThread(NULL, 0, CL_LoadMapThread, NULL, 0, NULL);
+	if (thread == NULL)
+	{
+		// Fallback: synchronous load on the main thread.
+		cls.disable_screen = saved_disable;
+		CM_LoadMap(name, clientload, out_checksum);
+		return;
+	}
+
+	// Pump the message loop and render the loading screen while the thread works.
+	while (InterlockedCompareExchange(&s_loadmap.state, LOADMAP_WORKING, LOADMAP_WORKING) == LOADMAP_WORKING)
+	{
+		SCR_UpdateScreen();
+		IN_Update();
+		Sleep(1);
+	}
+
+	WaitForSingleObject(thread, INFINITE);
+	CloseHandle(thread);
+
+	cls.disable_screen = saved_disable;
+
+	if (InterlockedCompareExchange(&s_loadmap.state, LOADMAP_OK, LOADMAP_OK) != LOADMAP_OK)
+		Com_Error(ERR_DROP, "Failed to load map '%s'", name);
+
+	*out_checksum = s_loadmap.checksum;
 }
 
 void CL_RequestNextDownload(void)
@@ -1513,6 +1602,70 @@ void CL_Frame(const int packetdelta, const int renderdelta, const int timedelta,
 	}
 }
 
+#pragma region ========================== CD AUDIO MUSIC HOOK ==========================
+
+// When the Heretic II CD is present, intercept all se.MusicPlay / se.MusicStop / se.MusicGetCurrentTrackInfo
+// calls to route music playback through CD audio instead of OGG files.
+
+static void (*orig_MusicPlay)(int track, uint track_pos, qboolean looping);
+static void (*orig_MusicStop)(void);
+static void (*orig_MusicGetCurrentTrackInfo)(int* track, uint* track_pos, qboolean* looping);
+
+static int cd_hook_track;
+static qboolean cd_hook_looping;
+
+static void CDAudio_MusicPlayHook(const int track, const uint track_pos, const qboolean looping)
+{
+	if (CDAudio_IsActive())
+	{
+		if (track == 0)
+		{
+			CDAudio_Stop();
+			cd_hook_track = 0;
+			cd_hook_looping = false;
+		}
+		else
+		{
+			CDAudio_Play(track, looping);
+			cd_hook_track = track;
+			cd_hook_looping = looping;
+		}
+	}
+	else if (orig_MusicPlay != NULL)
+	{
+		orig_MusicPlay(track, track_pos, looping);
+	}
+}
+
+static void CDAudio_MusicStopHook(void)
+{
+	if (CDAudio_IsActive())
+	{
+		CDAudio_Stop();
+		cd_hook_track = 0;
+		cd_hook_looping = false;
+	}
+
+	if (orig_MusicStop != NULL)
+		orig_MusicStop();
+}
+
+static void CDAudio_MusicGetInfoHook(int* track, uint* track_pos, qboolean* looping)
+{
+	if (CDAudio_IsActive())
+	{
+		*track = cd_hook_track;
+		*track_pos = 0;
+		*looping = cd_hook_looping;
+	}
+	else if (orig_MusicGetCurrentTrackInfo != NULL)
+	{
+		orig_MusicGetCurrentTrackInfo(track, track_pos, looping);
+	}
+}
+
+#pragma endregion
+
 void CL_Init(void)
 {
 	if ((int)dedicated->value)
@@ -1527,6 +1680,19 @@ void CL_Init(void)
 	Con_Init();
 	VID_Init();
 	SND_Init(); //mxd. Originally initialized in Qcommon_Init() before CL_Init() call.
+	CDAudio_Init(); // Init CD audio after sound system.
+
+	// Hook music playback to route through CD audio when the Heretic II CD is present.
+	if (CDAudio_IsActive())
+	{
+		orig_MusicPlay = se.MusicPlay;
+		orig_MusicStop = se.MusicStop;
+		orig_MusicGetCurrentTrackInfo = se.MusicGetCurrentTrackInfo;
+
+		se.MusicPlay = CDAudio_MusicPlayHook;
+		se.MusicStop = CDAudio_MusicStopHook;
+		se.MusicGetCurrentTrackInfo = CDAudio_MusicGetInfoHook;
+	}
 
 	V_Init();
 
@@ -1578,6 +1744,7 @@ void CL_Shutdown(void)
 	CL_ClearGameMessages(); // H2
 	IN_Shutdown(); // YQ2
 	VID_Shutdown();
+	CDAudio_Shutdown(); // Shutdown CD audio before sound system.
 	SND_Shutdown(); //mxd
 	NET_Shutdown();
 	Z_FreeTags(0);

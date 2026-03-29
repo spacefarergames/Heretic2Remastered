@@ -206,6 +206,7 @@ static cvar_t* joy_sensitivity_pitch;
 static cvar_t* joy_sensitivity_move;
 static cvar_t* joy_trigger_threshold;
 static cvar_t* joy_invert_y;
+static cvar_t* joy_response_curve;
 static cvar_t* joy_layout; // 0 = default, 1 = southpaw
 
 // Accumulated stick state (reset each move frame).
@@ -251,6 +252,16 @@ static float IN_ApplyDeadzone(const float value, const float deadzone)
 	return sign * (fabsf(value) - deadzone) / (1.0f - deadzone);
 }
 
+// Applies a power response curve for finer low-deflection control.
+static float IN_ApplyResponseCurve(const float value, const float exponent)
+{
+	if (exponent == 1.0f)
+		return value;
+
+	const float sign = (value > 0.0f) ? 1.0f : -1.0f;
+	return sign * powf(fabsf(value), exponent);
+}
+
 static void IN_InitController(void)
 {
 	joy_enable = Cvar_Get("joy_enable", "1", CVAR_ARCHIVE);
@@ -260,6 +271,7 @@ static void IN_InitController(void)
 	joy_sensitivity_move = Cvar_Get("joy_sensitivity_move", "1.0", CVAR_ARCHIVE);
 	joy_trigger_threshold = Cvar_Get("joy_trigger_threshold", "0.12", CVAR_ARCHIVE);
 	joy_invert_y = Cvar_Get("joy_invert_y", "0", CVAR_ARCHIVE);
+	joy_response_curve = Cvar_Get("joy_response_curve", "1.5", CVAR_ARCHIVE);
 	joy_layout = Cvar_Get("joy_layout", "0", CVAR_ARCHIVE);
 
 	joy_axis_lx = 0.0f;
@@ -358,24 +370,24 @@ static void IN_ControllerMove(usercmd_t* cmd)
 		look_y = IN_ApplyDeadzone(joy_axis_ry, deadzone);
 	}
 
-	// Apply movement.
-	cmd->sidemove += (short)(move_x * move_scale * 127.0f);
-	cmd->forwardmove -= (short)(move_y * move_scale * 127.0f);
+	// Apply movement (scale matches keyboard MOVE_SCALER).
+	cmd->sidemove += (short)(move_x * move_scale * 64.0f);
+	cmd->forwardmove -= (short)(move_y * move_scale * 64.0f);
 
-	// Apply look.
+	// Apply look with optional response curve for finer precision at low deflections.
+	const float curve = joy_response_curve->value;
+	const float curved_lx = IN_ApplyResponseCurve(look_x, curve);
+	const float curved_ly = IN_ApplyResponseCurve(look_y, curve);
+
 	const float frame_time = cls.rframetime;
-	cl.delta_inputangles[YAW] -= look_x * joy_sensitivity_yaw->value * frame_time;
+	cl.delta_inputangles[YAW] -= curved_lx * joy_sensitivity_yaw->value * frame_time;
 
 	const float pitch_sign = (int)joy_invert_y->value ? -1.0f : 1.0f;
-	cl.delta_inputangles[PITCH] += look_y * joy_sensitivity_pitch->value * frame_time * pitch_sign;
+	cl.delta_inputangles[PITCH] += curved_ly * joy_sensitivity_pitch->value * frame_time * pitch_sign;
 
-	// Reset accumulated axis values.
-	joy_axis_lx = 0.0f;
-	joy_axis_ly = 0.0f;
-	joy_axis_rx = 0.0f;
-	joy_axis_ry = 0.0f;
-	joy_trigger_left = 0.0f;
-	joy_trigger_right = 0.0f;
+	// NOTE: Do NOT reset axis values here. SDL only sends axis events when
+	// values change, so the stored values represent the current stick position.
+	// Resetting them would kill input whenever a stick is held steady.
 }
 
 // Fires virtual arrow-key events from the left stick while a menu is open.

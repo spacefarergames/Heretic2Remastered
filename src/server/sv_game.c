@@ -412,7 +412,7 @@ static void SV_DebugGraph(const float value, const byte r, const byte g, const b
 // Init the game subsystem for a new map.
 void SV_InitGameProgs(void)
 {
-#define FX_BUF_SIZE			16 //mxd. == sizeof(EffectsBuffer_t)
+#define FX_BUF_SIZE			sizeof(EffectsBuffer_t) //mxd
 #define FX_BUF_BLOCK_SIZE	12 //mxd
 
 	game_import_t import;

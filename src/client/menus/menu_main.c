@@ -12,8 +12,18 @@
 #include "menu_quit.h"
 #include "menu_sound.h"
 #include "menu_video.h"
+#include "qcommon.h"
+
+#include <SDL3/SDL.h>
+#include <windows.h>
+#include <wininet.h>
+#pragma comment(lib, "wininet.lib")
+
+#define UPDATES_URL		"https://github.com/spacefarergames/Heretic2Remastered/releases"
+#define UPDATES_API_URL	"https://api.github.com/repos/spacefarergames/Heretic2Remastered/releases/latest"
 
 cvar_t* m_banner_main;
+cvar_t* m_banner_updates;
 
 static menuframework_t s_main_menu;
 
@@ -22,6 +32,7 @@ static menuaction_t s_options_action;
 static menuaction_t s_video_action;
 static menuaction_t s_sound_action;
 static menuaction_t s_info_action;
+static menuaction_t s_updates_action;
 static menuaction_t s_quit_action;
 
 static void MainGameFunc(void* data)		{ M_Menu_Game_f(); }
@@ -31,6 +42,89 @@ static void MainSoundFunc(void* data)		{ M_Menu_Sound_f(); }
 static void MainInfoFunc(void* data)		{ M_Menu_Info_f(); }
 static void MainQuitFunc(void* data)		{ M_Menu_Quit_f(); }
 
+static void MainCheckUpdatesFunc(void* data)
+{
+	HINTERNET h_internet = InternetOpenA("Heretic2R", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+	if (h_internet == NULL)
+	{
+		Com_Printf("Check for Updates: failed to connect.\n");
+		return;
+	}
+
+	HINTERNET h_url = InternetOpenUrlA(h_internet, UPDATES_API_URL, "Accept: application/vnd.github+json\r\n", (DWORD)-1,
+		INTERNET_FLAG_RELOAD | INTERNET_FLAG_SECURE | INTERNET_FLAG_NO_CACHE_WRITE, 0);
+
+	if (h_url == NULL)
+	{
+		InternetCloseHandle(h_internet);
+		Com_Printf("Check for Updates: failed to reach GitHub.\n");
+		return;
+	}
+
+	char response[4096];
+	DWORD bytes_read = 0;
+	DWORD total_read = 0;
+
+	while (InternetReadFile(h_url, response + total_read, sizeof(response) - total_read - 1, &bytes_read) && bytes_read > 0)
+	{
+		total_read += bytes_read;
+
+		if (total_read >= sizeof(response) - 1)
+			break;
+	}
+
+	response[total_read] = '\0';
+	InternetCloseHandle(h_url);
+	InternetCloseHandle(h_internet);
+
+	if (total_read == 0)
+	{
+		Com_Printf("Check for Updates: empty response from GitHub.\n");
+		return;
+	}
+
+	// Parse "tag_name":"..." from JSON response.
+	const char* tag_key = "\"tag_name\":\"";
+	const char* tag_start = strstr(response, tag_key);
+
+	if (tag_start == NULL)
+	{
+		// Try with space after colon.
+		tag_key = "\"tag_name\": \"";
+		tag_start = strstr(response, tag_key);
+	}
+
+	if (tag_start == NULL)
+	{
+		Com_Printf("Check for Updates: could not parse release info.\n");
+		return;
+	}
+
+	tag_start += strlen(tag_key);
+	const char* tag_end = strchr(tag_start, '"');
+
+	if (tag_end == NULL || tag_end - tag_start >= MAX_QPATH)
+	{
+		Com_Printf("Check for Updates: malformed tag in response.\n");
+		return;
+	}
+
+	char tag[MAX_QPATH];
+	const size_t tag_len = tag_end - tag_start;
+	memcpy(tag, tag_start, tag_len);
+	tag[tag_len] = '\0';
+
+	if (strcmp(tag, VERSIONDISP) != 0)
+	{
+		Com_Printf("New version available: %s (current: " VERSIONDISP ")\n", tag);
+		SDL_OpenURL(UPDATES_URL);
+	}
+	else
+	{
+		Com_Printf("Up to date!\n");
+	}
+}
+
 static void Main_MenuInit(void)
 {
 	static char name_game[MAX_QPATH];
@@ -38,6 +132,7 @@ static void Main_MenuInit(void)
 	static char name_video[MAX_QPATH];
 	static char name_sound[MAX_QPATH];
 	static char name_info[MAX_QPATH];
+	static char name_updates[MAX_QPATH];
 	static char name_quit[MAX_QPATH];
 
 	s_main_menu.nitems = 0;
@@ -91,11 +186,24 @@ static void Main_MenuInit(void)
 	if (!Com_ServerState())
 		s_info_action.generic.flags |= QMF_GRAYED;
 
+	Com_sprintf(name_updates, sizeof(name_updates), "\x02%s", m_banner_updates->string);
+	s_updates_action.generic.type = MTYPE_ACTION;
+	s_updates_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
+	s_updates_action.generic.x = 0;
+	s_updates_action.generic.y = 160;
+	s_updates_action.generic.name = name_updates;
+	s_updates_action.generic.width = re.BF_Strlen(name_updates);
+	s_updates_action.generic.callback = MainCheckUpdatesFunc;
+
+	// Disable when in-game.
+	if (Com_ServerState())
+		s_updates_action.generic.flags |= QMF_GRAYED;
+
 	Com_sprintf(name_quit, sizeof(name_quit), "\x02%s", m_banner_quit->string);
 	s_quit_action.generic.type = MTYPE_ACTION;
 	s_quit_action.generic.flags = (QMF_LEFT_JUSTIFY | QMF_SELECT_SOUND);
 	s_quit_action.generic.x = 0;
-	s_quit_action.generic.y = 160;
+	s_quit_action.generic.y = 192;
 	s_quit_action.generic.name = name_quit;
 	s_quit_action.generic.width = re.BF_Strlen(name_quit);
 	s_quit_action.generic.callback = MainQuitFunc;
@@ -105,6 +213,7 @@ static void Main_MenuInit(void)
 	Menu_AddItem(&s_main_menu, &s_video_action);
 	Menu_AddItem(&s_main_menu, &s_sound_action);
 	Menu_AddItem(&s_main_menu, &s_info_action);
+	Menu_AddItem(&s_main_menu, &s_updates_action);
 	Menu_AddItem(&s_main_menu, &s_quit_action);
 
 	Menu_Center(&s_main_menu);

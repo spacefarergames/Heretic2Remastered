@@ -647,6 +647,7 @@ typedef struct
 #define STAT_LIFEBAR_VALUE		33
 #define STAT_ARMOUR_ICON		34
 #define STAT_ARMOUR				35
+#define STAT_INTERACT			36		//mxd. Set when player is near an interactable object (button/lever).
 
 #define MAX_STATS				48
 

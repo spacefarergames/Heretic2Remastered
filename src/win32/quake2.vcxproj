@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -75,6 +75,7 @@
     <ClCompile Include="..\qcommon\cvar.c" />
     <ClCompile Include="..\qcommon\Debug.c" />
     <ClCompile Include="..\qcommon\files.c" />
+    <ClCompile Include="..\qcommon\cd_detect.c" />
     <ClCompile Include="..\qcommon\md4.c" />
     <ClCompile Include="..\qcommon\netmsg_read.c" />
     <ClCompile Include="..\qcommon\netmsg_write.c" />
@@ -98,6 +99,7 @@
     <ClCompile Include="net_wins.c" />
     <ClCompile Include="q_shwin.c" />
     <ClCompile Include="snd_dll.c" />
+    <ClCompile Include="cd_audio.c" />
     <ClCompile Include="sys_win.c" />
     <ClCompile Include="vid_dll.c" />
     <ClCompile Include="vid_Screenshot.c" />
@@ -167,6 +169,7 @@
     <ClInclude Include="..\qcommon\LevelMaps.h" />
     <ClInclude Include="..\qcommon\p_dll.h" />
     <ClInclude Include="..\qcommon\qcommon.h" />
+    <ClInclude Include="..\qcommon\cd_detect.h" />
     <ClInclude Include="..\qcommon\qfiles.h" />
     <ClInclude Include="..\qcommon\q_ClientServer.h" />
     <ClInclude Include="..\qcommon\q_Physics.h" />
@@ -180,6 +183,7 @@
     <ClInclude Include="..\qcommon\Vector.h" />
     <ClInclude Include="..\server\server.h" />
     <ClInclude Include="..\server\sv_effects.h" />
+    <ClInclude Include="cd_audio.h" />
     <ClInclude Include="clfx_dll.h" />
     <ClInclude Include="dll_io.h" />
     <ClInclude Include="Quake2Main.h" />
@@ -241,7 +245,14 @@
     <OutDir>..\..\build\</OutDir>
     <IntDir>.\debug\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\build\</OutDir>
+    <IntDir>.\debug_x64\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\build\</OutDir>
+    <IntDir>.\release_x64\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\build\</OutDir>
     <IntDir>.\release\</IntDir>
@@ -326,7 +337,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\build\quake2.dll</OutputFile>
       <AdditionalDependencies>SDL3.lib;mf.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -413,7 +424,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\..\build\quake2.dll</OutputFile>
       <AdditionalDependencies>SDL3.lib;mf.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;winmm.lib;wsock32.lib;H2Common.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\;$(SolutionDir)..\lib\SDL3\x64\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

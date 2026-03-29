@@ -413,7 +413,7 @@ void WeaponThink_SwordStaff(edict_t* caster, char* format, ...)
 			gi.sound(caster, CHAN_AUTO, gi.soundindex("weapons/staffhitwall.wav"), 1.0f, ATTN_NORM, 0.0f);
 
 			//NOTENOTE: -1 means that the last entity was a wall...
-			caster->client->lastentityhit = (edict_t*)0xFFFFFFFF;
+			caster->client->lastentityhit = (edict_t*)(intptr_t)-1;
 		}
 	}
 }

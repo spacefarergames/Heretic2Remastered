@@ -377,7 +377,7 @@ static void CL_PredictMovement_impl(void) //mxd. Surprisingly, NOT the biggest H
 	cl.playerinfo.meteor_count = cl.frame.playerstate.meteor_count;
 	cl.playerinfo.switchtoweapon = cl.frame.playerstate.switchtoweapon;
 	cl.playerinfo.plaguelevel = cl.frame.playerstate.plaguelevel;
-	cl.playerinfo.groundentity = (void*)(cl.frame.playerstate.NonNullgroundentity ? -1 : 0);
+	cl.playerinfo.groundentity = (cl.frame.playerstate.NonNullgroundentity ? (void*)(intptr_t)-1 : NULL);
 
 	if (cl.frame.playerstate.GroundSurface.flags != 0)
 	{
@@ -681,6 +681,12 @@ void CL_PredictMovement(void)
 		// Assume ETHEREAL TRAVEL.
 		VectorCopy(cl.playerinfo.origin, cl.predicted_origin);
 	}
+	else if (dist == 0)
+	{
+		// Not moving — snap directly to target to avoid micro-oscillation on slopes.
+		for (int i = 0; i < 3; i++)
+			cl.predicted_origin[i] = SHORT2POS(cl.predicted_origins[frame][i]);
+	}
 	else
 	{
 		//mxd. cl.predicted_origins[frame] will have the same value for same 'frame' on every CL_PredictMovement() call.
@@ -691,10 +697,6 @@ void CL_PredictMovement(void)
 			cl.predicted_origin[i] = prev_predicted_origin[i] + (new_pos - prev_predicted_origin[i]) * origin_lerp;
 		}
 	}
-
-	//mxd. Snap to network precision (fixes slight player model / camera jittering when standing on certain slopes (caused by offsetting player's origin in PM_SnapPosition()?)).
-	for (int i = 0; i < 3; i++)
-		cl.predicted_origin[i] = SHORT2POS(POS2SHORT(cl.predicted_origin[i]));
 
 	if (VectorCompare(cl.playerinfo.offsetangles, cl.frame.playerstate.offsetangles))
 	{

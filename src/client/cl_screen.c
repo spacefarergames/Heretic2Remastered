@@ -1088,6 +1088,22 @@ static void SCR_DrawInitialFadeIn(void)
 	re.DrawFill(0, 0, viddef.width, viddef.height, color);
 }
 
+//mxd. Draw "Interact" popup when player is near an interactable object.
+static void SCR_DrawInteractIndicator(void)
+{
+	if (cl.frame.playerstate.stats[STAT_INTERACT] == 0)
+		return;
+
+	const char* text = "Interact";
+	const int text_len = (int)strlen(text);
+	const int x = (viddef.width - text_len * ui_char_size) / 2;
+	const int y = viddef.height - 100 * ui_scale;
+
+	SCR_AddDirtyPoint(x, y);
+	SCR_AddDirtyPoint(x + text_len * ui_char_size, y + ui_char_size);
+	DrawString(x, y, text, TextPalette[P_WHITE], -1);
+}
+
 // This is called every frame, and can also be called explicitly to flush text to the screen.
 void SCR_UpdateScreen(void)
 {
@@ -1147,6 +1163,7 @@ void SCR_UpdateScreen(void)
 			SCR_DrawLayout();
 			SCR_DrawNet();
 			SCR_DrawNames(); // H2
+			SCR_DrawInteractIndicator(); //mxd
 			SCR_DrawCinematicBorders(); // H2
 			SCR_DrawGameMessage(); // H2
 

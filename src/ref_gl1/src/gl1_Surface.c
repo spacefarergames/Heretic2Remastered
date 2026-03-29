@@ -575,7 +575,7 @@ static void R_RenderFlatShadedBrushPoly(const entity_t* ent, msurface_t* fa) // 
 
 	// Use fa->polys pointer as random, but constant color...
 	paletteRGBA_t color;
-	color.c = (uint)fa->polys;
+	color.c = (uint)(uintptr_t)fa->polys;
 	glColor3ubv(color.c_array); //mxd. qglColor3f -> qglColor3ubv
 
 	glBegin(GL_POLYGON);

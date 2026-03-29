@@ -33,3 +33,4 @@ extern void R_SetFilter(const image_t* image);
 
 extern struct image_s* RI_RegisterSkin(const char* name, qboolean* retval);
 extern void R_GammaAffect(qboolean refresh_all);
+extern void R_HDTextureToggle(void);

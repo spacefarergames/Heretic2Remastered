@@ -177,17 +177,17 @@ void SCR_PlayCinematic(const char* name)
 			Com_Printf("Opening HD cinematic: '%s'...\n", hd_filepath);
 
 			if (MP4_Open(hd_filepath))
-			{
-				cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
-				cl.cinematictime = max(1, cl.cinematictime);
-				MP4_NextFrame(); // Prime first frame.
-				Cvar_SetValue("paused", 0);
-				cls.state = ca_connected;
-				SCR_EndLoadingPlaque();
-				In_FlushQueue();
-				cls.key_dest = key_game;
-				return;
-			}
+				{
+					// Background thread is loading; enter cinematic state now.
+					// SCR_RunCinematic will call MP4_FinishOpen and prime the first frame.
+					cl.cinematictime = max(1, cls.realtime);
+					Cvar_SetValue("paused", 0);
+					cls.state = ca_connected;
+					SCR_EndLoadingPlaque();
+					In_FlushQueue();
+					cls.key_dest = key_game;
+					return;
+				}
 		}
 
 		// Try loading from PAK filesystem (extract to temp file for WMF).
@@ -208,18 +208,17 @@ void SCR_PlayCinematic(const char* name)
 				Com_Printf("Opening HD cinematic from PAK: '%s'...\n", hd_relpath);
 
 				if (MP4_Open(cin_temp_file))
-				{
-					FS_FreeFile(data);
-					cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
-					cl.cinematictime = max(1, cl.cinematictime);
-					MP4_NextFrame();
-					Cvar_SetValue("paused", 0);
-					cls.state = ca_connected;
-					SCR_EndLoadingPlaque();
-					In_FlushQueue();
-					cls.key_dest = key_game;
-					return;
-				}
+					{
+						FS_FreeFile(data);
+						// Background thread is loading; enter cinematic state now.
+						cl.cinematictime = max(1, cls.realtime);
+						Cvar_SetValue("paused", 0);
+						cls.state = ca_connected;
+						SCR_EndLoadingPlaque();
+						In_FlushQueue();
+						cls.key_dest = key_game;
+						return;
+					}
 
 				// MP4_Open failed, clean up temp file.
 				remove(cin_temp_file);
@@ -242,6 +241,7 @@ void SCR_DrawCinematic(void) // Called every rendered frame.
 
 	if (MP4_IsOpen())
 		re.DrawCinematic(MP4_GetVideoFrame(), NULL); // NULL palette = BGRA MP4 frame
+	// While MP4_IsLoading(), we just show whatever the engine draws (black).
 }
 
 void SCR_RunCinematic(void) // Called every rendered frame.
@@ -249,9 +249,23 @@ void SCR_RunCinematic(void) // Called every rendered frame.
 	if (cl.cinematictime < 1)
 		return;
 
+	// Background thread still loading — keep the frame loop alive but don't advance.
+	if (MP4_IsLoading())
+		return;
+
+	// Background load finished — finalize on the main thread (GPU resources).
 	if (!MP4_IsOpen())
 	{
-		SCR_FinishCinematic();
+		if (!MP4_FinishOpen())
+		{
+			SCR_FinishCinematic();
+			return;
+		}
+
+		// Set cinematic time now that FPS is available, and prime the first frame.
+		cl.cinematictime = (int)((float)cls.realtime - 2000.0f / MP4_GetFPS());
+		cl.cinematictime = max(1, cl.cinematictime);
+		MP4_NextFrame();
 		return;
 	}
 
@@ -284,7 +298,7 @@ void SCR_RunCinematic(void) // Called every rendered frame.
 void SCR_StopCinematic(void)
 {
 	cl.cinematictime = 0; // Done
-	if (MP4_IsOpen())
+	if (MP4_IsOpen() || MP4_IsLoading())
 		MP4_Shutdown();
 
 	// Clean up temp file extracted from PAK.

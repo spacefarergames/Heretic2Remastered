@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -95,6 +95,7 @@
     <ClCompile Include="g_rope.c" />
     <ClCompile Include="g_save.c" />
     <ClCompile Include="g_save_defs.c" />
+    <ClCompile Include="g_save_x86.c" />
     <ClCompile Include="g_shrine.c" />
     <ClCompile Include="g_Skeletons.c" />
     <ClCompile Include="g_spawn.c" />
@@ -305,6 +306,7 @@
     <ClInclude Include="g_rope.h" />
     <ClInclude Include="g_save.h" />
     <ClInclude Include="g_save_defs.h" />
+    <ClInclude Include="g_save_x86.h" />
     <ClInclude Include="g_Shrine.h" />
     <ClInclude Include="g_ShrineLocal.h" />
     <ClInclude Include="g_Skeleton.h" />
@@ -509,7 +511,14 @@
     <OutDir>..\..\build\base\</OutDir>
     <IntDir>.\debug\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\build\base\</OutDir>
+    <IntDir>.\debug_x64\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\build\base\</OutDir>
+    <IntDir>.\release_x64\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\build\base\</OutDir>
     <IntDir>.\release\</IntDir>

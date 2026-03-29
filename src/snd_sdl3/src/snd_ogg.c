@@ -38,7 +38,11 @@ void OGG_Stream(void)
 	static short buffer[BUFFER_SIZE];
 
 	if (!ogg_started || ogg_status != OGG_PLAY)
+	{
+		// Update CD audio even when OGG isn't playing (in case CD audio is being used).
+		si.CDAudio_Update();
 		return;
+	}
 
 	//mxd. Setup fade-in effect.
 	float fadein_volume = 1.0f;
@@ -65,6 +69,9 @@ void OGG_Stream(void)
 			break; //mxd
 		}
 	}
+
+	// Update CD audio (for status checks even when OGG is playing).
+	si.CDAudio_Update();
 }
 
 void OGG_PlayTrack(const int track, const uint track_pos, const qboolean looping)
@@ -106,6 +113,14 @@ void OGG_PlayTrack(const int track, const uint track_pos, const qboolean looping
 		{
 			si.Com_Printf("OGG_PlayTrack: '%s' is not a valid Ogg Vorbis file (error %i).\n", rel_path, vorbis_error);
 			si.FS_FreeFile(data);
+
+			// Fall back to CD audio if available.
+			if (si.CDAudio_IsActive())
+			{
+				si.Com_Printf("OGG_PlayTrack: Falling back to CD audio for track %i.\n", track);
+				si.CDAudio_Play(track, looping);
+			}
+
 			return;
 		}
 
@@ -122,6 +137,14 @@ void OGG_PlayTrack(const int track, const uint track_pos, const qboolean looping
 		if (vorbis_error != VORBIS__no_error)
 		{
 			si.Com_Printf("OGG_PlayTrack: '%s' is not a valid Ogg Vorbis file (error %i).\n", track_path, vorbis_error);
+
+			// Fall back to CD audio if available.
+			if (si.CDAudio_IsActive())
+			{
+				si.Com_Printf("OGG_PlayTrack: Falling back to CD audio for track %i.\n", track);
+				si.CDAudio_Play(track, looping);
+			}
+
 			return;
 		}
 	}
@@ -154,6 +177,9 @@ void OGG_Stop(void)
 			ogg_pak_data = NULL;
 		}
 	}
+
+	// Also stop CD audio if it's playing.
+	si.CDAudio_Stop();
 }
 
 void OGG_GetCurrentTrackInfo(int* track, uint* track_pos, qboolean* looping) //mxd
@@ -182,6 +208,9 @@ void OGG_Init(void)
 	ogg_curtrack = 0; // Track 0 means "stop music".
 	ogg_status = OGG_STOP;
 	ogg_started = true;
+
+	// Initialize CD audio as fallback.
+	si.CDAudio_Init();
 }
 
 // Shutdown the Ogg Vorbis subsystem.
@@ -190,6 +219,7 @@ void OGG_Shutdown(void)
 	if (ogg_started)
 	{
 		OGG_Stop();
+		si.CDAudio_Shutdown();
 		ogg_started = false;
 	}
 }

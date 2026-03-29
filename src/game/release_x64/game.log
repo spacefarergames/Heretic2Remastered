@@ -1,0 +1,3 @@
+﻿  g_save.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(332,28): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  game.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll

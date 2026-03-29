@@ -9,6 +9,7 @@
 #include "client.h"
 #include "snd_dll.h" //mxd
 #include "clfx_dll.h"
+#include "cd_audio.h"
 
 snd_export_t se; //mxd
 
@@ -222,6 +223,13 @@ static void SndDll_Init(void)
 
 	si.Z_Malloc = Z_Malloc;
 	si.Z_Free = Z_Free;
+
+	si.CDAudio_Init = CDAudio_Init;
+	si.CDAudio_Shutdown = CDAudio_Shutdown;
+	si.CDAudio_Play = CDAudio_Play;
+	si.CDAudio_Stop = CDAudio_Stop;
+	si.CDAudio_Update = CDAudio_Update;
+	si.CDAudio_IsActive = CDAudio_IsActive;
 
 #ifdef _DEBUG
 	si.DBG_IDEPrint = DBG_IDEPrint;

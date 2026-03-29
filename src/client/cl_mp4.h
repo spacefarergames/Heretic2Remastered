@@ -8,9 +8,17 @@
 
 #include "../qcommon/qcommon.h"
 
-// Opens an MP4 file and initialises the WMF source reader.
-// Calls re.DrawInitCinematic on success.
+// Opens an MP4 file and starts WMF initialisation on a background thread.
+// Returns true if the background load was started successfully.
+// Call MP4_IsLoading / MP4_FinishOpen from the main thread to complete.
 qboolean    MP4_Open(const char* filepath);
+
+// Returns true while the background loading thread is still working.
+qboolean    MP4_IsLoading(void);
+
+// Finalises a successful background load on the main thread (creates GPU
+// resources via re.DrawInitCinematic).  Returns true on success.
+qboolean    MP4_FinishOpen(void);
 
 // Releases all WMF resources and calls re.DrawCloseCinematic.
 void        MP4_Shutdown(void);

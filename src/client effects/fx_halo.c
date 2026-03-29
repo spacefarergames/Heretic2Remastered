@@ -75,7 +75,7 @@ static qboolean HaloUpdate(client_entity_t* self, centity_t* owner)
 	//mxd. Randomize offsets and color of flame halo a bit.
 	if (!(self->flags & (CEF_NO_DRAW | CEF_FLAG7 | CEF_FLAG8)) && R_DETAIL > DETAIL_HIGH)
 	{
-		const float time = (float)(((int)self + fx_time) % 6283); // Use (int)self as unique (and free) timing offset, use modulo to avoid floating point errors. 6283 == (int)(ANGLE_360 * 1000.0f).
+		const float time = (float)(((intptr_t)self + fx_time) % 6283); // Use (intptr_t)self as unique (and free) timing offset, use modulo to avoid floating point errors. 6283 == (int)(ANGLE_360 * 1000.0f).
 
 		self->r.origin[0] = self->origin[0] + sinf(time / 85.0f + time / 221.0f) * 0.1f;
 		self->r.origin[1] = self->origin[1] + sinf(time / 75.0f + time / 233.0f) * 0.1f;

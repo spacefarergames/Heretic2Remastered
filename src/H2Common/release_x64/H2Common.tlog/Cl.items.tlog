@@ -1,0 +1,16 @@
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\q_shared.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\q_shared.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\ByteOrder.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\ByteOrder.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Common.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Common.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Console.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Console.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\DllMain.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\DllMain.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\InfoStrings.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\InfoStrings.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Math.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Math.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Matrix.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Matrix.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Motion.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Motion.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\q_Physics.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\q_Physics.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Random.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Random.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\ResourceManager.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\ResourceManager.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\SinglyLinkedList.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\SinglyLinkedList.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\SurfaceProps.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\SurfaceProps.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\TextPalette.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\TextPalette.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\Vector.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\H2Common\release\Vector.obj

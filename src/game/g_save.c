@@ -6,6 +6,7 @@
 
 #include "g_save.h" //mxd
 #include "g_save_defs.h" //mxd
+#include "g_save_x86.h" //mxd. x86 save compatibility
 #include "g_main.h" //mxd
 #include "g_playstats.h"
 #include "p_client.h" //mxd
@@ -297,39 +298,43 @@ static void ConvertField(field_t* field, byte* base, const char* obj_name) //mxd
 			break;
 
 		case F_LSTRING: // Convert string pointer to string length.
-		case F_GSTRING:
-			if (*(char**)p != NULL)
-				len = (int)strlen(*(char**)p) + 1;
-			else
-				len = 0;
-			*(int*)p = len;
-			break;
+			case F_GSTRING:
+				if (*(char**)p != NULL)
+					len = (int)strlen(*(char**)p) + 1;
+				else
+					len = 0;
+				memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
+				*(int*)p = len;
+				break;
 
 		case F_EDICT: // Convert edict pointer to edict index.
-			if (*(int*)p == -1) //mxd. Very special "hit world" case (probably used by gclient_t.lastentityhit only)...
-				index = -2;
-			else if (*(edict_t**)p != NULL)
-				index = *(edict_t**)p - g_edicts;
-			else
-				index = -1;
-			*(int*)p = index;
-			break;
+				if (*(edict_t**)p == (edict_t*)(intptr_t)-1) //mxd. Very special "hit world" case (probably used by gclient_t.lastentityhit only)...
+					index = -2;
+				else if (*(edict_t**)p != NULL)
+					index = (int)(*(edict_t**)p - g_edicts);
+				else
+					index = -1;
+				memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
+				*(int*)p = index;
+				break;
 
 		case F_CLIENT: // Convert client pointer to client index.
-			if (*(gclient_t**)p != NULL)
-				index = *(gclient_t**)p - game.clients;
-			else
-				index = -1;
-			*(int*)p = index;
-			break;
+				if (*(gclient_t**)p != NULL)
+					index = (int)(*(gclient_t**)p - game.clients);
+				else
+					index = -1;
+				memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
+				*(int*)p = index;
+				break;
 
 		case F_ITEM: // Convert item pointer to item index.
-			if (*(edict_t**)p != NULL)
-				index = *(gitem_t**)p - playerExport.p_itemlist;
-			else
-				index = -1;
-			*(int*)p = index;
-			break;
+				if (*(edict_t**)p != NULL)
+					index = *(gitem_t**)p - playerExport.p_itemlist;
+				else
+					index = -1;
+				memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
+				*(int*)p = index;
+				break;
 
 		case F_FUNCTION: // YQ2
 			if (*(byte**)p == NULL)
@@ -353,10 +358,11 @@ static void ConvertField(field_t* field, byte* base, const char* obj_name) //mxd
 				assert(len <= SAVE_FUNCNAME_MAX_LENGTH);
 			}
 
+			memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
 			*(int*)p = len;
 			break;
 
-		case F_ANIMMOVE: // YQ2
+		case F_ANIMMOVE:
 			if (*(byte**)p == NULL)
 			{
 				len = 0;
@@ -378,6 +384,7 @@ static void ConvertField(field_t* field, byte* base, const char* obj_name) //mxd
 				assert(len <= SAVE_FUNCNAME_MAX_LENGTH);
 			}
 
+			memset(p, 0, sizeof(void*)); //mxd. Zero full pointer-sized field before writing int (64-bit fix).
 			*(int*)p = len;
 			break;
 
@@ -447,7 +454,7 @@ static void ReadField(FILE* f, const field_t* field, byte* base)
 			break;
 
 		case F_CLEAR: //mxd. Some fields should not be restored...
-			*(int*)p = 0;
+			*(void**)p = NULL; //mxd. Zero full pointer-sized field (64-bit fix).
 			break;
 
 		case F_LSTRING:
@@ -468,7 +475,7 @@ static void ReadField(FILE* f, const field_t* field, byte* base)
 		case F_EDICT:
 			index = *(int*)p;
 			if (index == -2) //mxd. Very special "hit world" case (probably used by gclient_t.lastentityhit only)...
-				*(int*)p = -1;
+				*(edict_t**)p = (edict_t*)(intptr_t)-1;
 			else if (index == -1)
 				*(edict_t**)p = NULL;
 			else
@@ -657,7 +664,19 @@ void ReadGame(const char* filename)
 	if (game_size != sizeof(game_locals_t))
 	{
 		fclose(f);
-		gi.error("ReadGame: mismatched game locals size (expected %i, got %i).", sizeof(game_locals_t), game_size);
+
+		// Provide helpful message for x86/x64 mismatch
+		if (game_size < (int)sizeof(game_locals_t) && game_size > 0)
+		{
+			gi.error("ReadGame: Save file appears to be from 32-bit build (size %d vs %zu).\n"
+					 "32-bit saves cannot be loaded in 64-bit build.\n"
+					 "Please use 32-bit build to load and re-save, or start new game.",
+					 game_size, sizeof(game_locals_t));
+		}
+		else
+		{
+			gi.error("ReadGame: mismatched game locals size (expected %zu, got %i).", sizeof(game_locals_t), game_size);
+		}
 
 		return;
 	}
@@ -677,7 +696,7 @@ void ReadGame(const char* filename)
 	if (client_size != sizeof(gclient_t))
 	{
 		fclose(f);
-		gi.error("ReadGame: mismatched gclient size (expected %i, got %i).", sizeof(gclient_t), client_size);
+		gi.error("ReadGame: mismatched gclient size (expected %zu, got %i).", sizeof(gclient_t), client_size);
 
 		return;
 	}
@@ -722,6 +741,7 @@ static void ReadEdict(FILE* f, edict_t* ent)
 	ent->s.clientEffects.buf = NULL;
 	ent->Script = NULL;
 	ent->last_alert = NULL;
+	memset(ent->nextbuoy, 0, sizeof(ent->nextbuoy)); //mxd. Clear stale buoy navigation pointers (64-bit fix).
 
 	for (const field_t* field = &savefields[0]; field->name != NULL; field++)
 		ReadField(f, field, (byte*)ent);
@@ -783,7 +803,7 @@ static void ReadLevelLocals(FILE* f)
 	if (locals_size != sizeof(level_locals_t))
 	{
 		fclose(f);
-		gi.error("ReadLevelLocals: mismatched level locals size (expected %i, got %i).", sizeof(level_locals_t), locals_size);
+		gi.error("ReadLevelLocals: mismatched level locals size (expected %zu, got %i).", sizeof(level_locals_t), locals_size);
 
 		return;
 	}
@@ -810,6 +830,7 @@ static void ReadLevelLocals(FILE* f)
 	gi.cvar_set("r_fog_density", temp);
 
 	// These are pointers and should be reset.
+	level.current_entity = NULL; //mxd. Clear stale runtime pointer (64-bit fix).
 	level.alert_entity = NULL;
 	level.last_alert = NULL;
 
@@ -818,6 +839,7 @@ static void ReadLevelLocals(FILE* f)
 		level.alertents[i].inuse = false;
 		level.alertents[i].prev_alert = NULL;
 		level.alertents[i].next_alert = NULL;
+		level.alertents[i].enemy = NULL; //mxd. Clear stale edict pointer (64-bit fix).
 	}
 }
 
@@ -918,7 +940,19 @@ void ReadLevel(const char* filename)
 	if (ed_size != sizeof(edict_t))
 	{
 		fclose(f);
-		gi.error("ReadLevel: mismatched edict size");
+
+		// Provide helpful message for x86/x64 mismatch (x86 edict_t is 1680 bytes)
+		if (ed_size == 1680 || (ed_size < (int)sizeof(edict_t) && ed_size > 1000))
+		{
+			gi.error("ReadLevel: Save file appears to be from 32-bit build (edict size %d vs %zu).\n"
+					 "32-bit saves cannot be loaded in 64-bit build.\n"
+					 "Please use 32-bit build to load and re-save, or start new game.",
+					 ed_size, sizeof(edict_t));
+		}
+		else
+		{
+			gi.error("ReadLevel: mismatched edict size (expected %zu, got %d)", sizeof(edict_t), ed_size);
+		}
 
 		return;
 	}
@@ -979,7 +1013,7 @@ void ReadLevel(const char* filename)
 	if (fx_size != sizeof(PerEffectsBuffer_t))
 	{
 		fclose(f);
-		gi.error("ReadLevel: mismatched fx buffer size (expected %i, got %i).", sizeof(PerEffectsBuffer_t), fx_size);
+		gi.error("ReadLevel: mismatched fx buffer size (expected %zu, got %i).", sizeof(PerEffectsBuffer_t), fx_size);
 
 		return;
 	}

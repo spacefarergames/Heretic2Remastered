@@ -1096,7 +1096,6 @@ void CL_AddEntities(void)
 
 	//mxd. Use a float render-frame accumulator for smooth sub-frame entity interpolation,
 	// instead of the integer-truncated cl.time (cl.time += timedelta/1000 loses fractional ms).
-	// Mirrors the camera frame_delta and prediction origin_lerp patterns.
 	static float render_lerp_time; // Accumulated render time within current server frame (0..0.1 seconds).
 	static int last_serverframe;
 
@@ -1108,10 +1107,12 @@ void CL_AddEntities(void)
 	}
 	else
 	{
-		render_lerp_time = min(0.1f, render_lerp_time + cls.rframetime);
+		// Accumulate render frame time, capped at the server frame boundary.
+		render_lerp_time = min(render_lerp_time + cls.rframetime, 0.1f);
 	}
 
-	cl.lerpfrac = render_lerp_time * 10.0f;
+	// Calculate lerp fraction (0..1 range) directly from accumulated time.
+	cl.lerpfrac = Clamp(render_lerp_time * 10.0f, 0.0f, 1.0f);
 
 	if ((int)cl_timedemo->value)
 		cl.lerpfrac = 1.0f;

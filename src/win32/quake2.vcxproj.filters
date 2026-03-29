@@ -271,6 +271,7 @@
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="..\client\cl_mp4.c" />
+    <ClCompile Include="cd_audio.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\qcommon\qcommon.h">
@@ -522,5 +523,6 @@
     <ClInclude Include="..\client\cl_camera.h">
       <Filter>client</Filter>
     </ClInclude>
+    <ClInclude Include="cd_audio.h" />
   </ItemGroup>
 </Project>

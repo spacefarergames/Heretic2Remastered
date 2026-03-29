@@ -1,0 +1,38 @@
+﻿  glad.c
+  q_shared.c
+  anorms.c
+  Reference.c
+  Skeletons.c
+  turbsin.c
+  anormtab.c
+  gl1_Debug.c
+  gl1_Draw.c
+  gl1_DrawBook.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\glad-GL1.3\glad.c(97,38): warning C4267: 'initializing': conversion from 'size_t' to 'const unsigned int', possible loss of data
+  gl1_DrawCinematic.c
+  gl1_FindSurface.c
+  gl1_FlexModel.c
+  gl1_Image.c
+  gl1_Light.c
+  gl1_Lightmap.c
+  gl1_Main.c
+  gl1_Matrix4.c
+  gl1_Misc.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_DrawCinematic.c(25,36): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  gl1_Model.c
+  gl1_SDL.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(437,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(518,32): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(539,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(601,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Image.c(694,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  gl1_Sky.c
+  gl1_Sprite.c
+  gl1_Surface.c
+  gl1_Warp.c
+  Hunk.c
+  r_SkeletonLerp.c
+  r_Skeletons.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl1\src\gl1_Surface.c(578,12): warning C4311: 'type cast': pointer truncation from 'glpoly_t *' to 'uint'
+     Creating library ..\..\build\ref_gl1.lib and object ..\..\build\ref_gl1.exp
+  ref_gl1.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\ref_gl1.dll

@@ -1,10 +1,14 @@
 //
 // gl3_Shadow.c
 //
-// Dynamic planar shadow: BSP floor trace + model-silhouette projection.
+// Dynamic planar shadow: BSP trace + model-silhouette projection.
 // Each entity's interpolated flex-model geometry is re-rendered with a combined
-// (r_world_matrix x M_flat x M_entity) modelview that squishes every vertex
-// onto the traced floor plane, producing a true model-silhouette shadow.
+// (r_world_matrix x M_shadow x M_entity) modelview that squishes every vertex
+// onto the traced surface plane, producing a true model-silhouette shadow.
+//
+// Features:
+//   - Floor shadows: downward trace, straight-down projection (L = 0,0,-1).
+//   - Per-entity stencil overlap prevention (no triangle double-darkening).
 //
 
 #include "gl3_Shadow.h"
@@ -15,11 +19,50 @@
 #include "Vector.h"
 #include <math.h>
 
-#define SHADOW_TRACE_DIST   256.0f
-#define SHADOW_MAX_ALPHA    0.65f
+#define SHADOW_TRACE_DIST       256.0f
+#define SHADOW_MAX_ALPHA        0.65f
 
 // ============================================================
-// BSP downward trace.
+// Generalized shadow projection matrix.
+// ============================================================
+
+// Builds a 4x4 column-major planar projection matrix that projects world-space
+// points along direction L onto the plane defined by (N, d) where N·P = d.
+// Returns false if L is nearly parallel to the plane (degenerate).
+static qboolean BuildShadowMatrix(const vec3_t N, const float d, const vec3_t L, float out[16])
+{
+	const float ndl = DotProduct(N, L);
+	if (fabsf(ndl) < 0.001f)
+		return false;
+
+	const float inv = 1.0f / ndl;
+
+	// Column-major: out[col*4 + row]
+	out[0]  = 1.0f - L[0] * N[0] * inv;
+	out[1]  =      - L[1] * N[0] * inv;
+	out[2]  =      - L[2] * N[0] * inv;
+	out[3]  = 0.0f;
+
+	out[4]  =      - L[0] * N[1] * inv;
+	out[5]  = 1.0f - L[1] * N[1] * inv;
+	out[6]  =      - L[2] * N[1] * inv;
+	out[7]  = 0.0f;
+
+	out[8]  =      - L[0] * N[2] * inv;
+	out[9]  =      - L[1] * N[2] * inv;
+	out[10] = 1.0f - L[2] * N[2] * inv;
+	out[11] = 0.0f;
+
+	out[12] = L[0] * d * inv;
+	out[13] = L[1] * d * inv;
+	out[14] = L[2] * d * inv;
+	out[15] = 1.0f;
+
+	return true;
+}
+
+// ============================================================
+// BSP shadow trace (parameterized for floor and wall).
 // ============================================================
 
 static qboolean s_shadow_hit;
@@ -57,7 +100,7 @@ static void R_RecursiveShadowTrace(const mnode_t* node, const vec3_t start, cons
 	if (s_shadow_hit)
 		return;
 
-	// Check surfaces at this node for an upward-facing floor candidate.
+	// Check surfaces at this node.
 	const msurface_t* surf = &r_worldmodel->surfaces[node->firstsurface];
 	for (int i = 0; i < node->numsurfaces; i++, surf++)
 	{
@@ -65,8 +108,16 @@ static void R_RecursiveShadowTrace(const mnode_t* node, const vec3_t start, cons
 			continue;
 
 		const cplane_t* sp = surf->plane;
-		const float nz = (surf->flags & SURF_PLANEBACK) ? -sp->normal[2] : sp->normal[2];
-		if (nz < 0.5f)
+
+		// Compute geometric normal (accounting for SURF_PLANEBACK).
+		vec3_t geom_n;
+		if (surf->flags & SURF_PLANEBACK)
+			VectorNegate(sp->normal, geom_n);
+		else
+			VectorCopy(sp->normal, geom_n);
+
+		// Floor filter: geometric normal must point mostly upward.
+		if (geom_n[2] < 0.5f)
 			continue;
 
 		// Bounds check: verify the crossing point is inside the surface's ST extents.
@@ -84,9 +135,7 @@ static void R_RecursiveShadowTrace(const mnode_t* node, const vec3_t start, cons
 		if (ds > surf->extents[0] || dt > surf->extents[1])
 			continue;
 
-		// Compute the exact floor Z from the surface's own plane equation.
-		// The ray is purely vertical (X,Y = mid[0], mid[1] = start[0], start[1]).
-		// Plane: sp->normal · P = sp->dist  →  Pz = (dist - Nx·Px - Ny·Py) / Nz_geom
+		// Compute exact floor Z from the surface's plane equation.
 		const float geom_nz = sp->normal[2];
 		if (fabsf(geom_nz) < 0.001f)
 			continue;
@@ -97,21 +146,10 @@ static void R_RecursiveShadowTrace(const mnode_t* node, const vec3_t start, cons
 		if (hit_z > start[2] + 1.0f || hit_z < start[2] - SHADOW_TRACE_DIST)
 			continue;
 
-		s_shadow_hit = true;
-		s_shadow_hitpos[0] = mid[0];
-		s_shadow_hitpos[1] = mid[1];
-		s_shadow_hitpos[2] = hit_z;
+		VectorSet(s_shadow_hitpos, mid[0], mid[1], hit_z);
 
-		if (surf->flags & SURF_PLANEBACK)
-		{
-			s_shadow_hitnormal[0] = -sp->normal[0];
-			s_shadow_hitnormal[1] = -sp->normal[1];
-			s_shadow_hitnormal[2] = -sp->normal[2];
-		}
-		else
-		{
-			VectorCopy(sp->normal, s_shadow_hitnormal);
-		}
+		s_shadow_hit = true;
+		VectorCopy(geom_n, s_shadow_hitnormal);
 		return;
 	}
 
@@ -142,78 +180,25 @@ static qboolean R_ShadowTrace(const vec3_t origin, vec3_t out_pos, vec3_t out_no
 // Per-entity shadow projection.
 // ============================================================
 
-static void R_DrawEntityShadow(entity_t* ent)
+// Render the entity's mesh projected onto a single surface plane.
+static void R_ProjectEntityShadow(const entity_t* ent, const fmdl_t* fmdl,
+	const float M_entity[16], const vec3_t hit_normal, const vec3_t hit_pos,
+	const vec3_t light_dir, const float alpha)
 {
-	if (ent->model == NULL)
+	float M_shadow[16];
+	const float d = DotProduct(hit_normal, hit_pos);
+
+	if (!BuildShadowMatrix(hit_normal, d, light_dir, M_shadow))
 		return;
 
-	const model_t* mdl = *ent->model;
-	if (mdl == NULL || mdl->type != mod_fmdl)
-		return;
+	// shadow_mv = r_world_matrix × M_shadow × M_entity
+	float M_se[16], shadow_mv[16];
+	R_Mat4x4_Mul(M_se,      M_shadow,       M_entity);
+	R_Mat4x4_Mul(shadow_mv, r_world_matrix, M_se);
 
-	if (ent->flags & RF_TRANS_ANY)
-		return;
-
-	const fmdl_t* fmdl = (const fmdl_t*)mdl->extradata;
-	if (fmdl == NULL || fmdl->mesh_nodes == NULL || fmdl->glcmds == NULL)
-		return;
-
-	vec3_t hitpos, hitnormal;
-	if (!R_ShadowTrace(ent->origin, hitpos, hitnormal))
-		return;
-
-	// Height above floor: used to fade and reject out-of-range shadows.
-	const float height = ent->origin[2] - hitpos[2];
-	if (height < 0.0f || height >= SHADOW_TRACE_DIST)
-		return;
-
-	const float alpha = SHADOW_MAX_ALPHA * (1.0f - height / SHADOW_TRACE_DIST);
-	if (alpha < 0.01f)
-		return;
-
-	// Populate s_lerped[] with interpolated model-space vertex positions.
-	FrameLerp(fmdl, ent);
-
-	// --- Build M_entity: entity TRS (same order as R_RotateForEntity) ---
-	float M_entity[16];
-	R_Mat4x4_Identity(M_entity);
-	R_Mat4x4_Translate(M_entity, ent->origin[0], ent->origin[1], ent->origin[2]);
-	R_Mat4x4_Rotate(M_entity,  ent->angles[1] * RAD_TO_ANGLE, 0.0f, 0.0f, 1.0f);
-	R_Mat4x4_Rotate(M_entity, -ent->angles[0] * RAD_TO_ANGLE, 0.0f, 1.0f, 0.0f);
-	R_Mat4x4_Rotate(M_entity, -ent->angles[2] * RAD_TO_ANGLE, 1.0f, 0.0f, 0.0f);
-
-	// --- Build M_flat: planar projection matrix ---
-	// Light direction L = (0,0,-1) (straight down). Floor plane: hitnormal · P = d.
-	// Shadow of world-space point P: P' = P + ((d - N·P) / Nz) * L
-	//   P'x = Px,  P'y = Py,  P'z = (d - Nx·Px - Ny·Py) / Nz
-	// Column-major 4x4 layout (m[col*4 + row]):
-	//   col 0: [1, 0, -Nx/Nz, 0]
-	//   col 1: [0, 1, -Ny/Nz, 0]
-	//   col 2: [0, 0,  0,     0]
-	//   col 3: [0, 0,  d/Nz,  1]
-	const float Nx = hitnormal[0], Ny = hitnormal[1], Nz = hitnormal[2];
-	const float d  = DotProduct(hitnormal, hitpos);
-	const float inv_nz = 1.0f / Nz;  // Nz >= 0.5 guaranteed by trace
-
-	const float M_flat[16] = {
-		1.0f,  0.0f, -Nx * inv_nz,  0.0f,   // col 0
-		0.0f,  1.0f, -Ny * inv_nz,  0.0f,   // col 1
-		0.0f,  0.0f,  0.0f,         0.0f,   // col 2
-		0.0f,  0.0f,  d  * inv_nz,  1.0f,   // col 3
-	};
-
-	// shadow_mv = r_world_matrix × M_flat × M_entity
-	float M_fe[16], shadow_mv[16];
-	R_Mat4x4_Mul(M_fe,      M_flat,         M_entity);
-	R_Mat4x4_Mul(shadow_mv, r_world_matrix, M_fe);
-
-	// Override the shader3D modelview with the shadow projection matrix.
-	// GL3_Draw3DPoly will call GL3_UseShader(shader3D) but uniforms persist.
 	GL3_UseShader(gl3state.shader3D);
 	glUniformMatrix4fv(gl3state.uni3D_modelview, 1, GL_FALSE, shadow_mv);
 
-	// Render each mesh node's geometry flattened onto the floor plane.
-	// uColor = (0,0,0,1) makes the shadow black; vertex alpha carries height fade.
 	static float vbuf[MAX_FM_VERTS * 9];
 
 	for (int i = 0; i < fmdl->header.num_mesh_nodes; i++)
@@ -244,17 +229,13 @@ static void R_DrawEntityShadow(entity_t* ent)
 				const int index_xyz = order[2];
 				float* v = &vbuf[c * 9];
 
-				// Model-space position from lerped vertex array.
 				v[0] = s_lerped[index_xyz][0];
 				v[1] = s_lerped[index_xyz][1];
 				v[2] = s_lerped[index_xyz][2];
 
-				// TC unused (white texture sampled; uColor kills RGB anyway).
 				v[3] = 0.0f;
 				v[4] = 0.0f;
 
-				// Vertex RGB = white so component-wise multiply with uColor=(0,0,0,1)
-				// yields (0, 0, 0, alpha) — black shadow at the desired opacity.
 				v[5] = 1.0f;
 				v[6] = 1.0f;
 				v[7] = 1.0f;
@@ -268,13 +249,57 @@ static void R_DrawEntityShadow(entity_t* ent)
 	}
 }
 
+static void R_DrawEntityShadow(entity_t* ent)
+{
+	if (ent->model == NULL)
+		return;
+
+	const model_t* mdl = *ent->model;
+	if (mdl == NULL || mdl->type != mod_fmdl)
+		return;
+
+	if (ent->flags & RF_TRANS_ANY)
+		return;
+
+	const fmdl_t* fmdl = (const fmdl_t*)mdl->extradata;
+	if (fmdl == NULL || fmdl->mesh_nodes == NULL || fmdl->glcmds == NULL)
+		return;
+
+	// Populate s_lerped[] with interpolated model-space vertex positions.
+	FrameLerp(fmdl, ent);
+
+	// --- Build M_entity: entity TRS (same order as R_RotateForEntity) ---
+	float M_entity[16];
+	R_Mat4x4_Identity(M_entity);
+	R_Mat4x4_Translate(M_entity, ent->origin[0], ent->origin[1], ent->origin[2]);
+	R_Mat4x4_Rotate(M_entity,  ent->angles[1] * RAD_TO_ANGLE, 0.0f, 0.0f, 1.0f);
+	R_Mat4x4_Rotate(M_entity, -ent->angles[0] * RAD_TO_ANGLE, 0.0f, 1.0f, 0.0f);
+	R_Mat4x4_Rotate(M_entity, -ent->angles[2] * RAD_TO_ANGLE, 1.0f, 0.0f, 0.0f);
+
+	// --- Floor shadow (project straight down) ---
+	vec3_t hitpos, hitnormal;
+	if (R_ShadowTrace(ent->origin, hitpos, hitnormal))
+	{
+		const float height = ent->origin[2] - hitpos[2];
+		if (height >= 0.0f && height < SHADOW_TRACE_DIST)
+		{
+			const float alpha = SHADOW_MAX_ALPHA * (1.0f - height / SHADOW_TRACE_DIST);
+			if (alpha >= 0.01f)
+			{
+				static const vec3_t light_down = { 0.0f, 0.0f, -1.0f };
+				R_ProjectEntityShadow(ent, fmdl, M_entity, hitnormal, hitpos, light_down, alpha);
+			}
+		}
+	}
+}
+
 // ============================================================
 // Public API.
 // ============================================================
 
 void R_InitShadows(void)
 {
-	ri.Con_Printf(PRINT_ALL, "GL3 dynamic shadows initialized.\n");
+	ri.Con_Printf(PRINT_ALL, "GL3 dynamic shadows initialized (stencil).\n");
 }
 
 void R_ShutdownShadows(void)
@@ -306,10 +331,26 @@ void R_DrawEntityShadows(void)
 	glEnable(GL_POLYGON_OFFSET_FILL);
 	glPolygonOffset(-1.0f, -2.0f);
 
-	for (int i = 0; i < r_newrefdef.num_entities; i++)
+	// Enable stencil test: per-entity overlap prevention.
+	// Each entity uses a unique stencil ref (1..255). A pixel is only written if
+	// its stencil value differs from the current ref, preventing overlapping
+	// triangles of the same entity from double-darkening.
+	glEnable(GL_STENCIL_TEST);
+	glStencilMask(0xFF);
+
+	const int num_ents = min(r_newrefdef.num_entities, 255);
+	for (int i = 0; i < num_ents; i++)
+	{
+		const int stencil_ref = i + 1;
+		glStencilFunc(GL_NOTEQUAL, stencil_ref, 0xFF);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
 		R_DrawEntityShadow(r_newrefdef.entities[i]);
+	}
 
 	// Restore render state and reset uniforms to defaults.
+	glDisable(GL_STENCIL_TEST);
+	glStencilMask(0xFF);
 	glDisable(GL_POLYGON_OFFSET_FILL);
 	glPolygonOffset(0.0f, 0.0f);
 	glDepthMask(GL_TRUE);

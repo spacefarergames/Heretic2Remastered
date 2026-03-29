@@ -574,6 +574,7 @@ void M_Init(void)
 	m_banner_cameracfg = Cvar_Get("m_banner_cameracfg", "Camera Config", 0);
 	m_banner_misc = Cvar_Get("m_banner_misc", "More Options", 0);
 	m_banner_info = Cvar_Get("m_banner_info", "Maps/Objectives", 0);
+	m_banner_updates = Cvar_Get("m_banner_updates", "Check for Updates", 0);
 
 	// Game menu.
 	m_item_tutorial = Cvar_Get("m_item_tutorial", "Tutorial", 0);
@@ -623,6 +624,7 @@ void M_Init(void)
 	m_item_contrast = Cvar_Get("m_item_contrast", "Contrast", 0);
 	m_item_minlight = Cvar_Get("m_item_minlight", "Min. light level", 0); //mxd
 	m_item_detail = Cvar_Get("m_item_detail", "Detail Level", 0);
+	m_item_hd_mode = Cvar_Get("m_item_hd_mode", "HD Mode", 0);
 
 	// Options / Video Settings menus.
 	m_item_defaults = Cvar_Get("m_item_defaults", "Reset to Defaults", 0);

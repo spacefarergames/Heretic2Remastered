@@ -71,7 +71,7 @@ void WriteEnt(edict_t** to, FILE* f)
 
 	if (*to != nullptr)
 	{
-		index = *to - g_edicts;
+		index = (int)(*to - g_edicts);
 		assert(index >= 0 && index < globals.num_edicts); // Else invalid edict pointer.
 	}
 	else

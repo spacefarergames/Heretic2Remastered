@@ -522,15 +522,8 @@ void CL_CalcViewValues(void)
 			}
 			else
 			{
-				static float frame_delta;
-
-				frame_delta += cls.rframetime * vid_maxfps->value; //mxd. cls.frametime * cl_maxfps->value in original logic.
-				const int num_frames = (int)frame_delta;
-
-				for (int i = 0; i < num_frames; i++)
-					CL_UpdateCameraOrientation(look_angles, viewheight, true, noclip_mode);
-
-				frame_delta -= (float)num_frames;
+				// Call once per render frame for consistent camera updates.
+				CL_UpdateCameraOrientation(look_angles, viewheight, true, noclip_mode);
 			}
 		}
 		else

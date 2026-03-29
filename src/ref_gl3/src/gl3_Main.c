@@ -22,6 +22,7 @@
 #include "Vector.h"
 #include "vid.h"
 #include <math.h>
+#include <stdlib.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -110,6 +111,7 @@ static cvar_t* r_ssao_bias;
 static cvar_t* r_ssao_strength;
 static cvar_t* r_shadows;
 cvar_t* r_reflections;
+cvar_t* r_hd_textures;
 
 cvar_t* gl_noartifacts;
 
@@ -162,6 +164,38 @@ static void R_SetupGL2D(void)
 	GL3_UpdateProjection2D((float)viddef.width, (float)viddef.height);
 }
 
+static void R_Fog(void)
+{
+	int mode = (int)r_fog_mode->value;
+	if (mode < 0) mode = 0;
+	if (mode > 2) mode = 2;
+
+	const float fog_r = r_fog_color_r->value;
+	const float fog_g = r_fog_color_g->value;
+	const float fog_b = r_fog_color_b->value;
+
+	GL3_SetFog(1, mode, fog_r, fog_g, fog_b, r_fog_density->value, r_fog_startdist->value, r_farclipdist->value);
+
+	glClearColor(fog_r, fog_g, fog_b, r_fog_color_a->value);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+static void R_WaterFog(void)
+{
+	int mode = (int)r_fog_underwater_mode->value;
+	if (mode < 0) mode = 0;
+	if (mode > 2) mode = 2;
+
+	const float fog_r = r_fog_underwater_color_r->value;
+	const float fog_g = r_fog_underwater_color_g->value;
+	const float fog_b = r_fog_underwater_color_b->value;
+
+	GL3_SetFog(1, mode, fog_r, fog_g, fog_b, r_fog_underwater_density->value, r_fog_underwater_startdist->value, r_farclipdist->value);
+
+	glClearColor(fog_r, fog_g, fog_b, r_fog_underwater_color_a->value);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 static void R_Clear(void)
 {
 	gldepthmin = 0.0f;
@@ -169,10 +203,23 @@ static void R_Clear(void)
 	glDepthFunc(GL_LEQUAL);
 	glDepthRange((double)gldepthmin, (double)gldepthmax);
 
-	if (gl_clear != NULL && (int)gl_clear->value)
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if ((int)cl_camera_under_surface->value)
+	{
+		R_WaterFog();
+	}
+	else if ((int)r_fog->value)
+	{
+		R_Fog();
+	}
 	else
-		glClear(GL_DEPTH_BUFFER_BIT);
+	{
+		GL3_DisableFog();
+
+		if (gl_clear != NULL && (int)gl_clear->value)
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		else
+			glClear(GL_DEPTH_BUFFER_BIT);
+	}
 }
 
 static void R_ScreenFlash(const paletteRGBA_t color)
@@ -238,6 +285,7 @@ static void R_Register(void)
 	r_ssao_strength   = ri.Cvar_Get("r_ssao_strength",   "1.0", CVAR_ARCHIVE);
 	r_shadows         = ri.Cvar_Get("r_shadows",         "1",   CVAR_ARCHIVE);
 	r_reflections     = ri.Cvar_Get("r_reflections",     "1",   CVAR_ARCHIVE);
+	r_hd_textures     = ri.Cvar_Get("r_hd_textures",     "1",   CVAR_ARCHIVE);
 
 	gl_noartifacts = ri.Cvar_Get("gl_noartifacts", "0", 0);
 
@@ -268,7 +316,7 @@ static void R_Register(void)
 
 	vid_ref = ri.Cvar_Get("vid_ref", "gl3", CVAR_ARCHIVE);
 
-	vid_mode = ri.Cvar_Get("vid_mode", "1", CVAR_ARCHIVE);
+	vid_mode = ri.Cvar_Get("vid_mode", "0", CVAR_ARCHIVE); // 0 = Desktop resolution.
 	menus_active = ri.Cvar_Get("menus_active", "0", 0);
 	cl_camera_under_surface = ri.Cvar_Get("cl_camera_under_surface", "0", 0);
 	quake_amount = ri.Cvar_Get("quake_amount", "0", 0);
@@ -443,6 +491,13 @@ static void RI_Shutdown(void)
 
 static void RI_BeginFrame(const float camera_separation)
 {
+	// Toggle HD textures on the fly (must run before gamma/texture refresh so is_hd flags are up-to-date).
+	if (r_hd_textures->modified)
+	{
+		R_HDTextureToggle();
+		r_hd_textures->modified = false;
+	}
+
 	// Changed.
 	if (vid_gamma->modified || vid_brightness->modified || vid_contrast->modified)
 	{
@@ -550,7 +605,7 @@ static void R_SetupFrame(void)
 		glEnable(GL_SCISSOR_TEST);
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glScissor(r_newrefdef.x, viddef.height - r_newrefdef.height - r_newrefdef.y, r_newrefdef.width, r_newrefdef.height);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glClearColor(1.0f, 0.0f, 0.5f, 0.5f);
 		glDisable(GL_SCISSOR_TEST);
 	}
@@ -716,74 +771,74 @@ static void R_RenderReflection(const float water_z)
 	R_SetupGL3D();
 }
 
+static const GLfloat particle_st_coords[NUM_PARTICLE_TYPES][4] =
+{
+	{ 0.00390625f, 0.00390625f, 0.02734375f, 0.02734375f },
+	{ 0.03515625f, 0.00390625f, 0.05859375f, 0.02734375f },
+	{ 0.06640625f, 0.00390625f, 0.08984375f, 0.02734375f },
+	{ 0.09765625f, 0.00390625f, 0.12109375f, 0.02734375f },
+	{ 0.00390625f, 0.03515625f, 0.02734375f, 0.05859375f },
+	{ 0.03515625f, 0.03515625f, 0.05859375f, 0.05859375f },
+	{ 0.06640625f, 0.03515625f, 0.08984375f, 0.05859375f },
+	{ 0.09765625f, 0.03515625f, 0.12109375f, 0.05859375f },
+	{ 0.00390625f, 0.06640625f, 0.02734375f, 0.08984375f },
+	{ 0.03515625f, 0.06640625f, 0.05859375f, 0.08984375f },
+	{ 0.06640625f, 0.06640625f, 0.08984375f, 0.08984375f },
+	{ 0.09765625f, 0.06640625f, 0.12109375f, 0.08984375f },
+	{ 0.00390625f, 0.09765625f, 0.02734375f, 0.12109375f },
+	{ 0.03515625f, 0.09765625f, 0.05859375f, 0.12109375f },
+	{ 0.06640625f, 0.09765625f, 0.08984375f, 0.12109375f },
+	{ 0.09765625f, 0.09765625f, 0.12109375f, 0.12109375f },
+	{ 0.12890625f, 0.00390625f, 0.18359375f, 0.05859375f },
+	{ 0.19140625f, 0.00390625f, 0.24609375f, 0.05859375f },
+	{ 0.12890625f, 0.06640625f, 0.18359375f, 0.12109375f },
+	{ 0.19140625f, 0.06640625f, 0.24609375f, 0.12109375f },
+	{ 0.00390625f, 0.12890625f, 0.12109375f, 0.24609375f },
+	{ 0.12890625f, 0.12890625f, 0.24609375f, 0.24609375f },
+	{ 0.25390625f, 0.00390625f, 0.37109375f, 0.12109375f },
+	{ 0.37890625f, 0.00390625f, 0.49609375f, 0.12109375f },
+	{ 0.25390625f, 0.12890625f, 0.37109375f, 0.24609375f },
+	{ 0.37890625f, 0.12890625f, 0.49609375f, 0.24609375f },
+	{ 0.00390625f, 0.25390625f, 0.24609375f, 0.49609375f },
+	{ 0.25390625f, 0.25390625f, 0.49609375f, 0.49609375f },
+	{ 0.50390625f, 0.00390625f, 0.74609375f, 0.24609375f },
+	{ 0.75390625f, 0.00390625f, 0.99609375f, 0.24609375f },
+	{ 0.50390625f, 0.25390625f, 0.74609375f, 0.49609375f },
+	{ 0.75390625f, 0.25390625f, 0.87109375f, 0.37109375f },
+	{ 0.87890625f, 0.25390625f, 0.99609375f, 0.37109375f },
+	{ 0.75390625f, 0.37890625f, 0.87109375f, 0.49609375f },
+	{ 0.87890625f, 0.37890625f, 0.99609375f, 0.49609375f },
+	{ 0.00390625f, 0.50390625f, 0.24609375f, 0.74609375f },
+	{ 0.00390625f, 0.50390625f, 0.24609375f, 0.74609375f },
+	{ 0.25390625f, 0.50390625f, 0.37109375f, 0.62109375f },
+	{ 0.37890625f, 0.50390625f, 0.43359375f, 0.55859375f },
+	{ 0.44140625f, 0.50390625f, 0.49609375f, 0.55859375f },
+	{ 0.37890625f, 0.56640625f, 0.43359375f, 0.62109375f },
+	{ 0.44140625f, 0.56640625f, 0.49609375f, 0.62109375f },
+	{ 0.25390625f, 0.62890625f, 0.30859375f, 0.68359375f },
+	{ 0.31640625f, 0.62890625f, 0.37109375f, 0.68359375f },
+	{ 0.25390625f, 0.69140625f, 0.30859375f, 0.74609375f },
+	{ 0.31640625f, 0.69140625f, 0.37109375f, 0.74609375f },
+	{ 0.37890625f, 0.62890625f, 0.43359375f, 0.68359375f },
+	{ 0.44140625f, 0.62890625f, 0.49609375f, 0.68359375f },
+	{ 0.37890625f, 0.69140625f, 0.43359375f, 0.74609375f },
+	{ 0.44140625f, 0.69140625f, 0.49609375f, 0.74609375f },
+	{ 0.00390625f, 0.75390625f, 0.24609375f, 0.99609375f },
+	{ 0.25390625f, 0.75390625f, 0.49609375f, 0.99609375f },
+	{ 0.50390625f, 0.50390625f, 0.62109375f, 0.62109375f },
+	{ 0.62890625f, 0.50390625f, 0.74609375f, 0.62109375f },
+	{ 0.50390625f, 0.62890625f, 0.62109375f, 0.74609375f },
+	{ 0.62890625f, 0.62890625f, 0.74609375f, 0.74609375f },
+	{ 0.75390625f, 0.50390625f, 0.99609375f, 0.74609375f },
+	{ 0.50390625f, 0.75390625f, 0.74609375f, 0.99609375f },
+	{ 0.75390625f, 0.75390625f, 0.87109375f, 0.87109375f },
+	{ 0.87890625f, 0.75390625f, 0.99609375f, 0.87109375f },
+	{ 0.75390625f, 0.87890625f, 0.87109375f, 0.99609375f },
+	{ 0.87890625f, 0.87890625f, 0.99609375f, 0.99609375f }
+};
+
 static void R_DrawParticles(const int num_particles, const particle_t* particles, const qboolean alpha_particle)
 {
-	static const GLfloat particle_st_coords[NUM_PARTICLE_TYPES][4] =
-	{
-		{ 0.00390625f, 0.00390625f, 0.02734375f, 0.02734375f },
-		{ 0.03515625f, 0.00390625f, 0.05859375f, 0.02734375f },
-		{ 0.06640625f, 0.00390625f, 0.08984375f, 0.02734375f },
-		{ 0.09765625f, 0.00390625f, 0.12109375f, 0.02734375f },
-		{ 0.00390625f, 0.03515625f, 0.02734375f, 0.05859375f },
-		{ 0.03515625f, 0.03515625f, 0.05859375f, 0.05859375f },
-		{ 0.06640625f, 0.03515625f, 0.08984375f, 0.05859375f },
-		{ 0.09765625f, 0.03515625f, 0.12109375f, 0.05859375f },
-		{ 0.00390625f, 0.06640625f, 0.02734375f, 0.08984375f },
-		{ 0.03515625f, 0.06640625f, 0.05859375f, 0.08984375f },
-		{ 0.06640625f, 0.06640625f, 0.08984375f, 0.08984375f },
-		{ 0.09765625f, 0.06640625f, 0.12109375f, 0.08984375f },
-		{ 0.00390625f, 0.09765625f, 0.02734375f, 0.12109375f },
-		{ 0.03515625f, 0.09765625f, 0.05859375f, 0.12109375f },
-		{ 0.06640625f, 0.09765625f, 0.08984375f, 0.12109375f },
-		{ 0.09765625f, 0.09765625f, 0.12109375f, 0.12109375f },
-		{ 0.12890625f, 0.00390625f, 0.18359375f, 0.05859375f },
-		{ 0.19140625f, 0.00390625f, 0.24609375f, 0.05859375f },
-		{ 0.12890625f, 0.06640625f, 0.18359375f, 0.12109375f },
-		{ 0.19140625f, 0.06640625f, 0.24609375f, 0.12109375f },
-		{ 0.00390625f, 0.12890625f, 0.12109375f, 0.24609375f },
-		{ 0.12890625f, 0.12890625f, 0.24609375f, 0.24609375f },
-		{ 0.25390625f, 0.00390625f, 0.37109375f, 0.12109375f },
-		{ 0.37890625f, 0.00390625f, 0.49609375f, 0.12109375f },
-		{ 0.25390625f, 0.12890625f, 0.37109375f, 0.24609375f },
-		{ 0.37890625f, 0.12890625f, 0.49609375f, 0.24609375f },
-		{ 0.00390625f, 0.25390625f, 0.24609375f, 0.49609375f },
-		{ 0.25390625f, 0.25390625f, 0.49609375f, 0.49609375f },
-		{ 0.50390625f, 0.00390625f, 0.74609375f, 0.24609375f },
-		{ 0.75390625f, 0.00390625f, 0.99609375f, 0.24609375f },
-		{ 0.50390625f, 0.25390625f, 0.74609375f, 0.49609375f },
-		{ 0.75390625f, 0.25390625f, 0.87109375f, 0.37109375f },
-		{ 0.87890625f, 0.25390625f, 0.99609375f, 0.37109375f },
-		{ 0.75390625f, 0.37890625f, 0.87109375f, 0.49609375f },
-		{ 0.87890625f, 0.37890625f, 0.99609375f, 0.49609375f },
-		{ 0.00390625f, 0.50390625f, 0.24609375f, 0.74609375f },
-		{ 0.00390625f, 0.50390625f, 0.24609375f, 0.74609375f },
-		{ 0.25390625f, 0.50390625f, 0.37109375f, 0.62109375f },
-		{ 0.37890625f, 0.50390625f, 0.43359375f, 0.55859375f },
-		{ 0.44140625f, 0.50390625f, 0.49609375f, 0.55859375f },
-		{ 0.37890625f, 0.56640625f, 0.43359375f, 0.62109375f },
-		{ 0.44140625f, 0.56640625f, 0.49609375f, 0.62109375f },
-		{ 0.25390625f, 0.62890625f, 0.30859375f, 0.68359375f },
-		{ 0.31640625f, 0.62890625f, 0.37109375f, 0.68359375f },
-		{ 0.25390625f, 0.69140625f, 0.30859375f, 0.74609375f },
-		{ 0.31640625f, 0.69140625f, 0.37109375f, 0.74609375f },
-		{ 0.37890625f, 0.62890625f, 0.43359375f, 0.68359375f },
-		{ 0.44140625f, 0.62890625f, 0.49609375f, 0.68359375f },
-		{ 0.37890625f, 0.69140625f, 0.43359375f, 0.74609375f },
-		{ 0.44140625f, 0.69140625f, 0.49609375f, 0.74609375f },
-		{ 0.00390625f, 0.75390625f, 0.24609375f, 0.99609375f },
-		{ 0.25390625f, 0.75390625f, 0.49609375f, 0.99609375f },
-		{ 0.50390625f, 0.50390625f, 0.62109375f, 0.62109375f },
-		{ 0.62890625f, 0.50390625f, 0.74609375f, 0.62109375f },
-		{ 0.50390625f, 0.62890625f, 0.62109375f, 0.74609375f },
-		{ 0.62890625f, 0.62890625f, 0.74609375f, 0.74609375f },
-		{ 0.75390625f, 0.50390625f, 0.99609375f, 0.74609375f },
-		{ 0.50390625f, 0.75390625f, 0.74609375f, 0.99609375f },
-		{ 0.75390625f, 0.75390625f, 0.87109375f, 0.87109375f },
-		{ 0.87890625f, 0.75390625f, 0.99609375f, 0.87109375f },
-		{ 0.75390625f, 0.87890625f, 0.87109375f, 0.99609375f },
-		{ 0.87890625f, 0.87890625f, 0.99609375f, 0.99609375f }
-	};
-
 	if (num_particles < 1)
 		return;
 
@@ -800,13 +855,29 @@ static void R_DrawParticles(const int num_particles, const particle_t* particles
 
 	glEnable(GL_BLEND);
 
+	// Allocate batch buffer: 6 vertices per particle (2 triangles), 9 floats per vertex.
+	// Maximum safe stack allocation - use heap for large batches.
+	#define MAX_STACK_PARTICLES 512
+	#define PARTICLE_VERTEX_COUNT 6
+	#define PARTICLE_FLOATS_PER_VERTEX 9
+
+	float stack_buffer[MAX_STACK_PARTICLES * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX];
+	float* batch_verts = stack_buffer;
+	float* heap_buffer = NULL;
+
+	if (num_particles > MAX_STACK_PARTICLES)
+	{
+		heap_buffer = (float*)malloc(num_particles * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX * sizeof(float));
+		batch_verts = heap_buffer;
+	}
+
 	const particle_t* p = &particles[0];
+	float* v = batch_verts;
+
 	for (int i = 0; i < num_particles; i++, p++)
 	{
-		vec3_t p_up;
+		vec3_t p_up, p_right;
 		VectorScale(vup, p->scale, p_up);
-
-		vec3_t p_right;
 		VectorScale(vright, p->scale, p_right);
 
 		paletteRGBA_t c;
@@ -832,27 +903,43 @@ static void R_DrawParticles(const int num_particles, const particle_t* particles
 		const float s1 = particle_st_coords[p_type][2];
 		const float t1 = particle_st_coords[p_type][3];
 
-		float quad[4 * 9];
-		float* v;
-
-		v = &quad[0 * 9];
+		// Generate 2 triangles (6 vertices) for this particle.
+		// Triangle 1: top-left, top-right, bottom-right
 		v[0]=p->origin[0]+p_up[0]; v[1]=p->origin[1]+p_up[1]; v[2]=p->origin[2]+p_up[2];
 		v[3]=s0; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+		v += 9;
 
-		v = &quad[1 * 9];
 		v[0]=p->origin[0]+p_right[0]; v[1]=p->origin[1]+p_right[1]; v[2]=p->origin[2]+p_right[2];
 		v[3]=s1; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+		v += 9;
 
-		v = &quad[2 * 9];
 		v[0]=p->origin[0]-p_up[0]; v[1]=p->origin[1]-p_up[1]; v[2]=p->origin[2]-p_up[2];
 		v[3]=s1; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+		v += 9;
 
-		v = &quad[3 * 9];
+		// Triangle 2: top-left, bottom-right, bottom-left
+		v[0]=p->origin[0]+p_up[0]; v[1]=p->origin[1]+p_up[1]; v[2]=p->origin[2]+p_up[2];
+		v[3]=s0; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+		v += 9;
+
+		v[0]=p->origin[0]-p_up[0]; v[1]=p->origin[1]-p_up[1]; v[2]=p->origin[2]-p_up[2];
+		v[3]=s1; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+		v += 9;
+
 		v[0]=p->origin[0]-p_right[0]; v[1]=p->origin[1]-p_right[1]; v[2]=p->origin[2]-p_right[2];
 		v[3]=s0; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
-
-		GL3_Draw3DPoly(GL_TRIANGLE_FAN, quad, 4);
+		v += 9;
 	}
+
+	// Draw all particles in a single batched call.
+	GL3_UseShader(gl3state.shader3D);
+	glBindVertexArray(gl3state.vao3D);
+	glBindBuffer(GL_ARRAY_BUFFER, gl3state.vbo3D);
+	glBufferData(GL_ARRAY_BUFFER, num_particles * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX * sizeof(float), batch_verts, GL_STREAM_DRAW);
+	glDrawArrays(GL_TRIANGLES, 0, num_particles * PARTICLE_VERTEX_COUNT);
+
+	if (heap_buffer != NULL)
+		free(heap_buffer);
 
 	glDisable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -923,7 +1010,8 @@ static int RI_RenderFrame(const refdef_t* fd)
 		if (gl3state.fbo3D != 0)
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, gl3state.fbo3D);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		}
 
 		R_RenderView(fd);

@@ -707,6 +707,23 @@ void G_SetStats(const edict_t* ent)
 			break;
 	}
 
+	// Interact indicator. //mxd
+	ps->stats[STAT_INTERACT] = 0;
+
+	if (ent->target != NULL)
+	{
+		const edict_t* target = G_Find(NULL, FOFS(targetname), ent->target);
+
+		if (target != NULL && (target->classID == CID_BUTTON || target->classID == CID_LEVER))
+		{
+			vec3_t center;
+			VectorAverage(target->mins, target->maxs, center);
+
+			if (VectorSeparation(ent->s.origin, center) < 120.0f)
+				ps->stats[STAT_INTERACT] = 1;
+		}
+	}
+
 	// Layouts.
 	ent->client->ps.stats[STAT_LAYOUTS] = 0;
 

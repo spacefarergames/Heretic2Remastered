@@ -13,7 +13,7 @@ int curtime;
 
 static char findbase[MAX_OSPATH];
 static char findpath[MAX_OSPATH];
-static int findhandle;
+static intptr_t findhandle;
 
 long long Sys_Microseconds(void) // YQ2
 {

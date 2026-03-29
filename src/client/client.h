@@ -487,6 +487,14 @@ typedef struct
 	void* (*Z_Malloc)(int size);
 	void (*Z_Free)(void* ptr);
 
+	// CD audio playback (fallback when OGG files are not available).
+	void (*CDAudio_Init)(void);
+	void (*CDAudio_Shutdown)(void);
+	void (*CDAudio_Play)(int track, qboolean looping);
+	void (*CDAudio_Stop)(void);
+	void (*CDAudio_Update)(void);
+	qboolean (*CDAudio_IsActive)(void);
+
 #ifdef _DEBUG
 	//mxd. Debug logic.
 	void (*DBG_IDEPrint)(const char* fmt, ...);

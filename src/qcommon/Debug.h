@@ -10,7 +10,7 @@
 #include "q_Typedef.h"
 
 #ifdef _DEBUG
-	#define NOT_IMPLEMENTED		__asm { int 3 } // https://learn.microsoft.com/en-us/cpp/intrinsics/debugbreak
+	#define NOT_IMPLEMENTED		__debugbreak() // https://learn.microsoft.com/en-us/cpp/intrinsics/debugbreak
 #else
 	#define NOT_IMPLEMENTED
 #endif

@@ -37,8 +37,8 @@ typedef struct
 
 static loopback_t loopbacks[NUM_SOCKETS];
 static loopmsg2_t loopmessages[NUM_SOCKETS][NUM_LOOPMESSAGES]; // H2
-static int ip_sockets[NUM_SOCKETS]; // 2 in Q2
-static int ipx_sockets[NUM_SOCKETS]; // 2 in Q2
+static SOCKET ip_sockets[NUM_SOCKETS] = { INVALID_SOCKET, INVALID_SOCKET, INVALID_SOCKET }; // 2 in Q2
+static SOCKET ipx_sockets[NUM_SOCKETS] = { INVALID_SOCKET, INVALID_SOCKET, INVALID_SOCKET }; // 2 in Q2
 
 static cvar_t* net_shownet;
 static cvar_t* noudp;
@@ -436,7 +436,7 @@ static void NET_SendLoopPacket(const netsrc_t sock, const int length, const void
 
 qboolean NET_GetPacket(const netsrc_t sock, netadr_t* n_from, sizebuf_t* n_message)
 {
-	int net_socket;
+	SOCKET net_socket;
 	struct sockaddr from;
 
 	if (NET_GetLoopPacket(sock, n_from, n_message))
@@ -458,7 +458,7 @@ qboolean NET_GetPacket(const netsrc_t sock, netadr_t* n_from, sizebuf_t* n_messa
 		else
 			net_socket = ipx_sockets[sock];
 
-		if (net_socket == 0)
+		if (net_socket == INVALID_SOCKET)
 			continue;
 
 		int fromlen = sizeof(from);
@@ -503,7 +503,7 @@ qboolean NET_GetPacket(const netsrc_t sock, netadr_t* n_from, sizebuf_t* n_messa
 void NET_SendPacket(const netsrc_t sock, const int length, const void* data, const netadr_t* to)
 {
 	struct sockaddr addr;
-	int net_socket;
+	SOCKET net_socket;
 
 	// H2: emulate packet loss. //TODO: dev logic. Remove?
 	if (net_sendrate->value > 0.0f && net_sendrate->value < 1.0f && net_sendrate->value < flrand(0.0f, 1.0f))
@@ -530,7 +530,7 @@ void NET_SendPacket(const netsrc_t sock, const int length, const void* data, con
 			return;
 	}
 
-	if (net_socket == 0)
+	if (net_socket == INVALID_SOCKET)
 		return;
 
 	NetadrToSockadr(to, &addr);
@@ -558,32 +558,32 @@ void NET_SendPacket(const netsrc_t sock, const int length, const void* data, con
 }
 
 // Q2 counterpart
-static int NET_IPSocket(const char* net_interface, const int port)
+static SOCKET NET_IPSocket(const char* net_interface, const int port)
 {
 	u_long arg = 1;
 	int optval = 1;
 
 	const SOCKET newsocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	if (newsocket == 0xffffffff)
+	if (newsocket == INVALID_SOCKET)
 	{
 		if (WSAGetLastError() != WSAEAFNOSUPPORT)
 			Com_Printf("WARNING: UDP_OpenSocket: socket: %s\n", NET_ErrorString()); //mxd. No newline in Q2
 
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	// Make it non-blocking.
 	if (ioctlsocket(newsocket, FIONBIO, &arg) == -1)
 	{
 		Com_Printf("WARNING: UDP_OpenSocket: ioctl FIONBIO: %s\n", NET_ErrorString());
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	// Make it broadcast capable.
 	if (setsockopt(newsocket, SOL_SOCKET, SO_BROADCAST, (char*)&optval, sizeof(optval)) == -1)
 	{
 		Com_Printf("WARNING: UDP_OpenSocket: setsockopt SO_BROADCAST: %s\n", NET_ErrorString());
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	struct sockaddr_in address;
@@ -604,10 +604,10 @@ static int NET_IPSocket(const char* net_interface, const int port)
 		Com_Printf("WARNING: UDP_OpenSocket: bind: %s\n", NET_ErrorString());
 		closesocket(newsocket);
 
-		return 0;
+		return INVALID_SOCKET;
 	}
 
-	return (int)newsocket;
+	return newsocket;
 }
 
 static void NET_OpenIP(void)
@@ -615,7 +615,7 @@ static void NET_OpenIP(void)
 	const cvar_t* ip = Cvar_Get("ip", "localhost", CVAR_NOSET);
 	const qboolean is_dedicated = Cvar_IsSet("dedicated");
 
-	if (ip_sockets[NS_SERVER] == 0)
+	if (ip_sockets[NS_SERVER] == INVALID_SOCKET)
 	{
 		int port = (int)Cvar_Get("ip_hostport", "0", CVAR_NOSET)->value;
 		if (port == 0)
@@ -626,7 +626,7 @@ static void NET_OpenIP(void)
 		}
 
 		ip_sockets[NS_SERVER] = NET_IPSocket(ip->string, port);
-		if (is_dedicated && ip_sockets[NS_SERVER] == 0)
+		if (is_dedicated && ip_sockets[NS_SERVER] == INVALID_SOCKET)
 			Com_Error(ERR_FATAL, "Couldn't allocate dedicated server IP port");
 	}
 
@@ -636,7 +636,7 @@ static void NET_OpenIP(void)
 	if (is_dedicated)
 		return;
 
-	if (ip_sockets[NS_CLIENT] == 0)
+	if (ip_sockets[NS_CLIENT] == INVALID_SOCKET)
 	{
 		int port = (int)Cvar_Get("ip_clientport", "0", CVAR_NOSET)->value;
 		if (port == 0)
@@ -647,37 +647,37 @@ static void NET_OpenIP(void)
 		}
 
 		ip_sockets[NS_CLIENT] = NET_IPSocket(ip->string, port);
-		if (ip_sockets[NS_CLIENT] == 0)
+		if (ip_sockets[NS_CLIENT] == INVALID_SOCKET)
 			ip_sockets[NS_CLIENT] = NET_IPSocket(ip->string, PORT_ANY);
 	}
 }
 
 // Q2 counterpart
-static int NET_IPXSocket(const int port)
+static SOCKET NET_IPXSocket(const int port)
 {
 	u_long arg = 1;
 
 	const SOCKET newsocket = socket(PF_IPX, SOCK_DGRAM, NSPROTO_IPX);
-	if (newsocket == 0xffffffff)
+	if (newsocket == INVALID_SOCKET)
 	{
 		if (WSAGetLastError() != WSAEAFNOSUPPORT)
 			Com_Printf("WARNING: IPX_Socket: socket: %s\n", NET_ErrorString());
 
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	// Make it non-blocking.
 	if (ioctlsocket(newsocket, FIONBIO, &arg) == -1)
 	{
 		Com_Printf("WARNING: IPX_Socket: ioctl FIONBIO: %s\n", NET_ErrorString());
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	// Make it broadcast capable.
 	if (setsockopt(newsocket, SOL_SOCKET, SO_BROADCAST, (char*)&arg, sizeof(arg)) == -1)
 	{
 		Com_Printf("WARNING: IPX_Socket: setsockopt SO_BROADCAST: %s\n", NET_ErrorString());
-		return 0;
+		return INVALID_SOCKET;
 	}
 
 	struct sockaddr_ipx	address;
@@ -695,17 +695,17 @@ static int NET_IPXSocket(const int port)
 		Com_Printf("WARNING: IPX_Socket: bind: %s\n", NET_ErrorString());
 		closesocket(newsocket);
 
-		return 0;
+		return INVALID_SOCKET;
 	}
 
-	return (int)newsocket;
+	return newsocket;
 }
 
 static void NET_OpenIPX(void)
 {
 	const qboolean is_dedicated = Cvar_IsSet("dedicated");
 
-	if (ipx_sockets[NS_SERVER] == 0)
+	if (ipx_sockets[NS_SERVER] == INVALID_SOCKET)
 	{
 		int port = (int)Cvar_Get("ipx_hostport", "0", CVAR_NOSET)->value;
 		if (port == 0)
@@ -724,7 +724,7 @@ static void NET_OpenIPX(void)
 	if (is_dedicated)
 		return;
 
-	if (ipx_sockets[NS_CLIENT] == 0)
+	if (ipx_sockets[NS_CLIENT] == INVALID_SOCKET)
 	{
 		int port = (int)Cvar_Get("ipx_clientport", "0", CVAR_NOSET)->value;
 		if (port == 0)
@@ -735,7 +735,7 @@ static void NET_OpenIPX(void)
 		}
 
 		ipx_sockets[NS_CLIENT] = NET_IPXSocket(port);
-		if (ipx_sockets[NS_CLIENT] == 0)
+		if (ipx_sockets[NS_CLIENT] == INVALID_SOCKET)
 			ipx_sockets[NS_CLIENT] = NET_IPXSocket(PORT_ANY);
 	}
 }
@@ -764,16 +764,16 @@ void NET_Config(const qboolean multiplayer)
 		// Shut down any existing sockets (2 in Q2, 3 in H2)
 		for (int i = 0; i < 3; i++)
 		{
-			if (ip_sockets[i] != 0)
+			if (ip_sockets[i] != INVALID_SOCKET)
 			{
 				closesocket(ip_sockets[i]);
-				ip_sockets[i] = 0;
+				ip_sockets[i] = INVALID_SOCKET;
 			}
 
-			if (ipx_sockets[i] != 0)
+			if (ipx_sockets[i] != INVALID_SOCKET)
 			{
 				closesocket(ipx_sockets[i]);
-				ipx_sockets[i] = 0;
+				ipx_sockets[i] = INVALID_SOCKET;
 			}
 		}
 	}

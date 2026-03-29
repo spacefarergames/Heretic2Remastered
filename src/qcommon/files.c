@@ -19,6 +19,7 @@
 
 #include "qcommon.h"
 #include "qfiles.h"
+#include "cd_detect.h"
 
 static char fs_gamedir[MAX_OSPATH];
 static cvar_t* fs_basedir;
@@ -676,6 +677,9 @@ void FS_InitFilesystem(void)
 	}
 
 	//mxd. Skip fs_cddir / "-cddir" command line arg logic.
+
+	// Detect Heretic II CD and extract PAK files if needed (before scanning the game directory).
+	CD_DetectAndExtract(va("%s/"BASEDIRNAME, fs_basedir->string));
 
 	// Start up with 'base' by default.
 	FS_AddGameDirectory(va("%s/"BASEDIRNAME, fs_basedir->string));

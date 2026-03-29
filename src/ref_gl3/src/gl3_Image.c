@@ -638,6 +638,9 @@ static void R_ApplyGammaHD(byte* pixels, const int width, const int height, cons
 
 static void R_UploadHD(byte* pixels, const image_t* image)
 {
+	// Reset max mip level (M8/M32 uploads set this to a low value, which would limit glGenerateMipmap).
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1000);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image->hd_width, image->hd_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -866,7 +869,8 @@ image_t* R_FindImage(const char* name, const imagetype_t type)
 	}
 
 	// Try HD texture replacement first.
-	image = R_LoadHDTexture(name, type);
+	if ((int)r_hd_textures->value)
+		image = R_LoadHDTexture(name, type);
 
 	if (image == NULL)
 	{
@@ -1012,6 +1016,118 @@ void R_GammaAffect(const qboolean refresh_all)
 				R_BindImage(image);
 				R_UploadM32(mt, image);
 				ri.FS_FreeFile(mt);
+			}
+		}
+	}
+}
+
+void R_HDTextureToggle(void)
+{
+	const qboolean hd_enabled = (int)r_hd_textures->value != 0;
+
+	image_t* image = &gltextures[0];
+	for (int i = 0; i < numgltextures; i++, image++)
+	{
+		if (image->registration_sequence == 0)
+			continue;
+
+		// Skip UI / font / particle textures — only wall and skin textures have HD replacements.
+		if (image->type != it_wall && image->type != it_skin)
+			continue;
+
+		if (hd_enabled && !image->is_hd)
+		{
+			// Try to upgrade this texture to its HD replacement.
+			char hd_relpath[MAX_OSPATH];
+			R_MakeHDRelPath(image->name, hd_relpath, sizeof(hd_relpath));
+
+			const char* hd_abs_path = R_FindHDTexturePath(image->name);
+			int hd_width, hd_height;
+			byte* pixels = R_LoadPNGData(hd_relpath, hd_abs_path, &hd_width, &hd_height);
+			if (pixels == NULL)
+				continue;
+
+			int orig_w, orig_h;
+			if (!R_GetOriginalTextureDims(image->name, &orig_w, &orig_h))
+			{
+				orig_w = hd_width;
+				orig_h = hd_height;
+			}
+
+			R_ApplyGammaHD(pixels, hd_width, hd_height, 4);
+
+			// Free old palette if any.
+			if (image->palette != NULL)
+			{
+				free(image->palette);
+				image->palette = NULL;
+			}
+
+			image->width = orig_w;
+			image->height = orig_h;
+			image->hd_width = hd_width;
+			image->hd_height = hd_height;
+			image->is_hd = true;
+			image->has_alpha = true;
+
+			const int path_len = (int)strlen(hd_relpath) + 1;
+			image->hd_path = malloc(path_len);
+			strcpy_s(image->hd_path, path_len, hd_relpath);
+
+			R_BindImage(image);
+			R_UploadHD(pixels, image);
+			stbi_image_free(pixels);
+		}
+		else if (!hd_enabled && image->is_hd)
+		{
+			// Downgrade this HD texture back to the original .m8/.m32.
+			if (image->hd_path != NULL)
+			{
+				free(image->hd_path);
+				image->hd_path = NULL;
+			}
+
+			image->hd_width = 0;
+			image->hd_height = 0;
+			image->is_hd = false;
+
+			const uint len = strlen(image->name);
+			if (strcmp(&image->name[len - 3], ".m8") == 0)
+			{
+				miptex_t* mt;
+					ri.FS_LoadFile(image->name, (void**)&mt);
+					if (mt != NULL && mt->version == MIP_VERSION)
+					{
+						image->width = (int)mt->width[0];
+						image->height = (int)mt->height[0];
+						image->has_alpha = false;
+						image->num_frames = (byte)mt->value;
+
+						if (image->palette == NULL)
+								image->palette = malloc(sizeof(paletteRGB_t) * 256);
+
+						GrabPalette(mt->palette, image->palette);
+						FixPalette(image);
+						R_BindImage(image);
+						R_UploadM8(mt, image);
+						ri.FS_FreeFile(mt);
+					}
+			}
+			else if (strcmp(&image->name[len - 4], ".m32") == 0)
+			{
+				miptex32_t* mt;
+				ri.FS_LoadFile(image->name, (void**)&mt);
+				if (mt != NULL && mt->version == MIP32_VERSION)
+				{
+					image->width = (int)mt->width[0];
+					image->height = (int)mt->height[0];
+					image->num_frames = (byte)mt->num_frames;
+
+					R_ApplyGamma32(mt);
+					R_BindImage(image);
+					R_UploadM32(mt, image);
+					ri.FS_FreeFile(mt);
+				}
 			}
 		}
 	}

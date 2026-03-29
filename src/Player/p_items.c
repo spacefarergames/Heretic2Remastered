@@ -737,7 +737,7 @@ PLAYER_API int GetItemIndex(const gitem_t* item)
 	if (item != NULL)
 	{
 		assert(item >= p_itemlist && item < p_itemlist + p_num_items);
-		return item - p_itemlist;
+		return (int)(item - p_itemlist);
 	}
 
 	return 0;
