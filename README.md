@@ -91,7 +91,7 @@ On startup, the engine scans all CD/DVD drives for the original Heretic II disc.
 - If both PAK files already exist in the `base` folder, extraction is skipped.
 - The built-in ZIP/DEFLATE decompressor requires no external libraries.
 - After extraction, you should still apply the v1.06 patch as described above.
-- 
+
 ## Controller Guide
 
 Heretic II Remastered has full gamepad support via SDL3. Any XInput, DirectInput, or HID controller should work out of the box. Analog sticks provide smooth movement and camera control — the left stick moves, the right stick looks (swappable via `joy_layout 1` for southpaw).
