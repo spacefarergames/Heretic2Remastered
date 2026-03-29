@@ -476,7 +476,7 @@ void Draw_BookPic(const char* name, const float scale, const float alpha)
 	int offset_x = 0;
 	int offset_y = 0;
 
-	if (vid_w * 0.75f > vid_h) //mxd. Setup for widescreen aspect ratio.
+	if (vid_w * 0.75f > vid_h && header_w / header_h <= 4.0f / 3.0f + 0.01f) //mxd. Setup for widescreen aspect ratio (skip for widescreen book assets).
 	{
 		vid_w = vid_h * 4 / 3;
 		offset_x = (viddef.width - (int)vid_w) / 2;

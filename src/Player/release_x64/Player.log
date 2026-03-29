@@ -1,13 +1,2 @@
-﻿  p_actions.c
-  p_animactor.c
-  p_anims.c
-  p_anim_branch.c
-  p_anim_data.c
-  p_chicken.c
-  p_chicken_anim.c
-  p_items.c
-  p_main.c
-  p_utility.c
-  p_weapon.c
-     Creating library ..\..\build\base\Player.lib and object ..\..\build\base\Player.exp
+﻿     Creating library ..\..\build\base\Player.lib and object ..\..\build\base\Player.exp
   Player.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Player.dll

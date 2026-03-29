@@ -1,0 +1,212 @@
+﻿  Message.c
+  p_dll.c
+  Skeletons.c
+  buoy.c
+  c_ai.c
+  c_corvus1.c
+  c_corvus1_anim.c
+  c_corvus2.c
+  c_corvus2_anim.c
+  c_corvus3.c
+  c_corvus3_anim.c
+  c_corvus4.c
+  c_corvus4_anim.c
+  c_corvus5.c
+  c_corvus5_anim.c
+  c_corvus6.c
+  c_corvus6_anim.c
+  c_corvus7.c
+  c_corvus7_anim.c
+  c_corvus8.c
+  c_corvus8_anim.c
+  c_corvus9.c
+  c_corvus9_anim.c
+  c_dranor.c
+  c_dranor_anim.c
+  c_elflord.c
+  c_elflord_anim.c
+  c_morcalavin.c
+  c_morcalavin_anim.c
+  c_priestess.c
+  c_priestess2.c
+  c_priestess2_anim.c
+  c_priestess_anim.c
+  c_siernan1.c
+  c_siernan1_anim.c
+  c_siernan2.c
+  c_siernan2_anim.c
+  c_ssithrascout.c
+  c_ssithrascout_anim.c
+  c_tome.c
+  c_tome_anim.c
+  c_victimSsithra.c
+  c_victimSsithra_anim.c
+  decals.c
+  g_ai.c
+  g_breakable.c
+  g_ClassStatics.c
+  g_cmds.c
+  g_combat.c
+  g_debris.c
+  g_DefaultMessageHandler.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_ai.c(29,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  g_env.c
+  g_field.c
+  g_flamethrower.c
+  g_func_Button.c
+  g_func_Door.c
+  g_func_MonsterSpawner.c
+  g_func_Plat.c
+  g_func_Rotating.c
+  g_func_Timer.c
+  g_func_Utility.c
+  g_func_Train.c
+  g_HitLocation.c
+  g_items.c
+  g_light.c
+  g_main.c
+  g_Message.c
+  g_misc.c
+  g_monster.c
+  g_morcalavin_barrier.c
+  g_obj.c
+  g_PhysicsQ2.c
+  g_Physics.c
+  g_rope.c
+  g_save.c
+  g_save_defs.c
+  g_save_x86.c
+  g_shrine.c
+  g_Skeletons.c
+  g_spawn.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\q_ClientServer.h(10,9): warning C4005: 'MAX_CLIENTS': macro redefinition
+  (compiling source file 'g_save_x86.c')
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save_x86.h(36,9):
+      see previous definition of 'MAX_CLIENTS'
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save_x86.c(76,5): warning C4013: 'VectorCopy' undefined; assuming extern returning int
+  g_spawnf.c
+  g_svcmds.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(332,28): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  g_target.c
+  g_trigger.c
+  g_utils.c
+  g_waterfx.c
+  g_weapon.c
+  mg_ai.c
+  mg_guide.c
+  m_assassin.c
+  m_assassin_anim.c
+  m_beast.c
+  m_beast_anim.c
+  m_bee.c
+  m_chicken.c
+  m_chicken_anim.c
+  m_elflord.c
+  m_elflord_anim.c
+  m_fish.c
+  m_fish_anim.c
+  m_gkrokon.c
+  m_gkrokon_anim.c
+  m_gorgon.c
+  m_gorgon_anim.c
+  m_harpy.c
+  m_harpy_anim.c
+  m_imp.c
+  m_imp_anim.c
+  m_morcalavin.c
+  m_morcalavin_anim.c
+  m_mother.c
+  m_mother_anim.c
+  m_move.c
+  m_mssithra.c
+  m_mssithra_anim.c
+  m_ogle.c
+  m_ogle_anim.c
+  m_plagueElf.c
+  m_plagueElf_anim.c
+  m_plagueSsithra.c
+  m_plagueSsithra_anim.c
+  m_priestess.c
+  m_priestess_anim.c
+  m_rat.c
+  m_rat_anim.c
+  m_seraph.c
+  m_seraph_anim.c
+  m_seraph_guard.c
+  m_seraph_guard_anim.c
+  m_spreader.c
+  m_spreadermist.c
+  m_spreader_anim.c
+  m_stats.c
+  m_tcheckrik.c
+  m_tcheckrik_anim.c
+  m_tcheckrik_spells.c
+  p_client.c
+  p_funcs.c
+  p_hud.c
+  p_item.c
+  p_morph.c
+  p_teleport.c
+  p_view.c
+  q_shared.c
+  sc_CScript.cpp
+  sc_EntityVar.cpp
+  sc_Event.cpp
+  sc_ExecuteEvent.cpp
+  sc_FieldDef.cpp
+  sc_FieldVariableVar.cpp
+  sc_FloatVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_morph.c(70,55): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_morph.c(221,55): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1147,26): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1583,35): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2119,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  sc_IntVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2240,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+  sc_Main.cpp
+  sc_MoveDoneEvent.cpp
+  sc_RotateDoneEvent.cpp
+  sc_Signaler.cpp
+  sc_StringVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(45,41): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(45,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(53,33): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_Main.cpp(53,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_EntityVar.cpp(63,16): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+  sc_Utility.cpp
+  sc_Variable.cpp
+  sc_VariableVar.cpp
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(300,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(303,30): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(306,34): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  sc_VectorVar.cpp
+  sc_WaitEvent.cpp
+  spl_blast.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(334,29): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(339,33): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+  spl_BlueRing.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(344,29): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+  spl_flyingfist.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(349,31): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(354,23): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(359,30): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(364,20): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+  spl_HellStaff.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\sc_CScript.cpp(1711,39): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+  spl_maceballs.c
+  spl_magicmissile.c
+  spl_meteorbarrier.c
+  spl_morph.c
+  spl_Phoenix.c
+  spl_powerup.c
+  spl_RedRain.c
+  spl_ripper.c
+  spl_shield.c
+  spl_sphereofannihlation.c
+  spl_teleport.c
+  spl_tornado.c
+  spl_wall.c
+  Utilities.c
+     Creating library ..\..\build\base\gamex86.lib and object ..\..\build\base\gamex86.exp
+  game.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll

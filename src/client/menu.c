@@ -135,6 +135,7 @@ char m_text_high[MAX_QPATH];
 const char* yes_no_names[] = { "no", "yes", NULL };
 
 static qboolean m_entersound; // Play after drawing a frame, so caching won't disrupt the sound. //TODO: doesn't seem to be related to playing sounds. Rename?
+static qboolean m_widescreen_book; // True when widescreen book PNG is active; used to offset menu items outward.
 
 m_drawfunc_t m_drawfunc;
 m_keyfunc_t m_keyfunc;
@@ -771,12 +772,14 @@ static float M_GetMenuItemAlpha(const menucommon_t* item)
 
 int M_GetMenuLabelX(const int text_width) // H2
 {
-#define MENU_CENTER_X		(DEF_WIDTH / 2) //mxd
-#define BOOK_PAGE_PADDING	32 // Horizontal gap between book cover and page.
-#define BOOK_PAGE_WIDTH		(MENU_CENTER_X - BOOK_PAGE_PADDING)
+#define MENU_CENTER_X			(DEF_WIDTH / 2) //mxd
+#define BOOK_PAGE_PADDING		32 // Horizontal gap between book cover and page.
+#define BOOK_PAGE_WIDTH			(MENU_CENTER_X - BOOK_PAGE_PADDING)
+#define WIDESCREEN_BOOK_OFFSET	60 // Horizontal outward offset applied when the widescreen book is active.
 
 	const int x = (BOOK_PAGE_WIDTH - text_width) / 2;
-	return x + ((m_menu_side & 1) ? MENU_CENTER_X + 6 : BOOK_PAGE_PADDING); //mxd. Right page is a bit off-center...
+	const int ws_offset = (m_widescreen_book ? ((m_menu_side & 1) ? WIDESCREEN_BOOK_OFFSET : -WIDESCREEN_BOOK_OFFSET) : 0);
+	return x + ((m_menu_side & 1) ? MENU_CENTER_X + 6 : BOOK_PAGE_PADDING) + ws_offset; //mxd. Right page is a bit off-center...
 }
 
 int M_GetMenuOffsetY(const menuframework_t* menu) // H2
@@ -1328,8 +1331,20 @@ void Menu_DrawBG(const char* bk_path, const float scale) //mxd
 	color.a = (byte)(scale * 255.0f); // Use scale, because cls.m_menualpha is used to fade-in menu text AFTER zoom-in effect finishes.
 	re.DrawFill(0, 0, viddef.width, viddef.height, color);
 
-	// Draw menu BG.
+	// Draw standard 4:3 menu BG.
 	re.BookDrawPic(bk_path, scale, 1.0f);
+
+	// Draw widescreen book PNG on top for standard conback menus when display is wider than 4:3 and HD mode is enabled.
+	const qboolean is_widescreen = ((float)viddef.width * 0.75f > (float)viddef.height);
+	m_widescreen_book = (is_widescreen && strstr(bk_path, "conback") != NULL && Cvar_VariableValue("r_hd_textures") != 0.0f);
+	if (m_widescreen_book)
+	{
+		const int scaled_w = (int)(viddef.width * scale);
+		const int scaled_h = (int)(viddef.height * scale);
+		const int ox = (viddef.width - scaled_w) / 2;
+		const int oy = (viddef.height - scaled_h) / 2;
+		re.DrawStretchPic(ox, oy, scaled_w, scaled_h, "/book/Back/WidescreenBook.m32", 1.0f, DSP_NONE);
+	}
 }
 
 // Q2 counterpart

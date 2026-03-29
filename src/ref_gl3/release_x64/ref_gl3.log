@@ -10,13 +10,13 @@
   gl3_Main.c
   gl3_Misc.c
   gl3_Model.c
+  gl3_SDL.c
+  gl3_Shaders.c
+  gl3_Shadow.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Image.c(519,39): warning C4013: 'tolower' undefined; assuming extern returning int
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Image.c(849,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Image.c(918,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\ref_gl3\src\gl3_Image.c(1094,21): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
-  gl3_SDL.c
-  gl3_Shaders.c
-  gl3_Shadow.c
   gl3_Sky.c
   gl3_Sprite.c
   gl3_Surface.c

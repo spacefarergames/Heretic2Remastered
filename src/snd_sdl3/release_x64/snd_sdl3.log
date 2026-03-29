@@ -345,6 +345,7 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5198,2
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5238,25): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
   (compiling source file 'src/snd_ogg.c')
   
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_wav.c(166,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5288,25): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
   (compiling source file 'src/snd_ogg.c')
   
@@ -378,6 +379,5 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(5453,5
       C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_main.h(22,18):
       see declaration of 'channels'
   
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_wav.c(166,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\stb\stb_vorbis.h(4758,1): warning C4701: potentially uninitialized local variable 'mid' used
   snd_sdl3.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\snd_sdl3.dll

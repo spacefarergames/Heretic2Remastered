@@ -1,0 +1,8 @@
+﻿  snd_LowpassFilter.c
+  snd_main.c
+  snd_ogg.c
+  snd_sdl3.c
+  snd_wav.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\snd_sdl3\src\snd_wav.c(166,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+     Creating library ..\..\build\snd_sdl3.lib and object ..\..\build\snd_sdl3.exp
+  snd_sdl3.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\snd_sdl3.dll
