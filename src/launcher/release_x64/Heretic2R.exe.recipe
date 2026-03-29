@@ -2,30 +2,6 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\H2Common.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\quake2.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Player.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Client Effects.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\snd_sdl3.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\ref_gl1.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\ref_gl3.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
       <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\Heretic2R.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

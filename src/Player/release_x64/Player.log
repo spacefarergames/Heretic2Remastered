@@ -9,6 +9,5 @@
   p_main.c
   p_utility.c
   p_weapon.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\Player\p_items.c(740,15): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
      Creating library ..\..\build\base\Player.lib and object ..\..\build\base\Player.exp
   Player.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Player.dll

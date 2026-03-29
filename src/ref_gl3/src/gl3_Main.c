@@ -7,6 +7,7 @@
 #include "gl3_Draw.h"
 #include "gl3_FlexModel.h"
 #include "gl3_Image.h"
+#include "gl3_Jobs.h"
 #include "gl3_Light.h"
 #include "gl3_Misc.h"
 #include "gl3_SDL.h"
@@ -451,6 +452,9 @@ static qboolean RI_Init(void)
 	GL3_InitSSAO(viddef.width, viddef.height);
 	GL3_InitReflect(viddef.width, viddef.height);
 
+	// Initialize job system for multithreading.
+	GL3_InitJobs(0);
+
 	R_SetDefaultState();
 	R_InitImages();
 	Mod_Init();
@@ -484,6 +488,7 @@ static void RI_Shutdown(void)
 	GL3_ShutdownBloom();
 	GL3_ShutdownFBO();
 	GL3_ShutdownShaders();
+	GL3_ShutdownJobs();
 
 	// Shutdown OS-specific OpenGL stuff.
 	RI_ShutdownContext();
@@ -837,48 +842,30 @@ static const GLfloat particle_st_coords[NUM_PARTICLE_TYPES][4] =
 	{ 0.87890625f, 0.87890625f, 0.99609375f, 0.99609375f }
 };
 
-static void R_DrawParticles(const int num_particles, const particle_t* particles, const qboolean alpha_particle)
+// Job data for parallel particle vertex generation.
+typedef struct particle_job_data_s
 {
-	if (num_particles < 1)
-		return;
+	const particle_t* particles;
+	float* output_verts;
+	int start_idx;
+	int end_idx;
+	qboolean alpha_particle;
+	vec3_t vup_local;
+	vec3_t vright_local;
+} particle_job_data_t;
 
-	if (alpha_particle)
-	{
-		R_BindImage(r_aparticletexture);
-		glBlendFunc(GL_ONE, GL_ONE);
-	}
-	else
-	{
-		R_BindImage(r_particletexture);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	}
+// Worker function to generate particle vertices on a job thread.
+static void R_GenerateParticleVerticesJob(void* data)
+{
+	const particle_job_data_t* job = (particle_job_data_t*)data;
+	const particle_t* p = &job->particles[job->start_idx];
+	float* v = job->output_verts;
 
-	glEnable(GL_BLEND);
-
-	// Allocate batch buffer: 6 vertices per particle (2 triangles), 9 floats per vertex.
-	// Maximum safe stack allocation - use heap for large batches.
-	#define MAX_STACK_PARTICLES 512
-	#define PARTICLE_VERTEX_COUNT 6
-	#define PARTICLE_FLOATS_PER_VERTEX 9
-
-	float stack_buffer[MAX_STACK_PARTICLES * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX];
-	float* batch_verts = stack_buffer;
-	float* heap_buffer = NULL;
-
-	if (num_particles > MAX_STACK_PARTICLES)
-	{
-		heap_buffer = (float*)malloc(num_particles * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX * sizeof(float));
-		batch_verts = heap_buffer;
-	}
-
-	const particle_t* p = &particles[0];
-	float* v = batch_verts;
-
-	for (int i = 0; i < num_particles; i++, p++)
+	for (int i = job->start_idx; i < job->end_idx; i++, p++)
 	{
 		vec3_t p_up, p_right;
-		VectorScale(vup, p->scale, p_up);
-		VectorScale(vright, p->scale, p_right);
+		VectorScale(job->vup_local, p->scale, p_up);
+		VectorScale(job->vright_local, p->scale, p_right);
 
 		paletteRGBA_t c;
 		if (p->type & PFL_LM_COLOR)
@@ -886,7 +873,7 @@ static void R_DrawParticles(const int num_particles, const particle_t* particles
 		else
 			c = p->color;
 
-		if (alpha_particle)
+		if (job->alpha_particle)
 		{
 			c.r = (byte)((int)c.r * c.a / 255);
 			c.g = (byte)((int)c.g * c.a / 255);
@@ -929,6 +916,145 @@ static void R_DrawParticles(const int num_particles, const particle_t* particles
 		v[0]=p->origin[0]-p_right[0]; v[1]=p->origin[1]-p_right[1]; v[2]=p->origin[2]-p_right[2];
 		v[3]=s0; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
 		v += 9;
+	}
+}
+
+static void R_DrawParticles(const int num_particles, const particle_t* particles, const qboolean alpha_particle)
+{
+	if (num_particles < 1)
+		return;
+
+	if (alpha_particle)
+	{
+		R_BindImage(r_aparticletexture);
+		glBlendFunc(GL_ONE, GL_ONE);
+	}
+	else
+	{
+		R_BindImage(r_particletexture);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	glEnable(GL_BLEND);
+
+	// Allocate batch buffer: 6 vertices per particle (2 triangles), 9 floats per vertex.
+	// Maximum safe stack allocation - use heap for large batches.
+	#define MAX_STACK_PARTICLES 512
+	#define PARTICLE_VERTEX_COUNT 6
+	#define PARTICLE_FLOATS_PER_VERTEX 9
+
+	float stack_buffer[MAX_STACK_PARTICLES * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX];
+	float* batch_verts = stack_buffer;
+	float* heap_buffer = NULL;
+
+	if (num_particles > MAX_STACK_PARTICLES)
+	{
+		heap_buffer = (float*)malloc(num_particles * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX * sizeof(float));
+		batch_verts = heap_buffer;
+	}
+
+	// Use multithreading for large particle batches.
+	const int num_threads = GL3_GetNumWorkerThreads();
+	const int threading_threshold = 128; // Only multithread if enough particles.
+
+	if (num_particles >= threading_threshold && num_threads > 1)
+	{
+		// Distribute particles across worker threads.
+		const int particles_per_job = (num_particles + num_threads - 1) / num_threads;
+		particle_job_data_t* job_data = (particle_job_data_t*)malloc(num_threads * sizeof(particle_job_data_t));
+		job_handle_t* job_handles = (job_handle_t*)malloc(num_threads * sizeof(job_handle_t));
+
+		for (int t = 0; t < num_threads; t++)
+		{
+			const int start_idx = t * particles_per_job;
+			const int end_idx = min(start_idx + particles_per_job, num_particles);
+
+			if (start_idx >= num_particles)
+				break;
+
+			job_data[t].particles = particles;
+			job_data[t].output_verts = batch_verts + (start_idx * PARTICLE_VERTEX_COUNT * PARTICLE_FLOATS_PER_VERTEX);
+			job_data[t].start_idx = start_idx;
+			job_data[t].end_idx = end_idx;
+			job_data[t].alpha_particle = alpha_particle;
+			VectorCopy(vup, job_data[t].vup_local);
+			VectorCopy(vright, job_data[t].vright_local);
+
+			job_handles[t] = GL3_ScheduleJob(R_GenerateParticleVerticesJob, &job_data[t]);
+		}
+
+		// Wait for all jobs to complete.
+		for (int t = 0; t < num_threads; t++)
+		{
+			if (job_handles[t].job_id != -1)
+				GL3_WaitForJob(job_handles[t]);
+		}
+
+		free(job_handles);
+		free(job_data);
+	}
+	else
+	{
+		// Sequential fallback for small batches.
+		const particle_t* p = &particles[0];
+		float* v = batch_verts;
+
+		for (int i = 0; i < num_particles; i++, p++)
+		{
+			vec3_t p_up, p_right;
+			VectorScale(vup, p->scale, p_up);
+			VectorScale(vright, p->scale, p_right);
+
+			paletteRGBA_t c;
+			if (p->type & PFL_LM_COLOR)
+				c = R_ModulateRGBA(p->color, R_GetSpriteShadelight(p->origin, p->color.a));
+			else
+				c = p->color;
+
+			if (alpha_particle)
+			{
+				c.r = (byte)((int)c.r * c.a / 255);
+				c.g = (byte)((int)c.g * c.a / 255);
+				c.b = (byte)((int)c.b * c.a / 255);
+			}
+
+			const byte p_type = (p->type & PFL_FLAG_MASK);
+			const float cr = (float)c.r / 255.0f;
+			const float cg = (float)c.g / 255.0f;
+			const float cb = (float)c.b / 255.0f;
+			const float ca = (float)c.a / 255.0f;
+			const float s0 = particle_st_coords[p_type][0];
+			const float t0 = particle_st_coords[p_type][1];
+			const float s1 = particle_st_coords[p_type][2];
+			const float t1 = particle_st_coords[p_type][3];
+
+			// Generate 2 triangles (6 vertices) for this particle.
+			// Triangle 1: top-left, top-right, bottom-right
+			v[0]=p->origin[0]+p_up[0]; v[1]=p->origin[1]+p_up[1]; v[2]=p->origin[2]+p_up[2];
+			v[3]=s0; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+
+			v[0]=p->origin[0]+p_right[0]; v[1]=p->origin[1]+p_right[1]; v[2]=p->origin[2]+p_right[2];
+			v[3]=s1; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+
+			v[0]=p->origin[0]-p_up[0]; v[1]=p->origin[1]-p_up[1]; v[2]=p->origin[2]-p_up[2];
+			v[3]=s1; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+
+			// Triangle 2: top-left, bottom-right, bottom-left
+			v[0]=p->origin[0]+p_up[0]; v[1]=p->origin[1]+p_up[1]; v[2]=p->origin[2]+p_up[2];
+			v[3]=s0; v[4]=t0; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+
+			v[0]=p->origin[0]-p_up[0]; v[1]=p->origin[1]-p_up[1]; v[2]=p->origin[2]-p_up[2];
+			v[3]=s1; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+
+			v[0]=p->origin[0]-p_right[0]; v[1]=p->origin[1]-p_right[1]; v[2]=p->origin[2]-p_right[2];
+			v[3]=s0; v[4]=t1; v[5]=cr; v[6]=cg; v[7]=cb; v[8]=ca;
+			v += 9;
+		}
 	}
 
 	// Draw all particles in a single batched call.

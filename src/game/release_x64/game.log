@@ -1,3 +1,10 @@
-﻿  g_save.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\g_save.c(332,28): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+﻿  p_dll.c
+  g_spawnf.c
+  mg_guide.c
+  p_client.c
+  p_hud.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1147,26): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(1583,35): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2119,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\game\p_client.c(2240,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
   game.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll

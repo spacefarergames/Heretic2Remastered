@@ -1,5 +1,4 @@
-﻿  smacker.c
-  cl_camera.c
+﻿  cl_camera.c
   cl_demo.c
   cl_effects.c
   cl_entities.c
@@ -10,28 +9,7 @@
   cl_parse.c
   cl_player.c
   cl_prediction.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(142,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(168,25): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(288,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(298,38): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(379,18): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(485,17): warning C4244: '=': conversion from 'int' to 'unsigned short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1323,10): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1328,11): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1507,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1514,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1519,9): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1547,13): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1550,23): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1556,12): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1559,22): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1567,14): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1572,14): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1573,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1581,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1586,15): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\include\libsmacker\smacker.c(1587,16): warning C4244: '=': conversion from 'int' to 'short', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_parse.c(589,30): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
+  cl_screen.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(83,10): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(114,10): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(131,8): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
@@ -39,8 +17,7 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(80,15): wa
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(111,15): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(128,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_demo.c(148,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
-  cl_screen.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_prediction.c(380,31): warning C4312: 'type cast': conversion from 'int' to 'void *' of greater size
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_parse.c(589,30): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
   cl_skeletons.c
   cl_smk.c
   cl_mp4.c
@@ -50,21 +27,14 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_prediction.c(380,
   input_sdl3.c
   keys.c
   menu.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(58,30): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(58,46): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
   menu_addressbook.c
   menu_cameracfg.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(58,30): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_smk.c(58,46): warning C4057: 'function': 'unsigned long *' differs in indirection to slightly different base types from 'int *'
   menu_citymap.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menu.c(1244,26): warning C4244: '-=': conversion from '__int64' to 'int', possible loss of data
   menu_credits.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(141,8): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(138,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(610,21): warning C4310: cast truncates constant value
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(611,21): warning C4310: cast truncates constant value
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(612,21): warning C4310: cast truncates constant value
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(613,21): warning C4310: cast truncates constant value
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(755,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   menu_dmoptions.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menu.c(1244,26): warning C4244: '-=': conversion from '__int64' to 'int', possible loss of data
   menu_downloadoptions.c
   menu_game.c
   menu_help.c
@@ -74,19 +44,18 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(755,2): wa
   menu_loadcfg.c
   menu_loadgame.c
   menu_main.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_joinserver.c(59,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
   menu_misc.c
   menu_mousecfg.c
   menu_multiplayer.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_joinserver.c(59,40): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(141,8): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(138,13): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(610,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(611,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(612,21): warning C4310: cast truncates constant value
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(613,21): warning C4310: cast truncates constant value
   menu_objectives.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(109,16): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(206,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(215,6): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(232,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(267,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(275,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(325,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(429,15): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_main.c(755,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   menu_options.c
   menu_playerconfig.c
   menu_quit.c
@@ -95,66 +64,63 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(429,15): wa
   menu_startserver.c
   menu_video.c
   menu_worldmap.c
-  q_shared.c
-  anorms.c
   cmd.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_playerconfig.c(74,23): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
   cmodel.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_quit.c(104,1): warning C4702: unreachable code
   common.c
   cvar.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(109,16): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(206,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(215,6): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(232,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(267,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(275,7): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(325,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\cl_mp4.c(429,15): warning C4245: 'function': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client\menus\menu_quit.c(104,1): warning C4702: unreachable code
   Debug.c
   files.c
   cd_detect.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\cmodel.c(757,12): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c(295,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
-  md4.c
+  pak_detect.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\common.c(422,19): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
   netmsg_read.c
   netmsg_write.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\common.c(422,19): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c(347,1): warning C4702: unreachable code
   net_chan.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(181,31): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(185,31): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(189,32): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c(193,32): warning C4244: '=': conversion from 'uint32_t' to 'unsigned char', possible loss of data
   pmove.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\cmodel.c(757,12): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
   p_dll.c
-  Reference.c
-  Skeletons.c
-  tokens.c
-  turbsin.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c(295,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
   sv_ccmds.c
   sv_effects.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c(347,1): warning C4702: unreachable code
   sv_entities.c
   sv_game.c
   sv_init.c
+  sv_main.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(111,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(156,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_ccmds.c(474,19): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
-  sv_main.c
-  sv_send.c
-  sv_user.c
-  sv_world.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(19,24): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(23,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(40,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(62,20): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_init.c(228,22): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_world.c(340,20): warning C4311: 'type cast': pointer truncation from 'link_t *' to 'int'
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_world.c(400,20): warning C4311: 'type cast': pointer truncation from 'link_t *' to 'int'
+  sv_send.c
+  sv_user.c
+  sv_world.c
   clfx_dll.c
   net_wins.c
+  q_shwin.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_user.c(58,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(394,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(502,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(631,7): warning C4267: '=': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_send.c(621,12): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
-  q_shwin.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_user.c(58,50): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
   snd_dll.c
   cd_audio.c
   sys_win.c
   vid_dll.c
+  vid_Screenshot.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(29,16): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(66,7): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(89,7): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
@@ -171,12 +137,10 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,30): w
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,60): warning C4310: cast truncates constant value
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,88): warning C4310: cast truncates constant value
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_game.c(381,119): warning C4310: cast truncates constant value
-  vid_Screenshot.c
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(124,20): warning C4267: 'initializing': conversion from 'size_t' to 'uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(134,28): warning C4267: 'initializing': conversion from 'size_t' to 'const uint', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\server\sv_main.c(370,43): warning C4244: 'initializing': conversion from '__int64' to 'const int', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\sys_win.c(229,29): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\q_shwin.c(107,15): warning C4244: '=': conversion from 'intptr_t' to 'int', possible loss of data
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\q_shwin.c(156,26): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\sys_win.c(229,29): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
      Creating library ..\..\build\quake2.lib and object ..\..\build\quake2.exp
   quake2.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\quake2.dll

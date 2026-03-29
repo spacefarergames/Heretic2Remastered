@@ -130,10 +130,9 @@ static void ConvertAlertent(const alertent_x86_t* src, alertent_x64_t* dst)
 static void ConvertBuoy(const buoy_x86_t* src, buoy_x64_t* dst)
 {
     memset(dst, 0, sizeof(*dst));
-    // Note: In x86, nextbuoy[] are ints (indices), in x64 they're pointers
-    // But in save files, they're stored as indices, so we zero-extend
+    // nextbuoy[] are indices (int), same type in x86 and x64
     for (int i = 0; i < MAX_BUOY_BRANCHES; i++)
-        dst->nextbuoy[i] = (uint64_t)src->nextbuoy[i];
+        dst->nextbuoy[i] = src->nextbuoy[i];
     dst->modflags = src->modflags;
     dst->opflags = src->opflags;
     VectorCopy(src->origin, dst->origin);
@@ -301,7 +300,7 @@ bool ConvertGameSave(const char* inputPath, const char* outputPath)
     }
     save_ver[15] = 0;
     printf("  Save version: %s\n", save_ver);
-    
+
     // Read x86 game_locals size
     int x86_game_size;
     if (fread(&x86_game_size, sizeof(x86_game_size), 1, fin) != 1)
@@ -312,17 +311,41 @@ bool ConvertGameSave(const char* inputPath, const char* outputPath)
     }
     printf("  x86 game_locals size: %d bytes\n", x86_game_size);
     printf("  Expected x64 size:    %zu bytes\n", sizeof(game_locals_x64_t));
-    
+
+    // Validate x86_game_size before reading
+    if (x86_game_size <= 0 || x86_game_size > (int)sizeof(game_locals_x86_t) * 2)
+    {
+        printf("Error: Invalid game_locals size: %d (expected around %zu)\n", 
+               x86_game_size, sizeof(game_locals_x86_t));
+        fclose(fin);
+        return false;
+    }
+
     // Read x86 game_locals
     game_locals_x86_t game_x86;
-    if (fread(&game_x86, x86_game_size, 1, fin) != 1)
+    memset(&game_x86, 0, sizeof(game_x86));
+    size_t bytesToRead = (size_t)x86_game_size < sizeof(game_x86) ? (size_t)x86_game_size : sizeof(game_x86);
+    if (fread(&game_x86, bytesToRead, 1, fin) != 1)
     {
         printf("Error: Cannot read game_locals data\n");
         fclose(fin);
         return false;
     }
+    // Skip any extra bytes if saved struct was larger
+    if ((size_t)x86_game_size > sizeof(game_x86))
+        fseek(fin, x86_game_size - (long)sizeof(game_x86), SEEK_CUR);
+
     printf("  maxclients: %d, maxentities: %d\n", game_x86.maxclients, game_x86.maxentities);
-    
+
+    // Validate maxclients to prevent overflow
+    if (game_x86.maxclients <= 0 || game_x86.maxclients > MAX_CLIENTS)
+    {
+        printf("Error: Invalid maxclients value: %d (expected 1-%d)\n", 
+               game_x86.maxclients, MAX_CLIENTS);
+        fclose(fin);
+        return false;
+    }
+
     // Read x86 client size
     int x86_client_size;
     if (fread(&x86_client_size, sizeof(x86_client_size), 1, fin) != 1)
@@ -332,50 +355,67 @@ bool ConvertGameSave(const char* inputPath, const char* outputPath)
         return false;
     }
     printf("  x86 gclient size: %d bytes\n", x86_client_size);
-    
+
+    // Validate client size to prevent overflow
+    if (x86_client_size <= 0 || x86_client_size > 100000)  // Reasonable upper bound
+    {
+        printf("Error: Invalid client size: %d\n", x86_client_size);
+        fclose(fin);
+        return false;
+    }
+
     // For now, we'll skip client conversion - it's extremely complex
     // Just read and write the raw client data (the game will reinitialize it)
     long clientDataStart = ftell(fin);
     long clientDataSize = (long)x86_client_size * game_x86.maxclients;
-    
-    byte* clientData = (byte*)malloc(clientDataSize);
-    if (clientData == NULL)
+
+    // Validate clientDataSize won't overflow or exceed file bounds
+    if (clientDataSize <= 0 || clientDataSize > fileSize - clientDataStart)
     {
-        printf("Error: Cannot allocate memory for client data\n");
+        printf("Error: Invalid client data size: %ld (file has %ld bytes remaining)\n", 
+               clientDataSize, fileSize - clientDataStart);
         fclose(fin);
         return false;
     }
-    
-    if (fread(clientData, clientDataSize, 1, fin) != 1)
+
+    byte* clientData = (byte*)malloc((size_t)clientDataSize);
+    if (clientData == NULL)
+    {
+        printf("Error: Cannot allocate memory for client data (%ld bytes)\n", clientDataSize);
+        fclose(fin);
+        return false;
+    }
+
+    if (fread(clientData, (size_t)clientDataSize, 1, fin) != 1)
     {
         printf("Error: Cannot read client data\n");
         free(clientData);
         fclose(fin);
         return false;
     }
-    
+
     // Read remaining data (scripts, etc.)
     long remainingStart = ftell(fin);
     long remainingSize = fileSize - remainingStart;
-    
+
     byte* remainingData = NULL;
     if (remainingSize > 0)
     {
-        remainingData = (byte*)malloc(remainingSize);
+        remainingData = (byte*)malloc((size_t)remainingSize);
         if (remainingData == NULL)
         {
-            printf("Error: Cannot allocate memory for remaining data\n");
+            printf("Error: Cannot allocate memory for remaining data (%ld bytes)\n", remainingSize);
             free(clientData);
             fclose(fin);
             return false;
         }
-        
-        if (fread(remainingData, remainingSize, 1, fin) != 1)
+
+        if (fread(remainingData, (size_t)remainingSize, 1, fin) != 1)
         {
             printf("Warning: Could not read all remaining data\n");
         }
     }
-    
+
     fclose(fin);
     
     // Convert game_locals
@@ -407,15 +447,15 @@ bool ConvertGameSave(const char* inputPath, const char* outputPath)
     printf("\n  WARNING: Client data conversion is not fully implemented.\n");
     printf("  The converted save may not work correctly.\n");
     printf("  You may need to start a new game after loading.\n\n");
-    
+
     // Write a placeholder client size that signals "needs reinitialization"
     // For now, just write the original client data
     fwrite(&x86_client_size, sizeof(x86_client_size), 1, fout);
-    fwrite(clientData, clientDataSize, 1, fout);
-    
+    fwrite(clientData, (size_t)clientDataSize, 1, fout);
+
     // Write remaining data
     if (remainingData && remainingSize > 0)
-        fwrite(remainingData, remainingSize, 1, fout);
+        fwrite(remainingData, (size_t)remainingSize, 1, fout);
     
     fclose(fout);
     

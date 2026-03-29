@@ -1,71 +1,80 @@
-﻿  anorms.c
-  Message.c
-  netmsg_read.c
-  turbsin.c
-  fx_BarrelExplode.c
-  fx_CorpseRemove.c
-  fx_Explosion.c
-  fx_GibTrail.c
-  fx_HitPuffs.c
-  fx_Leader.c
-  fx_PhoenixMissile.c
-  fx_WaterParticles.c
-  fx_WaterSplash.c
-  ce_DefaultMessageHandler.c
-  ce_DLight.c
-  ce_Message.c
+﻿  netmsg_read.c
   Client Effects.c
   Client Entities.c
+  LevelMaps.c
+  LightStyles.c
+  Main.c
+  Particle.c
+  Utilities.c
+  ce_DLight.c
+  ce_DefaultMessageHandler.c
+  ce_Message.c
   fx_AmmoPickup.c
+  fx_ArmorHit.c
+  fx_BarrelExplode.c
+  fx_BlueRing.c
+  fx_CorpseRemove.c
+  fx_DefensePickup.c
+  fx_Dripper.c
+  fx_Explosion.c
+  fx_FeetTrail.c
+  fx_Fountain.c
+  fx_GibTrail.c
+  fx_HealthPickup.c
+  fx_HellStaff.c
+  fx_HighPriestessProjectiles.c
+  fx_HighPriestessStaff.c
+  fx_HitPuffs.c
+  fx_Leader.c
+  fx_LightningHit.c
+  fx_Maceball.c
+  fx_MorphOvum.c
+  fx_PhoenixExplode.c
+  fx_PhoenixMissile.c
+  fx_PlagueElfSpells.c
+  fx_PlagueMist.c
+  fx_PlagueMistExplode.c
+  fx_PlayerPersistent.c
+  fx_PuzzlePickup.c
+  fx_RedRain.c
+  fx_Ripples.c
+  fx_Shield.c
+  fx_StaffHit.c
+  fx_TestBBox.c
+  fx_Torch.c
+  fx_Wall.c
+  fx_WaterParticles.c
+  fx_WaterSplash.c
+  fx_WeaponPickup.c
   fx_animate.c
   fx_assassin.c
   fx_blood.c
-  fx_BlueRing.c
   fx_bubbler.c
   fx_crosshair.c
   fx_cwatcher.c
   fx_debris.c
-  fx_DefensePickup.c
-  fx_Dripper.c
   fx_dust.c
   fx_dustpuff.c
   fx_fire.c
   fx_firehands.c
   fx_flamethrow.c
   fx_flyingfist.c
-  fx_Fountain.c
   fx_halo.c
-  fx_HealthPickup.c
-  fx_HellStaff.c
-  fx_HighPriestessProjectiles.c
-  fx_HighPriestessStaff.c
-  fx_LightningHit.c
   fx_insectstaff.c
   fx_lensflare.c
   fx_lightning.c
-  fx_Maceball.c
-C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client effects\fx_halo.c(78,31): warning C4311: 'type cast': pointer truncation from 'client_entity_t *' to 'int'
   fx_magicmissile.c
   fx_meteorbarrier.c
   fx_mist.c
   fx_mork.c
-  fx_MorphOvum.c
-  fx_PhoenixExplode.c
   fx_pickup.c
-  fx_PuzzlePickup.c
-  fx_PlagueElfSpells.c
-  fx_PlagueMist.c
-  fx_PlagueMistExplode.c
   fx_portal.c
   fx_quake.c
-  fx_RedRain.c
   fx_redrainglow.c
   fx_remotecamera.c
-  fx_Ripples.c
   fx_rope.c
   fx_scorchmark.c
   fx_shadow.c
-  fx_Shield.c
   fx_shrine.c
   fx_smoke.c
   fx_sound.c
@@ -76,24 +85,10 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\client effects\fx_halo.c(78
   fx_spoo.c
   fx_ssithra.c
   fx_staff.c
-  fx_StaffHit.c
   fx_tbeast.c
   fx_teleport.c
   fx_tome.c
-  fx_Torch.c
   fx_tornado.c
-  fx_Wall.c
   fx_waterentrysplash.c
   fx_waterwake.c
-  fx_WeaponPickup.c
-  fx_FeetTrail.c
-  fx_ArmorHit.c
-  LevelMaps.c
-  LightStyles.c
-  Main.c
-  Particle.c
-  fx_PlayerPersistent.c
-  fx_TestBBox.c
-  Utilities.c
-     Creating library ..\..\build\base\Client Effects.lib and object ..\..\build\base\Client Effects.exp
   Client Effects.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Client Effects.dll

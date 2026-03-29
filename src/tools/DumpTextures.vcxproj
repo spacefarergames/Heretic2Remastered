@@ -20,8 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DumpTextures.c" />
+    <ClCompile Include="SaveConverter\main.c" />
+    <ClCompile Include="SaveConverter\save_convert.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SaveConverter\SaveConverter.vcxproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SaveConverter\save_convert.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <SccProjectName />

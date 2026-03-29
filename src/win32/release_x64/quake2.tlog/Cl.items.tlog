@@ -55,6 +55,7 @@ C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\cvar.c;C:\Users\pat
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\Debug.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\Debug.obj
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\files.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\files.obj
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\cd_detect.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\cd_detect.obj
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\pak_detect.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\pak_detect.obj
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\md4.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\md4.obj
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\netmsg_read.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\netmsg_read.obj
 C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\qcommon\netmsg_write.c;C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\win32\release\netmsg_write.obj

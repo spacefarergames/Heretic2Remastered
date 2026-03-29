@@ -424,13 +424,12 @@ typedef struct {
 
 // buoy_t x64 layout
 typedef struct {
-    uint64_t nextbuoy[MAX_BUOY_BRANCHES];  // Note: these are pointers in x64!
+    int nextbuoy[MAX_BUOY_BRANCHES];  // Indices, NOT pointers - same in x86 and x64
     int modflags;
     int opflags;
     vec3_t origin;
     int id;
-    int _pad1;
-    uint64_t pathtarget;
+    uint64_t pathtarget;  // char* - this IS a pointer, needs 8 bytes
     float wait;
     float delay;
     float temp_dist;

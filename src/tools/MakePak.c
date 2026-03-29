@@ -18,6 +18,7 @@
 #include <string.h>
 #include <direct.h>
 #include <io.h>
+#include <limits.h>
 
 #pragma region ========================== PAK2 format definitions ==========================
 
@@ -25,7 +26,8 @@ typedef unsigned char byte;
 typedef unsigned int uint;
 
 // Extended PAK format with 128-char filenames.
-#define IDPAK2HEADER	(('2' << 24) + ('K' << 16) + ('A' << 8) + 'P')
+// Values stored in little-endian format (Intel x86/x64)
+#define IDPAK2HEADER	(('P' << 0) + ('A' << 8) + ('K' << 16) + ('2' << 24))
 #define MAX_FILES_IN_PACK	6144
 
 typedef struct
@@ -186,7 +188,14 @@ static int WritePak(const char* outputfile)
 		// Record directory entry.
 		memset(&directory[i], 0, sizeof(dpackfile2_t));
 		strcpy_s(directory[i].name, sizeof(directory[i].name), g_files[i].relative_path);
-		directory[i].filepos = (int)ftell(pakfile);
+		long pos = ftell(pakfile);
+		if (pos > INT_MAX)
+		{
+			fprintf(stderr, "ERROR: File offset exceeds 2GB limit at file index %d. PAK file too large.\n", i);
+			fclose(pakfile);
+			return 1;
+		}
+		directory[i].filepos = (int)pos;
 
 		// Copy file contents.
 		int total = 0;
@@ -198,6 +207,13 @@ static int WritePak(const char* outputfile)
 
 			fwrite(buffer, 1, bytesread, pakfile);
 			total += (int)bytesread;
+			if (total < 0) // Overflow check
+			{
+				fprintf(stderr, "ERROR: File size exceeds 2GB limit for '%s'.\n", g_files[i].relative_path);
+				fclose(infile);
+				fclose(pakfile);
+				return 1;
+			}
 		}
 
 		directory[i].filelen = total;
@@ -205,8 +221,21 @@ static int WritePak(const char* outputfile)
 	}
 
 	// Write directory.
-	header.dirofs = (int)ftell(pakfile);
+	long dir_offset = ftell(pakfile);
+	if (dir_offset > INT_MAX)
+	{
+		fprintf(stderr, "ERROR: Directory offset %lld exceeds 2GB limit. PAK file too large.\n", dir_offset);
+		fprintf(stderr, "Maximum PAK2 file size: %d bytes (2.0 GB)\n", INT_MAX);
+		fprintf(stderr, "Current data size: %lld bytes\n", dir_offset);
+		fprintf(stderr, "Excess: %lld bytes\n", dir_offset - INT_MAX);
+		fprintf(stderr, "To fix: Remove approximately %lld MB of files from the base directory.\n", (dir_offset - INT_MAX) / (1024*1024) + 1);
+		fclose(pakfile);
+		return 1;
+	}
+	header.dirofs = (int)dir_offset;
 	header.dirlen = g_numfiles * (int)sizeof(dpackfile2_t);
+
+	printf("Writing directory at offset %d with %d files (%d bytes)...\n", header.dirofs, g_numfiles, header.dirlen);
 	fwrite(directory, sizeof(dpackfile2_t), g_numfiles, pakfile);
 
 	// Update header.
@@ -215,6 +244,8 @@ static int WritePak(const char* outputfile)
 
 	fclose(pakfile);
 
+	printf("Successfully created %s\n", outputfile);
+	printf("Total size: %lld bytes\n", dir_offset + header.dirlen);
 	return 0;
 }
 

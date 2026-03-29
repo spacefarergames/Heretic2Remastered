@@ -1,0 +1,22 @@
+﻿  MakePak.c
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(227,19): warning C4477: 'fprintf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'long'
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(227,19):
+      consider using '%ld' in the format string
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(229,19): warning C4477: 'fprintf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'long'
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(229,19):
+      consider using '%ld' in the format string
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(230,19): warning C4477: 'fprintf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'long'
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(230,19):
+      consider using '%ld' in the format string
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(231,19): warning C4477: 'fprintf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'long'
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(231,19):
+      consider using '%ld' in the format string
+  
+C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(248,9): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 1 has type 'long'
+      C:\Users\patte\source\repos\Heretic2HD\Heretic2R\src\tools\MakePak.c(248,9):
+      consider using '%ld' in the format string
+  
+  MakePak.vcxproj -> C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\MakePak.exe

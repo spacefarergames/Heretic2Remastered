@@ -14,10 +14,12 @@
 #pragma region ========================== .PAK ==========================
 
 // The .pak files are just a linear collapse of a directory tree.
-#define IDPAKHEADER		(('K' << 24) + ('C' << 16) + ('A' << 8) + 'P')
+// Values stored in little-endian format (Intel x86/x64)
+#define IDPAKHEADER		(('P' << 0) + ('A' << 8) + ('C' << 16) + ('K' << 24))
 
 // Extended PAK format with longer filenames (128 chars instead of 56).
-#define IDPAK2HEADER	(('2' << 24) + ('K' << 16) + ('A' << 8) + 'P')
+// Values stored in little-endian format (Intel x86/x64)
+#define IDPAK2HEADER	(('P' << 0) + ('A' << 8) + ('K' << 16) + ('2' << 24))
 
 typedef struct
 {

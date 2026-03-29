@@ -29,6 +29,7 @@
     <ClCompile Include="src\anormtab.c" />
     <ClCompile Include="src\gl3_FlexModel.c" />
     <ClCompile Include="src\gl3_Image.c" />
+    <ClCompile Include="src\gl3_Jobs.c" />
     <ClCompile Include="src\gl3_Light.c" />
     <ClCompile Include="src\gl3_Lightmap.c" />
     <ClCompile Include="src\gl3_Main.c" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\qcommon\turbsin.h" />
     <ClInclude Include="src\gl3_Draw.h" />
     <ClInclude Include="src\gl3_FlexModel.h" />
+    <ClInclude Include="src\gl3_Jobs.h" />
     <ClInclude Include="src\gl3_Shadow.h" />
     <ClInclude Include="src\Skeletons\m_Skeleton.h" />
     <ClInclude Include="src\Skeletons\m_SkeletalCluster.h" />
@@ -78,6 +80,11 @@
     <ClInclude Include="src\gl3_Surface.h" />
     <ClInclude Include="src\gl3_Warp.h" />
     <ClInclude Include="src\Hunk.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="JOB_SYSTEM_IMPLEMENTATION.txt" />
+    <Text Include="JOB_SYSTEM_QUICK_START.txt" />
+    <Text Include="SHUTDOWN_FIX.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <SccProjectName />

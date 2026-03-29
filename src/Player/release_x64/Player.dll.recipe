@@ -2,15 +2,6 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\H2Common.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\quake2.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\gamex86.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
       <FullPath>C:\Users\patte\source\repos\Heretic2HD\Heretic2R\build\base\Player.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

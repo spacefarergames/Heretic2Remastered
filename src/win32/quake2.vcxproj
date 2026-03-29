@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -76,6 +76,7 @@
     <ClCompile Include="..\qcommon\Debug.c" />
     <ClCompile Include="..\qcommon\files.c" />
     <ClCompile Include="..\qcommon\cd_detect.c" />
+    <ClCompile Include="..\qcommon\pak_detect.c" />
     <ClCompile Include="..\qcommon\md4.c" />
     <ClCompile Include="..\qcommon\netmsg_read.c" />
     <ClCompile Include="..\qcommon\netmsg_write.c" />

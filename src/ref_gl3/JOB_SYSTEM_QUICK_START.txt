@@ -1,0 +1,117 @@
+// ============================================================
+// QUICK START: MULTITHREADED JOB SYSTEM
+// ============================================================
+//
+// The job system is automatically initialized when the renderer starts.
+// It detects CPU cores and creates (cores - 1) worker threads.
+//
+// NO CODE CHANGES NEEDED - it works automatically!
+//
+// But if you want to schedule your own jobs:
+//
+// ============================================================
+// 1. SCHEDULE A SINGLE JOB
+// ============================================================
+//
+// struct MyJobData {
+//     int* values;
+//     int count;
+// };
+//
+// void ProcessValuesJob(void* data) {
+//     MyJobData* job = (MyJobData*)data;
+//     for (int i = 0; i < job->count; i++) {
+//         job->values[i] *= 2;
+//     }
+// }
+//
+// // In your code:
+// MyJobData data = { my_array, array_size };
+// job_handle_t handle = GL3_ScheduleJob(ProcessValuesJob, &data);
+//
+// // Do other work while job runs in background...
+//
+// // Wait for it to finish
+// GL3_WaitForJob(handle);
+//
+// ============================================================
+// 2. BATCH MULTIPLE JOBS
+// ============================================================
+//
+// #define NUM_CHUNKS 4
+// job_handle_t handles[NUM_CHUNKS];
+// MyJobData chunks[NUM_CHUNKS];
+//
+// // Schedule all chunks
+// for (int i = 0; i < NUM_CHUNKS; i++) {
+//     chunks[i].values = &data[i * chunk_size];
+//     chunks[i].count = chunk_size;
+//     handles[i] = GL3_ScheduleJob(ProcessValuesJob, &chunks[i]);
+// }
+//
+// // Wait for ALL to finish
+// for (int i = 0; i < NUM_CHUNKS; i++) {
+//     GL3_WaitForJob(handles[i]);
+// }
+//
+// ============================================================
+// 3. WAIT FOR ALL PENDING JOBS
+// ============================================================
+//
+// // Just wait until everything is done
+// GL3_WaitForAllJobs();
+//
+// ============================================================
+// 4. CHECK THREAD COUNT
+// ============================================================
+//
+// int num_threads = GL3_GetNumWorkerThreads();
+// ri.Con_Printf(PRINT_ALL, "Running with %d worker threads\n", num_threads);
+//
+// ============================================================
+// CURRENT USES IN CODEBASE
+// ============================================================
+//
+// 1. PARTICLE VERTEX GENERATION (R_DrawParticles)
+//    - Automatic: particles >= 128 use multithreading
+//    - Faster particle rendering with many particles
+//    - Transparent to caller - just works!
+//
+// ============================================================
+// PERFORMANCE TIPS
+// ============================================================
+//
+// 1. Use threading for > 100 items (overhead is ~10-50μs per job)
+// 2. Keep jobs independent (no data sharing between threads)
+// 3. Allocate large buffers before scheduling jobs
+// 4. Use GL3_WaitForAllJobs() at frame end, not in loops
+// 5. Profile with r_speeds to find bottlenecks
+//
+// ============================================================
+// DEBUGGING
+// ============================================================
+//
+// Worker threads are named:
+//   GL3_Worker_0
+//   GL3_Worker_1
+//   GL3_Worker_2
+//   ... etc
+//
+// You can see them in debugger thread window.
+// The system prints initialization info to console:
+//   "GL3_InitJobs: Created N worker threads"
+//
+// ============================================================
+// SYSTEM CALLS (in gl3_Main.c)
+// ============================================================
+//
+// Initialization:
+//   GL3_InitJobs(0);  // Auto-detect cores
+//
+// Cleanup (automatic):
+//   GL3_ShutdownJobs();
+//
+// These are called automatically during renderer init/shutdown.
+// You don't need to call them manually.
+//
+// ============================================================

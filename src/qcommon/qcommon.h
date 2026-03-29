@@ -644,6 +644,9 @@ extern qboolean FS_IsValidDirName(const char* dir); //mxd
 extern char* FS_NextPath(const char* prevpath);
 extern void FS_ExecAutoexec(void);
 
+// PAK file detection from Steam/GOG/Program Files
+extern qboolean CD_SearchAndCopyPaks(const char* base_dir);
+
 Q2DLL_DECLSPEC extern int FS_FOpenFile(const char* filename, FILE** file);
 Q2DLL_DECLSPEC extern void FS_FCloseFile(FILE* f); // Note: this can't be called from another DLL, due to MS libc issues.
 

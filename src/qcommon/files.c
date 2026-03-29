@@ -681,6 +681,9 @@ void FS_InitFilesystem(void)
 	// Detect Heretic II CD and extract PAK files if needed (before scanning the game directory).
 	CD_DetectAndExtract(va("%s/"BASEDIRNAME, fs_basedir->string));
 
+	// Search for and copy Heretic II PAK files from Steam/GOG/Program Files installations.
+	CD_SearchAndCopyPaks(va("%s/"BASEDIRNAME, fs_basedir->string));
+
 	// Start up with 'base' by default.
 	FS_AddGameDirectory(va("%s/"BASEDIRNAME, fs_basedir->string));
 
