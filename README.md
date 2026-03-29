@@ -63,6 +63,26 @@ HD textures can also be loaded from `base.pak`.
 Place MP4 or MKV cinematics in "**base\video**". The game will play them in place of the original `.cin`/`.smk` files.  
 HD videos can also be loaded from `base.pak`.
 
+## Performance Improvements (R7 v2.0.7)
+
+**Multithreaded Job System**  
+The OpenGL 3.3 renderer now includes a multithreaded job system that automatically detects the number of available CPU cores and uses them for parallel rendering tasks.
+
+- **Particle Rendering**: Particle vertex generation is parallelized across multiple CPU cores, resulting in **2–3x performance improvement** on 4-core systems for scenes with 128+ particles.
+- **Automatic Core Detection**: The job system automatically adapts to the system's CPU configuration (supports 1–16 worker threads).
+- **Fallback Mode**: For small particle counts (<128), the system uses sequential processing to avoid threading overhead, ensuring consistent performance across all scenarios.
+- **Stability**: Includes improvements to the renderer's shutdown sequence to ensure clean exit and prevent game hangs.
+- **Backward Compatibility**: Works on all systems and automatically degrades to single-threaded mode on single-core CPUs or when explicitly configured.
+
+This improvement provides the best results in high-particle-count scenarios such as:
+- Dense weather effects (rain, snow)
+- Explosion particles
+- Magical spell effects
+- Atmospheric effects (dust, fog, sparks)
+
+**Now 64bit for the first time**  
+The game engine, renderer and backends are now all 64bit with 100% compatibility with the original game data. Only caveat is that save files made in 32bit and prior versions WILL NOT WORK.
+
 ## CD Auto-Detection
 
 On startup, the engine scans all CD/DVD drives for the original Heretic II disc. If the disc is found (identified by the presence of `Setup/zip/h2.zip`), the engine automatically extracts `Htic2-0.pak` and `Htic2-1.pak` from the CD's installer ZIP archive into the `base` directory. A splash screen is displayed during extraction.
