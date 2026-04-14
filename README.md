@@ -40,6 +40,7 @@ Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, R
 * **PAK2 archive format** — extended PAK format supporting filenames up to 128 characters (see below).
 * **`base.pak` support** — all game data (textures, models, sounds, music, HD textures, HD videos) can be distributed as a single `base.pak` archive.
 * **Automatic CD detection** — if a Heretic II CD is in any CD/DVD drive, the engine automatically extracts the required PAK files (no manual copying needed).
+* **Smooth UI enhancements** - New animations added to UI, fade in/ out transitions and starfield / northen lights which makes the game look better when using hardcoded 4:3 assets
 
 ## Installation
 
