@@ -1,7 +1,7 @@
 # Heretic II Remastered
 
 ![Logo](Logo.png)
-
+A Very Special Thank You to the efforts of the developers of Heretic2R (Source Port) Without this none of this would be possible! https://github.com/m-x-d/Heretic2R
 Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, Raven Software), with HD enhancements and modern engine improvements. Now completely 64bit with modern game control support out of the box and automatic detection of Original game data (Steam / GOG / CD) The best way to play Heretic II now and for the forseeable future!
 
 ![Screenshot1](CorvusNight.png)
@@ -55,7 +55,7 @@ In the event that it cannot find your installed copy, proceed to manual installa
  
 – Copy "`Htic2-0.pak` and `Htic2-1.pak`) into the `base` folder of Heretic II Remastered.
 - Make sure you've downloaded the latest version of Remastered, which includes the base.pak, containing all the necessary HD textures, music OGGs, and HD videos. If you have an older version without base.pak, you can either update to the latest version or extract `base.pak` from the latest release and place it in the `base` folder.
-- If you have the original game CD, the engine will **automatically detect it** and extract the required PAK files — see the **CD Auto-Detection** section below. You can also copy the files manually, but make sure to update to v1.06 as described below, otherwise the game will not work correctly because of missing models/textures/sounds.
+- If you have the original game CD, the engine will **automatically detect it** and extract the required PAK files — see the **CD Auto-Detection** section below. You can also copy the files manually.
 - If you don't have the original game CD, you can purchase Heretic II from GOG or Steam, which both include the necessary game data files. Just make sure to point Remastered to the correct `base` folder where those files are located.
 
 **HD textures:**  
@@ -92,7 +92,6 @@ On startup, the engine scans all CD/DVD drives for the original Heretic II disc.
 
 - If both PAK files already exist in the `base` folder, extraction is skipped.
 - The built-in ZIP/DEFLATE decompressor requires no external libraries.
-- After extraction, you should still apply the v1.06 patch as described above.
 
 ## Controller Guide
 
@@ -221,13 +220,8 @@ The engine loads content from `base.pak`, `Htic2-0.pak` through `Htic2-9.pak`, a
 ## Technical notes
 
 * Savegames/configs/screenshots/logs are stored in "**%USERPROFILE%\Saved Games\Heretic2R**".
-* Singleplayer works. The game is completable without any issues.
 * This version of the game does not include Multiplayer, and is not a planned feature.
-* By default, network protocol 55 is used (H2 protocol 51 is also supported, but not recommended). Can be changed using the "protocol" cvar.
 * Savegames are **NOT** compatible with original H2 savegames nor prior 32bit builds.
-* **NOT** compatible with original H2 renderers (because of API changes).
-* **NOT** compatible with original H2 sound backends (because of API changes).
-* **NOT** compatible with original H2 gamex86/Player/Client Effects libraries (because of API changes).
 * Framerates above 60 FPS are supported.
 
 ## Planned features
