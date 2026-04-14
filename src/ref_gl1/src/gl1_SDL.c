@@ -33,6 +33,7 @@ int RI_PrepareForWindow(void)
 	{
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+		ri.Con_Printf(PRINT_ALL, "Requested MSAA 4x\n");
 	}
 	else
 	{

@@ -52,8 +52,9 @@ static int initial_vid_mode; // vid_mode when entering menu.
 
 static void UpdateTargetFPSFunc(void* self) //mxd
 {
+	static const int fps_values[] = { 30, 60, 90, 120, 144, 240 };
 	const menulist_t* list = (menulist_t*)self;
-	Cvar_SetValue("vid_maxfps", (float)(list->curvalue + 1) * 30.0f);
+	Cvar_SetValue("vid_maxfps", (float)fps_values[list->curvalue]);
 }
 
 static void UpdateGammaFunc(void* self) // H2
@@ -165,7 +166,8 @@ void VID_PreMenuInit(void)
 
 static void VID_MenuInit(void)
 {
-	static const char* target_fps_names[] = { "30", "60", "90", "120", "240", NULL }; //mxd
+	static const char* target_fps_names[] = { "30", "60", "90", "120", "144", "240", NULL }; //mxd
+	static const int target_fps_values[] = { 30, 60, 90, 120, 144, 240 };
 	static const char* antialiasing_names[] = { "Off", "MSAA", "FXAA", NULL };
 
 	static char name_driver[MAX_QPATH];
@@ -244,7 +246,17 @@ static void VID_MenuInit(void)
 	s_target_fps_list.generic.flags = QMF_SINGLELINE;
 	s_target_fps_list.generic.callback = UpdateTargetFPSFunc;
 	s_target_fps_list.itemnames = target_fps_names;
-	s_target_fps_list.curvalue = (int)(vid_maxfps->value / 30.0f) - 1;
+
+	// Find matching FPS value index.
+	s_target_fps_list.curvalue = 1; // Default to 60 FPS.
+	for (int i = 0; i < 6; i++)
+	{
+		if ((int)vid_maxfps->value == target_fps_values[i])
+		{
+			s_target_fps_list.curvalue = i;
+			break;
+		}
+	}
 
 	Com_sprintf(name_gamma, sizeof(name_gamma), "\x02%s", m_item_gamma->string);
 	s_gamma_slider.generic.type = MTYPE_SLIDER;

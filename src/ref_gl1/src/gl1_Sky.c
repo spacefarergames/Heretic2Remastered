@@ -381,6 +381,97 @@ static void R_DrawSkyStars(void)
 	glEnable(GL_TEXTURE_2D);
 }
 
+//mxd. Northern lights (aurora borealis) effect for night sky.
+#define AURORA_BAND_COUNT		4
+#define AURORA_SEGMENTS			24	// Horizontal segments per band.
+
+static void R_DrawSkyAurora(void)
+{
+	const float clipdist = R_GetSkyClipDist();
+	const float time = r_newrefdef.time;
+
+	// Aurora colors: greens, teals, blues, purples.
+	static const vec3_t aurora_colors[AURORA_BAND_COUNT] =
+	{
+		{ 0.3f, 1.0f, 0.4f },	// Bright green.
+		{ 0.2f, 0.9f, 0.6f },	// Teal.
+		{ 0.4f, 0.6f, 1.0f },	// Blue.
+		{ 0.7f, 0.4f, 0.9f }	// Purple.
+	};
+
+	// Band parameters: z_base (height 0-1), curtain_height, wave_amplitude, phase.
+	static const float aurora_params[AURORA_BAND_COUNT][4] =
+	{
+		{ 0.45f, 0.25f, 0.05f, 0.0f },
+		{ 0.52f, 0.20f, 0.04f, 1.0f },
+		{ 0.58f, 0.18f, 0.03f, 2.0f },
+		{ 0.65f, 0.15f, 0.02f, 3.0f }
+	};
+
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Additive blending for glow effect.
+	glDepthMask(GL_FALSE);
+
+	for (int band = 0; band < AURORA_BAND_COUNT; band++)
+	{
+		const float z_base = aurora_params[band][0];
+		const float curtain_height = aurora_params[band][1];
+		const float wave_amp = aurora_params[band][2];
+		const float phase = aurora_params[band][3];
+
+		// Global pulse for this band.
+		const float pulse = 0.6f + 0.4f * sinf(time * 0.2f + phase);
+		const float base_alpha = 0.5f * pulse;
+
+		glBegin(GL_QUAD_STRIP);
+		for (int seg = 0; seg <= AURORA_SEGMENTS; seg++)
+		{
+			// Full 360 degree sweep.
+			const float t = (float)seg / (float)AURORA_SEGMENTS;
+			const float theta = t * 2.0f * (float)M_PI;
+
+			// Wavy vertical offset.
+			const float wave = sinf(t * 4.0f * (float)M_PI + time * 0.5f + phase) * wave_amp;
+
+			// Z heights for top and bottom of curtain (same coordinate system as stars).
+			const float z_top = min(z_base + curtain_height + wave, 0.99f);
+			const float z_bot = z_base + wave;
+
+			// Calculate horizontal radius from z (unit sphere).
+			const float r_top = sqrtf(max(0.0f, 1.0f - z_top * z_top));
+			const float r_bot = sqrtf(max(0.0f, 1.0f - z_bot * z_bot));
+
+			// Fade alpha across the band (optional: vary by segment for shimmer).
+			const float shimmer = 0.7f + 0.3f * sinf(t * 8.0f * (float)M_PI + time * 2.0f);
+			const float alpha = base_alpha * shimmer;
+
+			// Top vertex (faded out).
+			vec3_t pos_top = {
+				r_top * cosf(theta) * clipdist,
+				r_top * sinf(theta) * clipdist,
+				z_top * clipdist
+			};
+			glColor4f(aurora_colors[band][0], aurora_colors[band][1], aurora_colors[band][2], alpha * 0.1f);
+			glVertex3fv(pos_top);
+
+			// Bottom vertex (brighter).
+			vec3_t pos_bot = {
+				r_bot * cosf(theta) * clipdist,
+				r_bot * sinf(theta) * clipdist,
+				z_bot * clipdist
+			};
+			glColor4f(aurora_colors[band][0], aurora_colors[band][1], aurora_colors[band][2], alpha);
+			glVertex3fv(pos_bot);
+		}
+		glEnd();
+	}
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+}
+
 static void R_DrawSwampLeaves(void)
 {
 	glDisable(GL_TEXTURE_2D);
@@ -704,7 +795,10 @@ void R_DrawSkyBox(void)
 	}
 
 	if (R_IsSilverpringMap())
+	{
+		R_DrawSkyAurora();
 		R_DrawSkyStars();
+	}
 
 	glPopMatrix();
 

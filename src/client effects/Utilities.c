@@ -481,6 +481,19 @@ float GetGravity(void)
 	return -clfx_gravity->value;
 }
 
+//mxd. Returns detail-level-scaled value. Use for particle counts, effect durations, etc.
+float GetDetailScale(const float base_factor)
+{
+	switch (R_DETAIL)
+	{
+		case DETAIL_LOW:		return base_factor * 0.5f;
+		case DETAIL_NORMAL:		return base_factor * 0.75f;
+		case DETAIL_HIGH:		return base_factor;
+		case DETAIL_UBERHIGH:	return base_factor * 1.5f;
+		default:				return base_factor;
+	}
+}
+
 #pragma endregion
 
 #pragma region ========================== r_entity sprite setup functions ==========================

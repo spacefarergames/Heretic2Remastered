@@ -112,12 +112,13 @@ static qboolean TornadoUpdate(client_entity_t* self, centity_t* owner) //mxd. Na
 		ce->scale = scale;
 		ce->d_scale = (r_detail->value + 1.0f) * 2.0f;
 
-		if (R_DETAIL == DETAIL_LOW)
-			ce->d_alpha = -220.0f;
-		else if (R_DETAIL == DETAIL_NORMAL)
-			ce->d_alpha = -200.0f;
-		else
-			ce->d_alpha = -180.0f; //TODO: separate case for DETAIL_UBERHIGH.
+		switch (R_DETAIL)
+		{
+			case DETAIL_LOW:		ce->d_alpha = -220.0f; break;
+			case DETAIL_NORMAL:		ce->d_alpha = -200.0f; break;
+			case DETAIL_UBERHIGH:	ce->d_alpha = -150.0f; break; //mxd. Slower fade for uber detail.
+			default:				ce->d_alpha = -180.0f; break;
+		}
 
 		if (irand(0, 1))
 		{
@@ -147,12 +148,13 @@ void FXTornado(centity_t* owner, const int type, int flags, vec3_t origin)
 	static const paletteRGBA_t dlight_color = { .c = 0xffff4444 };
 
 	int duration;
-	if (R_DETAIL == DETAIL_LOW)
-		duration = 150;
-	else if (R_DETAIL == DETAIL_NORMAL)
-		duration = 100;
-	else
-		duration = 60; //TODO: separate case for DETAIL_UBERHIGH.
+	switch (R_DETAIL)
+	{
+		case DETAIL_LOW:		duration = 150; break;
+		case DETAIL_NORMAL:		duration = 100; break;
+		case DETAIL_UBERHIGH:	duration = 40; break; //mxd. Faster updates for uber detail.
+		default:				duration = 60; break;
+	}
 
 	flags &= ~CEF_OWNERS_ORIGIN;
 	flags |= (CEF_ADDITIVE_PARTS | CEF_CHECK_OWNER | CEF_DONT_LINK | CEF_NO_DRAW);

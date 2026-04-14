@@ -118,7 +118,7 @@ int AddParticlesToView(client_entity_t* ce)
 			{
 				case PFL_MOVE_SPHERE:
 					yaw =    current->origin[SPH_YAW]    + (current->velocity[SPH_YAW]    * d_time) + (current->acceleration[SPH_YAW]    * d_time2);
-					pitch =  current->origin[SPH_PITCH]  + (current->velocity[SPH_PITCH]  * d_time) + (current->acceleration[SPH_YAW]    * d_time2); //TODO: should use acceleration[SPH_PITCH]?
+					pitch =  current->origin[SPH_PITCH]  + (current->velocity[SPH_PITCH]  * d_time) + (current->acceleration[SPH_PITCH]  * d_time2); //mxd. Fixed: was using SPH_YAW.
 					radius = current->origin[SPH_RADIUS] + (current->velocity[SPH_RADIUS] * d_time) + (current->acceleration[SPH_RADIUS] * d_time2);
 					r->origin[0] = ce->r.origin[0] + cosf(yaw) * cosf(pitch) * radius;
 					r->origin[1] = ce->r.origin[1] + sinf(yaw) * cosf(pitch) * radius;

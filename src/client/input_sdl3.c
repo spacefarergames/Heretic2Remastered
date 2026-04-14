@@ -678,6 +678,36 @@ void In_FlushQueue(void) // YQ2
 	Key_ClearStates();
 }
 
+// Pumps SDL events to keep the window responsive during initialization.
+// This is a minimal version that only handles critical events like quit.
+void IN_PumpEvents(void)
+{
+	if (!SDL_WasInit(SDL_INIT_VIDEO))
+		return;
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+			case SDL_EVENT_QUIT:
+				Com_Quit();
+				break;
+
+			case SDL_EVENT_WINDOW_SHOWN:
+				cls.disable_screen = false;
+				break;
+
+			case SDL_EVENT_WINDOW_HIDDEN:
+				cls.disable_screen = true;
+				break;
+
+			default:
+				break;
+		}
+	}
+}
+
 //mxd. Not the best place to put this. Oh well...
 inline void Sys_CpuPause(void) //TODO: YQ2 uses __forceinline.
 {

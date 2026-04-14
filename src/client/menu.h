@@ -246,4 +246,5 @@ extern void Menu_DrawString(int x, int y, const char* name, float alpha, qboolea
 extern void Menu_DrawTextBlock(const char* message, int max_line_length); // H2
 extern void Menu_DrawTitle(const cvar_t* title); // H2
 extern void Menu_DrawBG(const char* bk_path, float scale); //mxd
+extern qboolean m_skip_bg_fill; //mxd. When true, Menu_DrawBG skips black background fill.
 extern menucommon_t* Menu_ItemAtCursor(const menuframework_t* menu);

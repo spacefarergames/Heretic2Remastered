@@ -59,11 +59,11 @@ static DebrisChunk_t debris_chunks[] =
 	{ "models/debris/stone/schunk3/tris.fm", 0, NULL, 3.0f, ANGLE_90 },
 	{ "models/debris/stone/schunk4/tris.fm", 0, NULL, 3.0f, ANGLE_90 },
 
-	// Grey stone. //TODO: same as Stone...
-	{ "models/debris/stone/schunk1/tris.fm", 0, NULL, 3.0f, ANGLE_90 },	// 4
-	{ "models/debris/stone/schunk2/tris.fm", 0, NULL, 3.0f, ANGLE_90 },
-	{ "models/debris/stone/schunk3/tris.fm", 0, NULL, 3.0f, ANGLE_90 },
-	{ "models/debris/stone/schunk4/tris.fm", 0, NULL, 3.0f, ANGLE_90 },
+	// Grey stone. Uses skin 1 for grey appearance.
+	{ "models/debris/stone/schunk1/tris.fm", 1, NULL, 3.0f, ANGLE_90 },	// 4
+	{ "models/debris/stone/schunk2/tris.fm", 1, NULL, 3.0f, ANGLE_90 },
+	{ "models/debris/stone/schunk3/tris.fm", 1, NULL, 3.0f, ANGLE_90 },
+	{ "models/debris/stone/schunk4/tris.fm", 1, NULL, 3.0f, ANGLE_90 },
 
 	// Cloth. Original logic uses skinNum:0 for these --mxd.
 	{ "models/debris/pottery/pot1/tris.fm", 1, NULL, 0.2f, ANGLE_90 },	// 8

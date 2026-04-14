@@ -51,3 +51,16 @@ extern void AL_UpdateSources(channel_t* channels, int num_channels);
 //mxd. Renders 'num_samples' stereo frames from the loopback device into 'out'.
 // The output is 16-bit interleaved stereo (matching the SDL3 paint buffer format).
 extern void AL_RenderSamples(short* out, int num_samples);
+
+//mxd. Returns the OpenAL source ID for a given channel index.
+extern unsigned int AL_GetSourceForChannel(int channel_index);
+
+//mxd. Connect all active sources to the EFX reverb effect slot.
+extern void AL_ConnectSourcesToEFX(void);
+
+//mxd. Disconnect all sources from the EFX reverb effect slot.
+extern void AL_DisconnectSourcesFromEFX(void);
+
+//mxd. Update underwater filter state for all sources.
+extern void AL_SetUnderwaterState(qboolean underwater);
+

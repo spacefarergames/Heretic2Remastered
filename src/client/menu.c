@@ -136,6 +136,7 @@ const char* yes_no_names[] = { "no", "yes", NULL };
 
 static qboolean m_entersound; // Play after drawing a frame, so caching won't disrupt the sound. //TODO: doesn't seem to be related to playing sounds. Rename?
 static qboolean m_widescreen_book; // True when widescreen book PNG is active; used to offset menu items outward.
+qboolean m_skip_bg_fill; //mxd. When true, Menu_DrawBG skips black background fill (used for loading screen starfield).
 
 m_drawfunc_t m_drawfunc;
 m_keyfunc_t m_keyfunc;
@@ -154,6 +155,20 @@ typedef struct
 uint m_menu_side; // H2 (0 - right, 1 - left)
 static menulayer_t m_layers[MAX_MENU_DEPTH + 1]; // Q2: MAX_MENU_DEPTH
 static int m_menudepth;
+
+//mxd. Menu scribble animation state (Castlevania 64-style confirmation effect).
+#define SCRIBBLE_DURATION_MS	400
+#define SCRIBBLE_AMPLITUDE		3.0f
+#define SCRIBBLE_THICKNESS		3
+
+static struct
+{
+	qboolean active;
+	int start_time;
+	int x;
+	int y;
+	int width;
+} m_scribble;
 
 static void OnMainMenuOpened(void) // H2
 {
@@ -208,7 +223,7 @@ void M_PushMenu(const m_drawfunc_t draw, const m_keyfunc_t key) // H2
 
 		if (m_menudepth == 0)
 		{
-			cls.m_menustate = (cls.state == ca_active ? MS_ZOOM_IN_START : MS_FADE_IN_START); //mxd. Do zoom-in effect only when ingame.
+			cls.m_menustate = MS_ZOOM_IN_START; //mxd. Always use zoom-in effect.
 			OnMainMenuOpened();
 		}
 		else
@@ -637,6 +652,7 @@ void M_Init(void)
 	m_item_effectsvol = Cvar_Get("m_item_effectsvol", "Effects Volume", 0);
 	m_item_musicvol = Cvar_Get("m_item_musicvol", "Music Volume", 0); //mxd
 	m_item_soundquality = Cvar_Get("m_item_soundquality", "Sound Quality", 0);
+	m_item_reverb = Cvar_Get("m_item_reverb", "EFX Reverb", 0); //mxd
 
 	// Download Options menu.
 	m_item_allowdownload = Cvar_Get("m_item_allowdownload", "Allow Downloads", 0);
@@ -829,6 +845,15 @@ qboolean Menu_SelectItem(const menuframework_t* menu)
 				return Field_DoEnter((menufield_t*)item);
 
 			case MTYPE_ACTION:
+				//mxd. Trigger scribble animation on action item selection.
+				{
+					const int item_y = item->y + item->parent->y;
+					m_scribble.active = true;
+					m_scribble.start_time = curtime;
+					m_scribble.x = M_GetMenuLabelX(item->width);
+					m_scribble.y = item_y;
+					m_scribble.width = item->width;
+				}
 				Action_DoEnter((menuaction_t*)item);
 				return true;
 
@@ -1159,6 +1184,72 @@ static void SpinControl_Draw(const menulist_t* list, const qboolean selected)
 	}
 }
 
+//mxd. Draw Castlevania 64-style scribble animation underneath selected menu item.
+static void M_DrawScribbleAnimation(void)
+{
+	if (!m_scribble.active)
+		return;
+
+	const int elapsed = curtime - m_scribble.start_time;
+	if (elapsed >= SCRIBBLE_DURATION_MS)
+	{
+		m_scribble.active = false;
+		return;
+	}
+
+	// Calculate animation progress (0.0 to 1.0).
+	const float progress = (float)elapsed / SCRIBBLE_DURATION_MS;
+
+	// Alpha fades out as animation progresses.
+	const float alpha = (1.0f - progress) * cls.m_menualpha;
+	if (alpha <= 0.0f)
+		return;
+
+	// Convert menu coordinates to screen coordinates (centered under text).
+	// Width auto-adjusts based on selected item's text width.
+	const int text_center_virtual = m_scribble.x + m_scribble.width / 2;
+	const int center_x = (text_center_virtual * ui_screen_width / DEF_WIDTH) + ui_screen_offset_x;
+	const int width = (m_scribble.width * ui_screen_width / DEF_WIDTH); // Scale text width to screen coords.
+	const int base_x = center_x - width / 2;
+	const int base_y = (m_scribble.y + CONCHAR_LINE_HEIGHT) * viddef.height / DEF_HEIGHT;
+
+	// Draw connected pencil-like squiggly line by drawing small overlapping segments.
+	const paletteRGBA_t scribble_color = { .r = 0, .g = 0, .b = 0, .a = (byte)(alpha * 255) };
+	const int segment_size = max(2, (int)(ui_scale * 2)); // Small segments that overlap.
+	int prev_y = base_y;
+
+	// Use start_time as seed for consistent randomness per scribble instance.
+	const int seed = m_scribble.start_time;
+
+	for (int x = 0; x < width; x += segment_size - 1) // Overlap by 1 pixel for continuity.
+	{
+		// Combine multiple waves with pseudo-random noise for chaotic hand-drawn look.
+		const float pos = (float)x / (float)width;
+		const float time_offset = (float)elapsed * 0.025f;
+
+		// Multiple overlapping sine waves at different frequencies.
+		const float wave1 = sinf(pos * 15.0f + time_offset);
+		const float wave2 = sinf(pos * 23.0f + time_offset * 1.3f) * 0.7f;
+		const float wave3 = sinf(pos * 37.0f + time_offset * 0.8f) * 0.4f;
+
+		// Add pseudo-random jitter based on position and seed for irregular look.
+		const int noise_input = (int)(pos * 1000.0f) + seed;
+		const float noise = (float)((noise_input * 1103515245 + 12345) & 0x7fff) / 32768.0f - 0.5f;
+
+		const float combined = (wave1 + wave2 + wave3 + noise * 0.8f) * SCRIBBLE_AMPLITUDE * (1.0f - progress * 0.5f);
+		const int y_offset = (int)combined;
+		const int cur_y = base_y + y_offset;
+
+		// Draw segment connecting to previous point for smooth line.
+		const int min_y = min(prev_y, cur_y);
+		const int max_y = max(prev_y, cur_y);
+		const int height = max(SCRIBBLE_THICKNESS, max_y - min_y + SCRIBBLE_THICKNESS);
+		re.DrawFill(base_x + x, min_y, segment_size, height, scribble_color);
+
+		prev_y = cur_y;
+	}
+}
+
 void Menu_Draw(const menuframework_t* menu)
 {
 	// Draw contents.
@@ -1189,16 +1280,30 @@ void Menu_Draw(const menuframework_t* menu)
 				SpinControl_Draw((menulist_t*)item, i == menu->cursor);
 				break;
 
-			case MTYPE_SPINCONTROL:
-				SpinControl_Draw((menulist_t*)item, i == menu->cursor);
-				break;
+					case MTYPE_SPINCONTROL:
+							SpinControl_Draw((menulist_t*)item, i == menu->cursor);
+							break;
 
-			default: //mxd. Added default case.
-				Sys_Error("Unexpected menu item type %i", item->type);
-				break;
-		}
-	}
-}
+						default: //mxd. Added default case.
+							Sys_Error("Unexpected menu item type %i", item->type);
+							break;
+					}
+				}
+
+				// Draw scribble animation effect underneath selected item.
+					M_DrawScribbleAnimation();
+
+					// Draw console tip in bottom left corner.
+					{
+						const char* tip = "` for console";
+						const paletteRGBA_t tip_color = { .r = 180, .g = 180, .b = 180, .a = (byte)(cls.m_menualpha * 180.0f) };
+						const int tip_x = 12 * viddef.width / DEF_WIDTH;
+						const int tip_y = (DEF_HEIGHT - 24) * viddef.height / DEF_HEIGHT;
+
+						for (int i = 0; tip[i] != '\0'; i++)
+							re.DrawChar(tip_x + i * ui_char_size, tip_y, ui_scale, tip[i], tip_color, false);
+					}
+				}
 
 void Menu_DrawString(const int x, const int y, const char* name, const float alpha, const qboolean selected)
 {
@@ -1328,10 +1433,13 @@ void Menu_DrawBG(const char* bk_path, const float scale) //mxd
 	if (scale < 0.001f)
 		return;
 
-	// Hide widescreen parts...
-	paletteRGBA_t color = TextPalette[P_BLACK];
-	color.a = (byte)(scale * 255.0f); // Use scale, because cls.m_menualpha is used to fade-in menu text AFTER zoom-in effect finishes.
-	re.DrawFill(0, 0, viddef.width, viddef.height, color);
+	// Hide widescreen parts (unless starfield is already drawn).
+	if (!m_skip_bg_fill)
+	{
+		paletteRGBA_t color = TextPalette[P_BLACK];
+		color.a = (byte)(scale * 255.0f); // Use scale, because cls.m_menualpha is used to fade-in menu text AFTER zoom-in effect finishes.
+		re.DrawFill(0, 0, viddef.width, viddef.height, color);
+	}
 
 	// Draw standard 4:3 menu BG.
 	re.BookDrawPic(bk_path, scale, 1.0f);
@@ -1424,7 +1532,7 @@ void M_Draw(void)
 			cls.m_menuscale = 0.0f;
 			cls.m_menualpha = 0.0f;
 
-			if ((int)quick_menus->value || cls.state == ca_disconnected)
+			if ((int)quick_menus->value)
 				cls.m_menustate = MS_FADE_IN_START;
 			else
 				cls.m_menustate = MS_ZOOM_IN_LOOP;
@@ -1436,7 +1544,7 @@ void M_Draw(void)
 			cls.m_menuscale = 1.0f;
 			m_layers[0].draw();
 
-			if ((int)quick_menus->value || cls.state == ca_disconnected)
+			if ((int)quick_menus->value)
 			{
 				cls.m_menustate = MS_FADE_IN_START;
 				M_ForceMenuOff();

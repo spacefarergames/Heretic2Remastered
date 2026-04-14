@@ -30,8 +30,8 @@ cvar_t* fs_gamedirvar;
 typedef struct
 {
 	char name[128]; // Increased from MAX_QPATH (64) to support PAK2 extended filenames.
-	int filepos;
-	int filelen;
+	unsigned int filepos;
+	unsigned int filelen;
 } packfile_t;
 
 // In-memory representation
@@ -352,7 +352,17 @@ static pack_t* FS_LoadPackFile(char* packfile)
 
 	packfile_t* newfiles = Z_Malloc(numpackfiles * (int)sizeof(packfile_t));
 
-	fseek(packhandle, header.dirofs, SEEK_SET);
+	// Handle -1 (0xFFFFFFFF) directory offset which means directory is at end of file
+	if (header.dirofs == 0xFFFFFFFFU)
+	{
+		fseek(packhandle, 0, SEEK_END);
+		long filesize = ftell(packhandle);
+		fseek(packhandle, filesize - (long)header.dirlen, SEEK_SET);
+	}
+	else
+	{
+		fseek(packhandle, (long)header.dirofs, SEEK_SET);
+	}
 
 	if (is_pak2)
 	{

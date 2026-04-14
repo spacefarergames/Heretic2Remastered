@@ -24,22 +24,22 @@
 typedef struct
 {
 	char name[56];
-	int filepos;
-	int filelen;
+	unsigned int filepos;
+	unsigned int filelen;
 } dpackfile_t;
 
 typedef struct
 {
 	char name[128];
-	int filepos;
-	int filelen;
+	unsigned int filepos;
+	unsigned int filelen;
 } dpackfile2_t;
 
 typedef struct
 {
 	int ident; // == IDPAKHEADER or IDPAK2HEADER
-	int dirofs;
-	int dirlen;
+	unsigned int dirofs;
+	unsigned int dirlen;
 } dpackheader_t;
 
 #define MAX_FILES_IN_PACK	6144 // Q2: 4096

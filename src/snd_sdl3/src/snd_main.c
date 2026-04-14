@@ -4,6 +4,8 @@
 // Copyright 2025 mxd
 //
 
+#include "snd_al.h"
+#include "snd_efx.h"
 #include "snd_main.h"
 #include "snd_ogg.h"
 #include "snd_sdl3.h"
@@ -69,6 +71,14 @@ static cvar_t* s_attn_static;
 
 cvar_t* s_underwater_gain_hf; // YQ2
 cvar_t* s_camera_under_surface; // H2
+
+// EFX effect cvars.
+cvar_t* s_reverb;
+cvar_t* s_reverb_gain;
+cvar_t* s_occlusion;
+
+// Track current underwater state to detect changes.
+static qboolean s_was_underwater = false;
 
 #pragma region ========================== Console commands ==========================
 
@@ -173,7 +183,7 @@ static void S_Init(void)
 {
 	si.Com_Printf("\n------- Sound initialization -------\n");
 
-	const cvar_t* cv = si.Cvar_Get("s_initsound", "1", 0); //TODO: remove?
+	const cvar_t* cv = si.Cvar_Get("s_initsound", "1", 0);
 	if (cv->value == 0.0f)
 	{
 		si.Com_Printf("Not initializing.\n");
@@ -181,9 +191,9 @@ static void S_Init(void)
 	else
 	{
 		s_volume = si.Cvar_Get("s_volume", "0.5", CVAR_ARCHIVE);
-		s_sounddir = si.Cvar_Get("s_sounddir", "sound", CVAR_ARCHIVE); // H2 //TODO: remove?
-		s_khz = si.Cvar_Get("s_khz", "44", CVAR_ARCHIVE);  // Q2: 11 // H2: 22 //TODO: remove? Always run at 44 Khz?
-		s_loadas8bit = si.Cvar_Get("s_loadas8bit", "0", CVAR_ARCHIVE); // Q2: 1 //TODO: remove?
+		s_sounddir = si.Cvar_Get("s_sounddir", "sound", CVAR_ARCHIVE); // H2: used to build sound file paths.
+		s_khz = si.Cvar_Get("s_khz", "44", CVAR_ARCHIVE);  // Q2: 11 // H2: 22. Kept for menu sound quality option.
+		s_loadas8bit = si.Cvar_Get("s_loadas8bit", "0", CVAR_ARCHIVE); // Q2: 1. Kept for menu sound quality option.
 
 		s_mixahead = si.Cvar_Get("s_mixahead", "0.14", CVAR_ARCHIVE); // Q2: 0.2
 		s_show = si.Cvar_Get("s_show", "0", 0);
@@ -192,6 +202,11 @@ static void S_Init(void)
 		s_underwater_gain_hf = si.Cvar_Get("s_underwater_gain_hf", "0.25", CVAR_ARCHIVE); // YQ2
 		s_camera_under_surface = si.Cvar_Get("cl_camera_under_surface", "0.0", 0); // H2
 		//TODO: implement s_feedback_kind YQ2 logic?
+
+		// EFX effect cvars.
+		s_reverb = si.Cvar_Get("s_reverb", "1", CVAR_ARCHIVE);
+		s_reverb_gain = si.Cvar_Get("s_reverb_gain", "0.7", CVAR_ARCHIVE);
+		s_occlusion = si.Cvar_Get("s_occlusion", "1", CVAR_ARCHIVE);
 
 		// H2: extra attenuation cvars.
 		s_attn_norm = si.Cvar_Get("s_attn_norm", "0.0008", 0);
@@ -215,6 +230,17 @@ static void S_Init(void)
 
 			OGG_Init();
 
+			// Initialize EFX effects system after OpenAL is ready.
+			if (AL_IsActive())
+			{
+				if (EFX_Init())
+				{
+					// Connect sources to reverb if enabled.
+					if (s_reverb->value > 0.0f)
+						AL_ConnectSourcesToEFX();
+				}
+			}
+
 			si.Com_Printf("Sound sampling rate: %i\n", sound.speed);
 			S_StopAllSounds();
 		}
@@ -236,6 +262,9 @@ static void S_Shutdown(void)
 
 	S_StopAllSounds();
 	OGG_Shutdown();
+
+	// Shutdown EFX before OpenAL.
+	EFX_Shutdown();
 
 	// Free all sounds.
 	sfx_t* sfx = &known_sfx[0];
@@ -702,7 +731,38 @@ static void S_Update(const vec3_t origin, const vec3_t forward, const vec3_t rig
 	VectorCopy(right, listener_right);
 	VectorCopy(up, listener_up);
 
+	// Update underwater state for EFX filtering.
+	if (EFX_IsActive())
+	{
+		const qboolean is_underwater = (s_camera_under_surface->value > 0.0f);
+
+		if (is_underwater != s_was_underwater)
+		{
+			s_was_underwater = is_underwater;
+			EFX_SetUnderwater(is_underwater, s_underwater_gain_hf->value);
+			AL_SetUnderwaterState(is_underwater);
+
+			// Switch to underwater reverb preset if underwater.
+			if (is_underwater)
+				EFX_SetEnvironment(22); // EAX_ENVIRONMENT_UNDERWATER
+		}
+	}
+
 	SNDSDL3_Update();
+}
+
+// Set EAX environment preset (called from game code).
+static void S_SetEaxEnvironment(const int env_index)
+{
+	if (!sound_started || !EFX_IsActive())
+		return;
+
+	// Don't change reverb if underwater (underwater preset takes priority).
+	if (s_camera_under_surface->value > 0.0f)
+		return;
+
+	if (s_reverb->value > 0.0f)
+		EFX_SetEnvironment(env_index);
 }
 
 SNDLIB_DECLSPEC snd_export_t GetSoundAPI(const snd_import_t snd_import)
@@ -740,7 +800,7 @@ SNDLIB_DECLSPEC snd_export_t GetSoundAPI(const snd_import_t snd_import)
 	// Cinematics playback.
 	snd_export.RawSamples = S_RawSamples;
 
-	snd_export.SetEaxEnvironment = NULL;
+	snd_export.SetEaxEnvironment = S_SetEaxEnvironment;
 
 	return snd_export;
 }

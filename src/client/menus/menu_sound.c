@@ -15,6 +15,7 @@ cvar_t* m_item_sndbackend; //mxd
 cvar_t* m_item_effectsvol;
 cvar_t* m_item_musicvol; //mxd
 cvar_t* m_item_soundquality;
+cvar_t* m_item_reverb; //mxd
 
 static menuframework_t s_sound_menu;
 
@@ -22,6 +23,7 @@ static menulist_t s_sound_backend_list; //mxd
 static menuslider_t s_sound_sfxvolume_slider;
 static menuslider_t s_sound_musicvolume_slider; //mxd
 static menulist_t s_sound_quality_list;
+static menulist_t s_sound_reverb_list; //mxd
 
 static const char* snd_list_titles[MAX_SNDLIBS]; //mxd
 static int initial_sndlib_index; //mxd. snd_lib index when entering menu.
@@ -62,14 +64,21 @@ static void UpdateSoundQualityFunc(void* self)
 	}
 }
 
+static void UpdateReverbFunc(void* self) //mxd
+{
+	Cvar_SetValue("s_reverb", (float)s_sound_reverb_list.curvalue);
+}
+
 static void Sound_MenuInit(void) // H2
 {
 	static const char* lowhigh_names[] = { m_text_low, m_text_high, NULL };
+	static const char* onoff_names[] = { m_text_off, m_text_on, NULL }; //mxd
 
 	static char name_sndbackend[MAX_QPATH]; //mxd
 	static char name_effectsvol[MAX_QPATH];
 	static char name_musicvol[MAX_QPATH]; //mxd
 	static char name_soundquality[MAX_QPATH];
+	static char name_reverb[MAX_QPATH]; //mxd
 
 	s_sound_menu.nitems = 0;
 
@@ -134,10 +143,23 @@ static void Sound_MenuInit(void) // H2
 	s_sound_quality_list.itemnames = lowhigh_names;
 	s_sound_quality_list.curvalue = !Cvar_IsSet("s_loadas8bit");
 
+	//mxd. EFX Reverb toggle.
+	Com_sprintf(name_reverb, sizeof(name_reverb), "\x02%s", m_item_reverb->string);
+	s_sound_reverb_list.generic.type = MTYPE_SPINCONTROL;
+	s_sound_reverb_list.generic.x = 0;
+	s_sound_reverb_list.generic.y = 160;
+	s_sound_reverb_list.generic.name = name_reverb;
+	s_sound_reverb_list.generic.width = re.BF_Strlen(name_reverb);
+	s_sound_reverb_list.generic.flags = QMF_SINGLELINE;
+	s_sound_reverb_list.generic.callback = UpdateReverbFunc;
+	s_sound_reverb_list.itemnames = onoff_names;
+	s_sound_reverb_list.curvalue = (Cvar_VariableValue("s_reverb") > 0.0f) ? 1 : 0;
+
 	Menu_AddItem(&s_sound_menu, &s_sound_backend_list); //mxd
 	Menu_AddItem(&s_sound_menu, &s_sound_sfxvolume_slider);
 	Menu_AddItem(&s_sound_menu, &s_sound_musicvolume_slider); //mxd
 	Menu_AddItem(&s_sound_menu, &s_sound_quality_list);
+	Menu_AddItem(&s_sound_menu, &s_sound_reverb_list); //mxd
 	Menu_Center(&s_sound_menu);
 }
 

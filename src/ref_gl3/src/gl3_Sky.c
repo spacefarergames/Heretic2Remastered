@@ -26,11 +26,15 @@
 
 #define SWAMP_LEAF_COUNT	60
 #define SWAMP_DUST_COUNT	80
+#define SWAMP_MIST_COUNT	25
 #define SWAMP_LEAF_SIZE		2.5f
 #define SWAMP_LEAF_FALL_SPEED	15.0f
 #define SWAMP_LEAF_DRIFT		25.0f
 #define SWAMP_DUST_SIZE		0.8f
 #define SWAMP_DUST_SPEED	8.0f
+#define SWAMP_MIST_MIN_SIZE	60.0f
+#define SWAMP_MIST_MAX_SIZE	150.0f
+#define SWAMP_MIST_DRIFT	3.0f
 
 typedef struct
 {
@@ -51,12 +55,25 @@ typedef struct
 	float phase;
 } swamp_dust_t;
 
+typedef struct
+{
+	vec3_t pos;
+	vec3_t velocity;
+	float size;
+	float rotation;
+	float rot_speed;
+	float phase;
+	float alpha_base;
+	float height_offset;
+} swamp_mist_t;
+
 static float skyrotate;
 static vec3_t skyaxis;
 static image_t* sky_images[6];
 
 static swamp_leaf_t swamp_leaves[SWAMP_LEAF_COUNT];
 static swamp_dust_t swamp_dust[SWAMP_DUST_COUNT];
+static swamp_mist_t swamp_mist[SWAMP_MIST_COUNT];
 static qboolean swamp_particles_initialized = false;
 
 static float skymins[2][6];
@@ -228,6 +245,36 @@ static void R_InitSwampDust(swamp_dust_t* dust, const float clipdist, uint* seed
 	dust->alpha = 0.0f;
 }
 
+static void R_InitSwampMist(swamp_mist_t* mist, uint* seed)
+{
+	const float angle = R_SkyRand01(seed) * 2.0f * (float)M_PI;
+	const float radius = 100.0f + R_SkyRand01(seed) * 500.0f;
+
+	// Position relative to player, floating low above ground.
+	mist->pos[0] = r_origin[0] + cosf(angle) * radius;
+	mist->pos[1] = r_origin[1] + sinf(angle) * radius;
+	mist->height_offset = -80.0f + R_SkyRand01(seed) * 100.0f; // -80 to +20 relative to player.
+	mist->pos[2] = r_origin[2] + mist->height_offset;
+
+	// Slow drifting velocity.
+	mist->velocity[0] = (R_SkyRand01(seed) - 0.5f) * SWAMP_MIST_DRIFT;
+	mist->velocity[1] = (R_SkyRand01(seed) - 0.5f) * SWAMP_MIST_DRIFT;
+	mist->velocity[2] = (R_SkyRand01(seed) - 0.5f) * SWAMP_MIST_DRIFT * 0.3f;
+
+	// Random size.
+	mist->size = SWAMP_MIST_MIN_SIZE + R_SkyRand01(seed) * (SWAMP_MIST_MAX_SIZE - SWAMP_MIST_MIN_SIZE);
+
+	// Slow rotation.
+	mist->rotation = R_SkyRand01(seed) * 360.0f;
+	mist->rot_speed = (R_SkyRand01(seed) - 0.5f) * 10.0f;
+
+	// Phase for pulsing effect.
+	mist->phase = R_SkyRand01(seed) * 2.0f * (float)M_PI;
+
+	// Base alpha (subtle).
+	mist->alpha_base = 0.08f + R_SkyRand01(seed) * 0.07f;
+}
+
 static void R_InitSwampParticles(void)
 {
 	const float clipdist = R_GetSkyClipDist();
@@ -238,6 +285,9 @@ static void R_InitSwampParticles(void)
 
 	for (int i = 0; i < SWAMP_DUST_COUNT; i++)
 		R_InitSwampDust(&swamp_dust[i], clipdist, &seed);
+
+	for (int i = 0; i < SWAMP_MIST_COUNT; i++)
+		R_InitSwampMist(&swamp_mist[i], &seed);
 
 	swamp_particles_initialized = true;
 }
@@ -324,10 +374,42 @@ static void R_UpdateSwampDust(const float dt, uint* seed)
 	}
 }
 
+static void R_UpdateSwampMist(const float dt, uint* seed)
+{
+	const float time = r_newrefdef.time;
+
+	for (int i = 0; i < SWAMP_MIST_COUNT; i++)
+	{
+		swamp_mist_t* mist = &swamp_mist[i];
+
+		// Slow undulating drift.
+		const float drift_time = time * 0.3f + mist->phase;
+		const float drift_x = sinf(drift_time * 0.7f) * 2.0f;
+		const float drift_y = cosf(drift_time * 0.5f) * 2.0f;
+		const float drift_z = sinf(drift_time * 0.3f) * 0.5f;
+
+		// Update position.
+		mist->pos[0] += (mist->velocity[0] + drift_x) * dt;
+		mist->pos[1] += (mist->velocity[1] + drift_y) * dt;
+		mist->pos[2] += (mist->velocity[2] + drift_z) * dt;
+
+		// Update rotation.
+		mist->rotation += mist->rot_speed * dt;
+
+		// Respawn if too far from player.
+		const float dx = mist->pos[0] - r_origin[0];
+		const float dy = mist->pos[1] - r_origin[1];
+		const float dist_sq = dx * dx + dy * dy;
+
+		if (dist_sq > 700.0f * 700.0f)
+			R_InitSwampMist(mist, seed);
+	}
+}
+
 static void R_DrawSkyStars(void)
 {
 	const float clipdist = R_GetSkyClipDist();
-    const float twinkle_time = r_newrefdef.time * 0.7f;
+	const float twinkle_time = r_newrefdef.time * 0.7f;
 	uint seed = 0x1a2b3c4du;
 
 	glBindTexture(GL_TEXTURE_2D, gl3state.whiteTexture);
@@ -354,7 +436,7 @@ static void R_DrawSkyStars(void)
 		vec3_t pos;
 		VectorScale(dir, clipdist, pos);
 
-        const float base_intensity = 0.6f + 0.4f * w;
+		const float base_intensity = 0.6f + 0.4f * w;
 		const float twinkle = 0.75f + 0.25f * sinf(twinkle_time + phase);
 		const float intensity = base_intensity * twinkle;
 
@@ -370,6 +452,111 @@ static void R_DrawSkyStars(void)
 	}
 
 	GL3_Draw3DPoly(GL_POINTS, verts, SKY_STAR_COUNT);
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+}
+
+//mxd. Northern lights (aurora borealis) effect for night sky.
+#define AURORA_BAND_COUNT		5
+#define AURORA_SEGMENTS			48
+
+static void R_DrawSkyAurora(void)
+{
+	const float clipdist = R_GetSkyClipDist();
+	const float time = r_newrefdef.time;
+
+	// Aurora colors: greens, teals, blues, purples.
+	static const vec3_t aurora_colors[AURORA_BAND_COUNT] =
+	{
+		{ 0.2f, 0.9f, 0.3f },	// Green.
+		{ 0.15f, 0.8f, 0.5f },	// Teal-green.
+		{ 0.1f, 0.7f, 0.6f },	// Teal.
+		{ 0.3f, 0.5f, 0.9f },	// Blue.
+		{ 0.5f, 0.3f, 0.7f }	// Purple.
+	};
+
+	// Band parameters: z_base (height 0-1), curtain_height, wave_amplitude, phase.
+	static const float aurora_params[AURORA_BAND_COUNT][4] =
+	{
+		{ 0.42f, 0.20f, 0.04f, 0.0f },
+		{ 0.48f, 0.18f, 0.035f, 0.8f },
+		{ 0.54f, 0.16f, 0.03f, 1.6f },
+		{ 0.60f, 0.14f, 0.025f, 2.4f },
+		{ 0.66f, 0.12f, 0.02f, 3.2f }
+	};
+
+	glBindTexture(GL_TEXTURE_2D, gl3state.whiteTexture);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Additive blending for glow effect.
+	glDepthMask(GL_FALSE);
+
+	for (int band = 0; band < AURORA_BAND_COUNT; band++)
+	{
+		const float z_base = aurora_params[band][0];
+		const float curtain_height = aurora_params[band][1];
+		const float wave_amp = aurora_params[band][2];
+		const float phase = aurora_params[band][3];
+
+		// Slow global pulse for this band.
+		const float pulse = 0.5f + 0.5f * sinf(time * 0.15f + phase);
+		const float base_alpha = 0.12f * pulse; // More transparent.
+
+		// Build vertex data for a quad strip (2 verts per segment).
+		float verts[(AURORA_SEGMENTS + 1) * 2 * 9];
+		int vert = 0;
+
+		for (int seg = 0; seg <= AURORA_SEGMENTS; seg++)
+		{
+			// Full 360 degree sweep.
+			const float t = (float)seg / (float)AURORA_SEGMENTS;
+			const float theta = t * 2.0f * (float)M_PI;
+
+			// Multi-frequency wave for more organic look.
+			const float wave1 = sinf(t * 6.0f * (float)M_PI + time * 0.3f + phase) * wave_amp;
+			const float wave2 = sinf(t * 10.0f * (float)M_PI + time * 0.5f + phase * 1.5f) * wave_amp * 0.5f;
+			const float wave = wave1 + wave2;
+
+			// Variable curtain height along the band.
+			const float height_var = curtain_height * (0.7f + 0.3f * sinf(t * 4.0f * (float)M_PI + time * 0.2f));
+
+			// Z heights for top and bottom of curtain.
+			const float z_top = min(z_base + height_var + wave, 0.99f);
+			const float z_bot = max(z_base + wave, 0.01f);
+
+			// Calculate horizontal radius from z (unit sphere).
+			const float r_top = sqrtf(max(0.0f, 1.0f - z_top * z_top));
+			const float r_bot = sqrtf(max(0.0f, 1.0f - z_bot * z_bot));
+
+			// Smooth shimmer effect.
+			const float shimmer = 0.6f + 0.4f * sinf(t * 12.0f * (float)M_PI + time * 1.5f + phase);
+			const float alpha = base_alpha * shimmer;
+
+			// Top vertex (very faded).
+			verts[vert++] = r_top * cosf(theta) * clipdist;
+			verts[vert++] = r_top * sinf(theta) * clipdist;
+			verts[vert++] = z_top * clipdist;
+			verts[vert++] = 0.0f;
+			verts[vert++] = 0.0f;
+			verts[vert++] = aurora_colors[band][0];
+			verts[vert++] = aurora_colors[band][1];
+			verts[vert++] = aurora_colors[band][2];
+			verts[vert++] = alpha * 0.05f;
+
+			// Bottom vertex (brighter but still subtle).
+			verts[vert++] = r_bot * cosf(theta) * clipdist;
+			verts[vert++] = r_bot * sinf(theta) * clipdist;
+			verts[vert++] = z_bot * clipdist;
+			verts[vert++] = 0.0f;
+			verts[vert++] = 0.0f;
+			verts[vert++] = aurora_colors[band][0];
+			verts[vert++] = aurora_colors[band][1];
+			verts[vert++] = aurora_colors[band][2];
+			verts[vert++] = alpha;
+		}
+
+		GL3_Draw3DPoly(GL_TRIANGLE_STRIP, verts, (AURORA_SEGMENTS + 1) * 2);
+	}
 
 	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
@@ -493,6 +680,145 @@ static void R_DrawSwampDust(void)
 
 	if (count > 0)
 		GL3_Draw3DPoly(GL_POINTS, verts, count);
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+}
+
+static void R_DrawSwampMist(void)
+{
+	const float time = r_newrefdef.time;
+
+	glBindTexture(GL_TEXTURE_2D, gl3state.whiteTexture);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthMask(GL_FALSE);
+
+	// Swampy green mist color.
+	const vec3_t mist_color = { 0.3f, 0.5f, 0.25f };
+
+	for (int i = 0; i < SWAMP_MIST_COUNT; i++)
+	{
+		const swamp_mist_t* mist = &swamp_mist[i];
+
+		// Pulsing alpha effect.
+		const float pulse = 0.7f + 0.3f * sinf(time * 0.4f + mist->phase);
+		const float alpha = mist->alpha_base * pulse;
+
+		// Distance-based fade (fade out when close to avoid popping).
+		const float dx = mist->pos[0] - r_origin[0];
+		const float dy = mist->pos[1] - r_origin[1];
+		const float dist = sqrtf(dx * dx + dy * dy);
+		const float dist_fade = Clamp((dist - 50.0f) / 150.0f, 0.0f, 1.0f);
+
+		const float final_alpha = alpha * dist_fade;
+		if (final_alpha < 0.005f)
+			continue;
+
+		const float size = mist->size;
+		const float rot_rad = mist->rotation * ((float)M_PI / 180.0f);
+		const float cos_r = cosf(rot_rad);
+		const float sin_r = sinf(rot_rad);
+
+		// Billboard quad oriented in XY plane (horizontal mist).
+		vec3_t right = { cos_r * size, sin_r * size, 0.0f };
+		vec3_t fwd = { -sin_r * size, cos_r * size, 0.0f };
+
+		float quad[4 * 9];
+		int vert = 0;
+
+		// Draw as a soft, faded quad with center brighter than edges.
+		// We'll draw multiple overlapping smaller quads for a softer look.
+
+		// Main quad (full size, low alpha).
+		quad[vert++] = mist->pos[0] - right[0] - fwd[0];
+		quad[vert++] = mist->pos[1] - right[1] - fwd[1];
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.3f;
+
+		quad[vert++] = mist->pos[0] + right[0] - fwd[0];
+		quad[vert++] = mist->pos[1] + right[1] - fwd[1];
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.3f;
+
+		quad[vert++] = mist->pos[0] + right[0] + fwd[0];
+		quad[vert++] = mist->pos[1] + right[1] + fwd[1];
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.3f;
+
+		quad[vert++] = mist->pos[0] - right[0] + fwd[0];
+		quad[vert++] = mist->pos[1] - right[1] + fwd[1];
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.3f;
+
+		GL3_Draw3DPoly(GL_TRIANGLE_FAN, quad, 4);
+
+		// Inner core (smaller, brighter).
+		const float inner_scale = 0.5f;
+		vert = 0;
+
+		quad[vert++] = mist->pos[0] - right[0] * inner_scale - fwd[0] * inner_scale;
+		quad[vert++] = mist->pos[1] - right[1] * inner_scale - fwd[1] * inner_scale;
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.5f;
+
+		quad[vert++] = mist->pos[0] + right[0] * inner_scale - fwd[0] * inner_scale;
+		quad[vert++] = mist->pos[1] + right[1] * inner_scale - fwd[1] * inner_scale;
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.5f;
+
+		quad[vert++] = mist->pos[0] + right[0] * inner_scale + fwd[0] * inner_scale;
+		quad[vert++] = mist->pos[1] + right[1] * inner_scale + fwd[1] * inner_scale;
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.5f;
+
+		quad[vert++] = mist->pos[0] - right[0] * inner_scale + fwd[0] * inner_scale;
+		quad[vert++] = mist->pos[1] - right[1] * inner_scale + fwd[1] * inner_scale;
+		quad[vert++] = mist->pos[2];
+		quad[vert++] = 0.0f;
+		quad[vert++] = 0.0f;
+		quad[vert++] = mist_color[0];
+		quad[vert++] = mist_color[1];
+		quad[vert++] = mist_color[2];
+		quad[vert++] = final_alpha * 0.5f;
+
+		GL3_Draw3DPoly(GL_TRIANGLE_FAN, quad, 4);
+	}
 
 	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
@@ -866,7 +1192,10 @@ void R_DrawSkyBox(void)
 		glEnable(GL_CULL_FACE);
 
 	if (R_IsSilverpringMap())
+	{
+		R_DrawSkyAurora();
 		R_DrawSkyStars();
+	}
 
 	// GL3: Restore world modelview matrix (equivalent of glPopMatrix).
 	GL3_UpdateModelview3D(r_world_matrix);
@@ -888,7 +1217,9 @@ void R_DrawSkyBox(void)
 		uint seed = 0x5ca1ab1eu;
 		R_UpdateSwampLeaves(dt, &seed);
 		R_UpdateSwampDust(dt, &seed);
+		R_UpdateSwampMist(dt, &seed);
 
+		R_DrawSwampMist();  // Draw mist first (behind other particles).
 		R_DrawSwampLeaves();
 		R_DrawSwampDust();
 	}

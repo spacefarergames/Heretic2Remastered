@@ -56,7 +56,7 @@ client_entity_t* DoBloodSplash(vec3_t loc, int amount, const qboolean yellow_blo
 
 	const float speed = (float)amount * 4.0f + 16.0f;
 	const float gravity = GetGravity() * 0.5f;
-	const int extra_flags = (R_DETAIL > DETAIL_HIGH ? PFL_LM_COLOR : 0); //mxd
+	const int extra_flags = PFL_LM_COLOR; //mxd. Always use lightmap color for better visual integration.
 
 	amount = min(500, amount);
 
@@ -451,10 +451,7 @@ void ThrowBlood(const vec3_t torigin, const vec3_t tnormal, const qboolean dark,
 	bsplat->r.angles[ROLL] = flrand(ANGLE_0, ANGLE_360);
 	bsplat->r.model = &splat_models[yellow ? 1 : 0];
 	bsplat->r.frame = irand(0, 4);
-	bsplat->r.flags = (RF_FIXED | RF_ALPHA_TEXTURE);
-
-	if (R_DETAIL >= DETAIL_HIGH) //mxd. +RF_LM_COLOR.
-		bsplat->r.flags |= RF_LM_COLOR;
+	bsplat->r.flags = (RF_FIXED | RF_ALPHA_TEXTURE | RF_LM_COLOR); //mxd. Always use lightmap color for better visual integration.
 
 	bsplat->alpha = 0.1f; //mxd. Add subtle fade-in effect.
 	bsplat->d_alpha = 2.5f;

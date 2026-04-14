@@ -14,9 +14,16 @@ static cvar_t* nextserver; // H2
 
 void DrawString(int x, const int y, const char* s, const paletteRGBA_t color, int maxlen) //mxd. +char scaling and shadow logic.
 {
+	DrawStringAlpha(x, y, s, color, maxlen, 1.0f);
+}
+
+void DrawStringAlpha(int x, const int y, const char* s, const paletteRGBA_t color, int maxlen, const float alpha) //mxd. +alpha parameter for fade effects.
+{
 	while (*s != 0 && maxlen != 0) //NOTE: 'maxlen' can be -1!
 	{
-		re.DrawChar(x, y, ui_scale, *s, color, true);
+		paletteRGBA_t faded_color = color;
+		faded_color.a = (byte)((float)color.a * alpha);
+		re.DrawChar(x, y, ui_scale, *s, faded_color, true);
 		s++;
 		x += ui_char_size;
 		maxlen--;

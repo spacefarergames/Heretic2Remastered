@@ -44,4 +44,7 @@ extern void Con_DrawNotify(void);
 extern void Con_ClearNotify(void);
 extern void Con_ToggleConsole_f(void);
 
+extern void DrawString(int x, int y, const char* s, paletteRGBA_t color, int maxlen); //mxd
+extern void DrawStringAlpha(int x, int y, const char* s, paletteRGBA_t color, int maxlen, float alpha); //mxd. +alpha for fade effects.
+
 extern void Key_ClearTyping(void);

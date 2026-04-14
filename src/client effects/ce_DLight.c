@@ -4,7 +4,7 @@
 // Copyright 1998 Raven Software
 //
 
-#include "ce_Dlight.h"
+#include "ce_DLight.h"
 #include "Client Entities.h"
 #include "ResourceManager.h"
 #include "Vector.h"
@@ -38,6 +38,11 @@ struct CE_DLight_s* CE_DLight_new(const paletteRGBA_t color, const float intensi
 	VectorClear(dl->fade_color_start);
 	VectorClear(dl->fade_color_end);
 
+	//mxd. Disable flicker by default.
+	dl->flicker_base_intensity = 0.0f;
+	dl->flicker_amplitude = 0.0f;
+	dl->flicker_speed = 0.0f;
+
 	return dl;
 }
 
@@ -51,8 +56,20 @@ void CE_DLight_SetColorFade(struct CE_DLight_s* self, const float end_r, const f
 {
 	assert(duration > 0 && end_r >= 0.0f && end_r <= 255.0f && end_g >= 0.0f && end_g <= 255.0f && end_b >= 0.0f && end_b <= 255.0f);
 
+	// Runtime validation for release builds.
+	if (duration <= 0 || end_r < 0.0f || end_r > 255.0f || end_g < 0.0f || end_g > 255.0f || end_b < 0.0f || end_b > 255.0f)
+		return;
+
 	self->fade_start_time = fx_time;
 	self->fade_end_time = fx_time + duration;
 	VectorSet(self->fade_color_start, self->color.r, self->color.g, self->color.b);
 	VectorSet(self->fade_color_end, end_r, end_g, end_b);
+}
+
+//mxd. Set dlight flicker parameters. amplitude: flicker intensity variation (e.g. 0.2 = 20%), speed: flicker frequency multiplier.
+void CE_DLight_SetFlicker(struct CE_DLight_s* self, const float amplitude, const float speed)
+{
+	self->flicker_base_intensity = self->intensity;
+	self->flicker_amplitude = amplitude;
+	self->flicker_speed = speed;
 }

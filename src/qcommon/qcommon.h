@@ -13,12 +13,12 @@
 #define	BASEDIRNAME			"base"
 
 #define VERSION_MAJOR		"2"
-#define VERSION_MINOR		"07"
-#define VERSION_LOCAL		"03"
-#define VERSION_DATE		"2903"
-#define VERSION_ITERATION	"02"
+#define VERSION_MINOR		"08"
+#define VERSION_LOCAL		"04"
+#define VERSION_DATE		"1404"
+#define VERSION_ITERATION	"01"
 
-#define VERSIONDISP			"R7_03" // Shown in console. //mxd. (VERSION_MAJOR"."VERSION_MINOR) in original logic.
+#define VERSIONDISP			"R8_00" // Shown in console. //mxd. (VERSION_MAJOR"."VERSION_MINOR) in original logic.
 #define VERSIONFULL			(VERSION_MAJOR"."VERSION_MINOR"."VERSION_LOCAL"."VERSION_DATE"."VERSION_ITERATION) // Stored in version cvar.
 
 #define GAME_NAME			"Heretic 2 Remastered" //mxd

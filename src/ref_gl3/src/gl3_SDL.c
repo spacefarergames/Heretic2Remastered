@@ -1,7 +1,7 @@
 //
 // gl3_SDL.c
 //
-// OpenGL 3.3 Core Profile SDL context management.
+// OpenGL 4.6 Core Profile SDL context management.
 //
 
 #include "gl3_SDL.h"
@@ -21,9 +21,9 @@ void RI_EndFrame(void)
 // In case of error -1 is returned.
 int RI_PrepareForWindow(void)
 {
-	// Request OpenGL 3.3 Core Profile.
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	// Request OpenGL 4.6 Core Profile.
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 #ifdef _DEBUG
@@ -43,6 +43,7 @@ int RI_PrepareForWindow(void)
 	{
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+		ri.Con_Printf(PRINT_ALL, "Requested MSAA 4x\n");
 	}
 	else
 	{
@@ -73,7 +74,7 @@ void R_SetVsync(void)
 		ri.Con_Printf(PRINT_ALL, "Failed to get VSync state, assuming no VSync.\n");
 }
 
-// Initializes the OpenGL 3.3 Core context.
+// Initializes the OpenGL 4.6 Core context.
 qboolean RI_InitContext(void* win)
 {
 	if (win == NULL)
@@ -89,7 +90,7 @@ qboolean RI_InitContext(void* win)
 
 	if (context == NULL)
 	{
-		ri.Con_Printf(PRINT_ALL, "RI_InitContext(): failed to create OpenGL 3.3 context: %s\n", SDL_GetError());
+		ri.Con_Printf(PRINT_ALL, "RI_InitContext(): failed to create OpenGL 4.6 context: %s\n", SDL_GetError());
 		window = NULL;
 
 		return false;
@@ -103,9 +104,9 @@ qboolean RI_InitContext(void* win)
 	}
 
 	// Check OpenGL version.
-	if (!GLAD_GL_VERSION_3_3)
+	if (!GLAD_GL_VERSION_4_6)
 	{
-		ri.Con_Printf(PRINT_ALL, "RI_InitContext(): unsupported OpenGL version. Expected 3.3, got %i.%i!\n", GLVersion.major, GLVersion.minor);
+		ri.Con_Printf(PRINT_ALL, "RI_InitContext(): unsupported OpenGL version. Expected 4.6, got %i.%i!\n", GLVersion.major, GLVersion.minor);
 		return false;
 	}
 

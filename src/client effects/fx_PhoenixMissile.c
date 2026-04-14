@@ -44,13 +44,13 @@ static qboolean PhoenixMissileUpdate(client_entity_t* self, centity_t* owner) //
 	static const int flap_frames[] = { 3, 4, 5, 6, 7, 7, 7, 6, 6, 5, 5, 4, 4, 3 }; //mxd. Raise wings slower, flap faster.
 
 	int duration;
-
-	if (R_DETAIL == DETAIL_LOW)
-		duration = 1400;
-	else if (R_DETAIL == DETAIL_NORMAL)
-		duration = 1700;
-	else
-		duration = 2000; //TODO: even longer duration for DETAIL_UBERHIGH?
+	switch (R_DETAIL)
+	{
+		case DETAIL_LOW:		duration = 1400; break;
+		case DETAIL_NORMAL:		duration = 1700; break;
+		case DETAIL_UBERHIGH:	duration = 2500; break; //mxd. Even longer trails for uber detail.
+		default:				duration = 2000; break;
+	}
 
 	// Here we want to shoot out flame to either side.
 	const vec3_t angles = VEC3_INITS(self->r.angles, RAD_TO_ANGLE);

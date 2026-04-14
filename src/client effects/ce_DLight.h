@@ -22,6 +22,11 @@ typedef struct CE_DLight_s
 	vec3_t fade_color_start;
 	vec3_t fade_color_end;
 
+	//mxd. Flicker settings.
+	float flicker_base_intensity;
+	float flicker_amplitude;
+	float flicker_speed;
+
 	DLightUpdate_t Update; //mxd
 } CE_DLight_t;
 
@@ -31,3 +36,4 @@ extern void ReleaseDLightMngr(void);
 extern struct CE_DLight_s* CE_DLight_new(paletteRGBA_t color, float intensity, float d_intensity);
 extern void CE_DLight_delete(struct CE_DLight_s* to_delete);
 extern void CE_DLight_SetColorFade(struct CE_DLight_s* self, float end_r, float end_g, float end_b, int duration); //mxd
+extern void CE_DLight_SetFlicker(struct CE_DLight_s* self, float amplitude, float speed); //mxd. Enable light flickering.

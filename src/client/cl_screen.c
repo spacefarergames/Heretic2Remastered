@@ -46,8 +46,259 @@ static cvar_t* scr_drawall;
 static cvar_t* scr_statbar;
 static cvar_t* scr_item_paused;
 static cvar_t* scr_item_loading;
+static cvar_t* scr_text_fade_in;   //mxd. Duration of text fade-in effect in seconds.
+static cvar_t* scr_text_fade_out;  //mxd. Duration of text fade-out effect in seconds.
+static cvar_t* scr_level_fade_in;  //mxd. Duration of level fade-in effect in seconds.
+static cvar_t* scr_level_fade_out; //mxd. Duration of level fade-out effect in seconds.
 cvar_t* r_fog;
 cvar_t* r_fog_density;
+
+// Level transition fade state.
+typedef enum
+{
+	LEVEL_FADE_NONE = 0,
+	LEVEL_FADE_OUT,  // Fading to black before loading.
+	LEVEL_FADE_IN    // Fading in from black after loading.
+} level_fade_state_t;
+
+static level_fade_state_t level_fade_state = LEVEL_FADE_NONE;
+static int level_fade_start_time = 0;
+static int level_fade_duration = 0;
+
+//mxd. Loading screen map popup animation state.
+static int loading_map_start_time = 0;
+static float loading_map_scale = 0.0f;
+
+//mxd. Loading screen starfield background.
+#define STARFIELD_NUM_STARS		150
+#define STARFIELD_TWINKLE_SPEED	0.003f
+#define STARFIELD_DRIFT_SPEED	0.00002f
+
+typedef struct
+{
+	float x;			// Normalized X position (0.0 to 1.0).
+	float y;			// Normalized Y position (0.0 to 1.0).
+	float dx;			// Drift velocity X (-1.0 to 1.0).
+	float dy;			// Drift velocity Y (-1.0 to 1.0).
+	float brightness;	// Base brightness (0.3 to 1.0).
+	float phase;		// Twinkle phase offset (0.0 to 2*PI).
+	float speed;		// Twinkle speed multiplier.
+	int size;			// Star size (1 or 2 pixels).
+} star_t;
+
+static star_t loading_stars[STARFIELD_NUM_STARS];
+static qboolean loading_stars_initialized = false;
+
+//mxd. Northern lights (aurora borealis) effect.
+#define AURORA_NUM_BANDS		5
+#define AURORA_WAVE_SPEED		0.0003f
+#define AURORA_DRIFT_SPEED		0.00005f
+
+typedef struct
+{
+	float y_base;		// Base Y position (0.0 to 0.5, upper half of screen).
+	float amplitude;	// Wave amplitude.
+	float frequency;	// Wave frequency.
+	float phase;		// Phase offset.
+	float drift_speed;	// Horizontal drift speed.
+	byte r, g, b;		// Base color.
+	float alpha_max;	// Maximum alpha (0.0 to 1.0).
+} aurora_band_t;
+
+static aurora_band_t aurora_bands[AURORA_NUM_BANDS];
+
+static void SCR_InitStarfield(void)
+{
+	// Use a fixed seed for consistent starfield between loads.
+	unsigned int seed = 12345;
+
+	for (int i = 0; i < STARFIELD_NUM_STARS; i++)
+	{
+		// Simple LCG random number generator.
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].x = (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].y = (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].brightness = 0.3f + 0.7f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].phase = 6.28318f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].speed = 0.5f + 1.5f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].size = ((seed & 0xF) < 3) ? 2 : 1; // ~20% chance of larger star.
+
+		// Random drift velocity (-1.0 to 1.0 range, will be scaled by STARFIELD_DRIFT_SPEED).
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].dx = ((float)(seed & 0xFFFF) / 32767.5f) - 1.0f;
+
+		seed = seed * 1103515245 + 12345;
+		loading_stars[i].dy = ((float)(seed & 0xFFFF) / 32767.5f) - 1.0f;
+	}
+
+	// Initialize aurora bands with varied colors (greens, blues, purples, pinks).
+	// Aurora colors: typical northern lights range from green to blue to purple/pink.
+	static const byte aurora_colors[AURORA_NUM_BANDS][3] =
+	{
+		{  50, 200,  80 },	// Green (most common aurora color).
+		{  30, 180, 120 },	// Teal/cyan green.
+		{  60, 120, 200 },	// Blue.
+		{ 120,  80, 180 },	// Purple.
+		{ 180,  60, 140 }	// Pink/magenta.
+	};
+
+	for (int i = 0; i < AURORA_NUM_BANDS; i++)
+	{
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].y_base = 0.05f + 0.25f * (float)(seed & 0xFFFF) / 65535.0f; // Upper portion of screen.
+
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].amplitude = 0.02f + 0.04f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].frequency = 1.5f + 2.0f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].phase = 6.28318f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].drift_speed = 0.5f + 1.0f * (float)(seed & 0xFFFF) / 65535.0f;
+
+		aurora_bands[i].r = aurora_colors[i][0];
+		aurora_bands[i].g = aurora_colors[i][1];
+		aurora_bands[i].b = aurora_colors[i][2];
+
+		seed = seed * 1103515245 + 12345;
+		aurora_bands[i].alpha_max = 0.15f + 0.15f * (float)(seed & 0xFFFF) / 65535.0f; // Subtle effect.
+	}
+
+	loading_stars_initialized = true;
+}
+
+void SCR_DrawStarfield(void)
+{
+	if (!loading_stars_initialized)
+		SCR_InitStarfield();
+
+	// Fill background with dark space color.
+	const paletteRGBA_t bg_color = { .r = 2, .g = 2, .b = 8, .a = 255 };
+	re.DrawFill(0, 0, viddef.width, viddef.height, bg_color);
+
+	// Draw aurora borealis effect (northern lights).
+	const float aurora_time = (float)curtime * AURORA_WAVE_SPEED;
+	const float aurora_drift = (float)curtime * AURORA_DRIFT_SPEED;
+
+	for (int band = 0; band < AURORA_NUM_BANDS; band++)
+	{
+		const aurora_band_t* aurora = &aurora_bands[band];
+
+		// Draw aurora as wider vertical strips for better performance.
+		const int strip_width = 16; // Wider strips = fewer draw calls.
+		const int num_strips = (viddef.width + strip_width - 1) / strip_width;
+
+		for (int strip = 0; strip < num_strips; strip++)
+		{
+			const float nx = (float)strip / (float)num_strips; // Normalized X (0 to 1).
+
+			// Calculate wavy Y position with drift.
+			const float wave_x = nx * aurora->frequency + aurora_drift * aurora->drift_speed + aurora->phase;
+			const float wave_offset = sinf(wave_x * 6.28318f + aurora_time) * aurora->amplitude;
+			const float y_pos = aurora->y_base + wave_offset;
+
+			// Calculate pulsing alpha with variation across the band.
+			const float pulse = 0.5f + 0.5f * sinf(aurora_time * 0.7f + aurora->phase + nx * 3.14159f);
+			const float fade_at_edges = 1.0f - fabsf(nx - 0.5f) * 1.5f; // Fade toward screen edges.
+			const float alpha = aurora->alpha_max * pulse * max(0.0f, fade_at_edges);
+
+			if (alpha < 0.02f)
+				continue;
+
+			// Draw a few gradient segments instead of per-pixel (3 segments: top fade, center, bottom fade).
+			const int x = strip * strip_width;
+			const int base_y = (int)(y_pos * (float)viddef.height);
+			const int half_height = (int)(30.0f * (float)ui_scale * (0.5f + 0.5f * pulse));
+
+			// Draw 3 vertical segments with decreasing alpha.
+			const int segment_height = max(1, half_height / 3);
+
+			// Center segment (full alpha).
+			if (base_y >= 0 && base_y < viddef.height)
+			{
+				const paletteRGBA_t color_center = { .r = aurora->r, .g = aurora->g, .b = aurora->b, .a = (byte)(alpha * 255.0f) };
+				re.DrawFill(x, max(0, base_y - segment_height), strip_width, min(segment_height * 2, viddef.height - max(0, base_y - segment_height)), color_center);
+			}
+
+			// Top and bottom fade segments (reduced alpha).
+			const byte fade_alpha = (byte)(alpha * 0.5f * 255.0f);
+			if (fade_alpha > 5)
+			{
+				const paletteRGBA_t color_fade = { .r = aurora->r, .g = aurora->g, .b = aurora->b, .a = fade_alpha };
+
+				// Top fade.
+				const int top_y = base_y - segment_height * 2;
+				if (top_y >= 0 && top_y < viddef.height)
+					re.DrawFill(x, top_y, strip_width, segment_height, color_fade);
+
+				// Bottom fade.
+				const int bot_y = base_y + segment_height;
+				if (bot_y >= 0 && bot_y < viddef.height)
+					re.DrawFill(x, bot_y, strip_width, segment_height, color_fade);
+			}
+
+			// Outer fade (very low alpha).
+			const byte outer_alpha = (byte)(alpha * 0.2f * 255.0f);
+			if (outer_alpha > 3)
+			{
+				const paletteRGBA_t color_outer = { .r = aurora->r, .g = aurora->g, .b = aurora->b, .a = outer_alpha };
+
+				const int outer_top = base_y - segment_height * 3;
+				if (outer_top >= 0 && outer_top < viddef.height)
+					re.DrawFill(x, outer_top, strip_width, segment_height, color_outer);
+
+				const int outer_bot = base_y + segment_height * 2;
+				if (outer_bot >= 0 && outer_bot < viddef.height)
+					re.DrawFill(x, outer_bot, strip_width, segment_height, color_outer);
+			}
+		}
+	}
+
+	// Draw twinkling stars.
+	const float time = (float)curtime * STARFIELD_TWINKLE_SPEED;
+	const float drift_time = (float)curtime * STARFIELD_DRIFT_SPEED;
+
+	for (int i = 0; i < STARFIELD_NUM_STARS; i++)
+	{
+		star_t* star = &loading_stars[i];
+
+		// Calculate twinkle effect using sine wave.
+		const float twinkle = 0.5f + 0.5f * sinf(time * star->speed + star->phase);
+		const float alpha = star->brightness * (0.4f + 0.6f * twinkle);
+
+		// Apply drift movement with wrapping.
+		float px = star->x + star->dx * drift_time;
+		float py = star->y + star->dy * drift_time;
+
+		// Wrap positions to stay in 0-1 range.
+		px = px - floorf(px);
+		py = py - floorf(py);
+
+		// Slight blue/white color variation based on brightness.
+		const byte r = (byte)(180.0f + 75.0f * star->brightness);
+		const byte g = (byte)(180.0f + 75.0f * star->brightness);
+		const byte b = (byte)(200.0f + 55.0f * star->brightness);
+		const paletteRGBA_t star_color = { .r = r, .g = g, .b = b, .a = (byte)(alpha * 255.0f) };
+
+		const int x = (int)(px * (float)viddef.width);
+		const int y = (int)(py * (float)viddef.height);
+
+		re.DrawFill(x, y, star->size, star->size, star_color);
+	}
+}
 
 typedef struct
 {
@@ -295,6 +546,21 @@ void SCR_BeginLoadingPlaque(void)
 
 		scr_progressbar_width = 0; // H2
 
+		//mxd. Start fade-out effect before loading.
+		SCR_StartLevelFade(true);
+
+		// Render fade-out frames for smooth transition.
+		while (SCR_IsFadingOut() && (cls.realtime - level_fade_start_time) < level_fade_duration)
+		{
+			IN_Update(); // Pump message loop.
+			curtime = (int)(Sys_Microseconds() / 1000ll); // Update curtime.
+			cls.realtime = curtime;
+			SCR_UpdateScreen();
+		}
+
+		// Clear fade state so loading screen is visible.
+		SCR_ClearLevelFade();
+
 		SCR_UpdateScreen();
 		cls.disable_screen = true; // Q2: Sys_Milliseconds()
 		cls.disable_servercount = cl.servercount;
@@ -306,17 +572,41 @@ void SCR_EndLoadingPlaque(void)
 	cls.disable_screen = false;
 	scr_draw_loading_plaque = false; // H2
 	scr_draw_loading = false; // H2
+	loading_map_start_time = 0; //mxd. Reset map popup animation state.
 	Con_ClearNotify();
+
+	//mxd. Start fade-in effect after loading completes.
+	SCR_StartLevelFade(false);
 }
 
-//mxd. Original version looks broken and seems to work only because first arg is always 0... //TODO: remove unused arg?
-void SCR_UpdateProgressbar(int unused, const int section) // H2
+//mxd. Removed unused first parameter.
+void SCR_UpdateProgressbar(const int section) // H2
 {
 #define NUM_PROGRESSBAR_SECTIONS	6
 
 	const int w = ClampI(section, 0, NUM_PROGRESSBAR_SECTIONS);
 	scr_progressbar_width = (w << NUM_PROGRESSBAR_SECTIONS) / NUM_PROGRESSBAR_SECTIONS;
+
+	SCR_UpdateLoadingScreen();
+}
+
+//mxd. Update loading screen with message pumping to keep starfield animating and window responsive.
+void SCR_UpdateLoadingScreen(void)
+{
+	if (!scr_draw_loading)
+		return;
+
+	// Temporarily enable screen updates.
+	const qboolean was_disabled = cls.disable_screen;
+	cls.disable_screen = false;
+
+	IN_Update(); // Pump message loop to keep window responsive.
+	curtime = (int)(Sys_Microseconds() / 1000ll); // Update curtime for starfield animation.
+	cls.realtime = curtime;
+
 	SCR_UpdateScreen();
+
+	cls.disable_screen = was_disabled;
 }
 
 //mxd. Expected to be called when screen size changes.
@@ -356,6 +646,10 @@ void SCR_Init(void)
 	scr_statbar = Cvar_Get("scr_statbar", "1", 0);
 	scr_item_paused = Cvar_Get("scr_item_paused", "Paused", 0);
 	scr_item_loading = Cvar_Get("scr_item_loading", "Loading", 0);
+	scr_text_fade_in = Cvar_Get("scr_text_fade_in", "0.3", 0);   //mxd. 300ms default fade-in.
+	scr_text_fade_out = Cvar_Get("scr_text_fade_out", "0.3", 0); //mxd. 300ms default fade-out.
+	scr_level_fade_in = Cvar_Get("scr_level_fade_in", "0.5", CVAR_ARCHIVE);  //mxd. 500ms default level fade-in.
+	scr_level_fade_out = Cvar_Get("scr_level_fade_out", "0.3", CVAR_ARCHIVE); //mxd. 300ms default level fade-out.
 	r_fog = Cvar_Get("r_fog", "0", 0);
 	r_fog_density = Cvar_Get("r_fog_density", "0", 0);
 	//gl_lostfocus_broken = Cvar_Get("gl_lostfocus_broken", "0", 0); //mxd. Ignored
@@ -408,14 +702,29 @@ static void SCR_DrawLoading(void)
 	if (!scr_draw_loading || strcmp(cls.servername, "localhost") != 0 || Cvar_IsSet("coop") || Cvar_IsSet("deathmatch"))
 		return;
 
-	// Draw map bg.
-	cls.m_menuscale = 1.0f;
-	cls.m_menualpha = 1.0f;
+	// Draw twinkling starfield background (fills widescreen letterbox areas).
+	SCR_DrawStarfield();
+
+	// Tell Menu_DrawBG to skip black fill since starfield is already drawn.
+	m_skip_bg_fill = true;
+
+	// Animate map popup zoom-in effect (similar to pause menu).
+	if (loading_map_start_time == 0)
+		loading_map_start_time = curtime;
+
+	const float elapsed = (float)(curtime - loading_map_start_time);
+	const float duration = 250.0f; // Same duration as menu zoom.
+	loading_map_scale = min(elapsed / duration, 1.0f);
+
+	// Draw map bg with zoom animation.
+	cls.m_menuscale = loading_map_scale;
+	cls.m_menualpha = loading_map_scale;
 
 	M_WorldMap_MenuDraw();
 
 	cls.m_menuscale = 0.0f;
 	cls.m_menualpha = 0.0f;
+	m_skip_bg_fill = false;
 
 	char label[MAX_QPATH];
 	Com_sprintf(label, sizeof(label), "\x03%s", scr_item_loading->string);
@@ -981,6 +1290,23 @@ static void SCR_DrawGameMessage(void) // H2
 	if (display_msg.dispay_time <= 0.0f)
 		return;
 
+	//mxd. Calculate fade alpha based on elapsed time within the message display duration.
+	float elapsed_time = display_msg.total_display_time - display_msg.dispay_time; //mxd. Time since message started.
+	float fade_alpha = 1.0f;
+
+	// Calculate fade-in effect (at the beginning).
+	if (scr_text_fade_in->value > 0.0f && elapsed_time < scr_text_fade_in->value)
+	{
+		fade_alpha = elapsed_time / scr_text_fade_in->value; // Linear fade-in from 0 to 1
+	}
+	// Calculate fade-out effect (in the last portion of display time).
+	else if (scr_text_fade_out->value > 0.0f && display_msg.dispay_time < scr_text_fade_out->value)
+	{
+		fade_alpha = display_msg.dispay_time / scr_text_fade_out->value; // Linear fade-out from 1 to 0
+	}
+
+	fade_alpha = Clamp(fade_alpha, 0.0f, 1.0f); //mxd. Ensure alpha is within valid range.
+
 	//mxd. The above code was in a separate function in original version.
 
 	//mxd. When drawing a caption, start at vertical center of bottom cinematic border. Original logic uses viddef.height * 0.9f instead
@@ -1008,7 +1334,7 @@ static void SCR_DrawGameMessage(void) // H2
 
 		const int x = (viddef.width - trimmed_len * ui_char_size) / 2;
 		SCR_AddDirtyPoint(x, y);
-		DrawString(x, y, s, display_msg.color, trimmed_len);
+		DrawStringAlpha(x, y, s, display_msg.color, trimmed_len, fade_alpha); //mxd. Use DrawStringAlpha with fade effect.
 		SCR_AddDirtyPoint(x + trimmed_len * ui_char_size, y + ui_char_size);
 
 		// Skip to next line.
@@ -1086,6 +1412,80 @@ static void SCR_DrawInitialFadeIn(void)
 	}
 
 	re.DrawFill(0, 0, viddef.width, viddef.height, color);
+}
+
+//mxd. Draw level transition fade effect (fade to/from black).
+static void SCR_DrawLevelFade(void)
+{
+	if (level_fade_state == LEVEL_FADE_NONE)
+		return;
+
+	const int elapsed = cls.realtime - level_fade_start_time;
+
+	// Check if fade is complete.
+	if (elapsed >= level_fade_duration)
+	{
+		// Fade-out completed - hold at black (loading will continue).
+		if (level_fade_state == LEVEL_FADE_OUT)
+		{
+			re.DrawFill(0, 0, viddef.width, viddef.height, TextPalette[P_BLACK]);
+			return;
+		}
+
+		// Fade-in completed - clear fade state.
+		level_fade_state = LEVEL_FADE_NONE;
+		return;
+	}
+
+	// Calculate alpha based on fade direction.
+	const float progress = (float)elapsed / (float)level_fade_duration; // [0.0f .. 1.0f]
+	float alpha;
+
+	if (level_fade_state == LEVEL_FADE_OUT)
+		alpha = sinf(progress * ANGLE_90); // Fade from transparent to black.
+	else // LEVEL_FADE_IN
+		alpha = 1.0f - sinf(progress * ANGLE_90); // Fade from black to transparent.
+
+	paletteRGBA_t color = TextPalette[P_BLACK];
+	color.a = (byte)(Clamp(alpha, 0.0f, 1.0f) * 255.0f);
+
+	if (color.a > 0)
+		re.DrawFill(0, 0, viddef.width, viddef.height, color);
+}
+
+// Start a level fade-out (before loading) or fade-in (after loading).
+void SCR_StartLevelFade(const qboolean fade_out)
+{
+	if (fade_out)
+	{
+		if (scr_level_fade_out->value <= 0.0f)
+			return;
+
+		level_fade_state = LEVEL_FADE_OUT;
+		level_fade_duration = (int)(scr_level_fade_out->value * 1000.0f);
+	}
+	else
+	{
+		if (scr_level_fade_in->value <= 0.0f)
+			return;
+
+		level_fade_state = LEVEL_FADE_IN;
+		level_fade_duration = (int)(scr_level_fade_in->value * 1000.0f);
+	}
+
+	level_fade_start_time = cls.realtime;
+}
+
+// Check if currently fading out.
+qboolean SCR_IsFadingOut(void)
+{
+	return level_fade_state == LEVEL_FADE_OUT;
+}
+
+// Clear any active level fade.
+void SCR_ClearLevelFade(void)
+{
+	level_fade_state = LEVEL_FADE_NONE;
 }
 
 //mxd. Draw "Interact" popup when player is near an interactable object.
@@ -1178,6 +1578,7 @@ void SCR_UpdateScreen(void)
 	}
 
 	SCR_DrawInitialFadeIn(); //mxd
+	SCR_DrawLevelFade();     //mxd. Level transition fade effect.
 	DBG_DrawMessages(); //mxd.
 	SCR_DrawFramecounter(); //mxd
 

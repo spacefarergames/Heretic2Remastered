@@ -39,12 +39,13 @@ void PreCacheSphere(void)
 static qboolean SphereOfAnnihilationSphereUpdate(client_entity_t* self, centity_t* owner) //mxd. Named 'FXSphereOfAnnihilationSphereThink' in original logic.
 {
 	float detail_scale;
-	if (R_DETAIL == DETAIL_LOW)
-		detail_scale = 0.7f;
-	else if (R_DETAIL == DETAIL_NORMAL)
-		detail_scale = 0.85f;
-	else
-		detail_scale = 1.0f; //TODO: separate case for DETAIL_UBERHIGH. Why is sphere scaled by detail level?..
+	switch (R_DETAIL)
+	{
+		case DETAIL_LOW:		detail_scale = 0.7f; break;
+		case DETAIL_NORMAL:		detail_scale = 0.85f; break;
+		case DETAIL_UBERHIGH:	detail_scale = 1.15f; break; //mxd. Slightly larger sphere for ultra detail.
+		default:				detail_scale = 1.0f; break;
+	}
 
 	self->r.scale = owner->current.scale * detail_scale;
 
@@ -71,7 +72,7 @@ static qboolean SphereOfAnnihilationAuraUpdate(client_entity_t* self, centity_t*
 
 	Vec3ScaleAssign(FX_SPHERE_FLY_SPEED, trail_offset);
 
-	const int duration = ((R_DETAIL > DETAIL_NORMAL) ? 500 : 400);
+	const int duration = (R_DETAIL >= DETAIL_UBERHIGH ? 600 : (R_DETAIL > DETAIL_NORMAL ? 500 : 400)); //mxd. Longer trails for uber detail.
 	const int flags = (int)(self->flags & ~(CEF_OWNERS_ORIGIN | CEF_NO_DRAW)); //mxd
 
 	for (int i = 0; i < 40 && trail_length > 0.0f; i++)
@@ -137,12 +138,13 @@ static qboolean SphereOfAnnihilationGlowballUpdate(client_entity_t* self, centit
 		self->color.r++;
 
 	int duration;
-	if (R_DETAIL == DETAIL_LOW)
-		duration = 300;
-	else if (R_DETAIL == DETAIL_NORMAL)
-		duration = 400;
-	else
-		duration = 500; //TODO: separate case for DETAIL_UBERHIGH.
+	switch (R_DETAIL)
+	{
+		case DETAIL_LOW:		duration = 300; break;
+		case DETAIL_NORMAL:		duration = 400; break;
+		case DETAIL_UBERHIGH:	duration = 600; break; //mxd. Longer trails for uber detail.
+		default:				duration = 500; break;
+	}
 
 	if (self->color.r > 3)
 	{

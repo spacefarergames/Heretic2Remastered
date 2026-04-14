@@ -56,7 +56,7 @@ void CL_PrepRefresh(void)
 	SCR_AddDirtyPoint(0, 0);
 	SCR_AddDirtyPoint(viddef.width - 1, viddef.height - 1);
 
-	SCR_UpdateProgressbar(0, 1); // H2
+	SCR_UpdateProgressbar(1); // H2
 
 	char mapname[32];
 	strcpy_s(mapname, sizeof(mapname), cl.configstrings[CS_MODELS + 1] + 5); // Skip "maps/". //mxd. strcpy -> strcpy_s
@@ -67,10 +67,10 @@ void CL_PrepRefresh(void)
 	re.BeginRegistration(mapname);
 
 	Com_Printf("models\r");
-	SCR_UpdateProgressbar(0, 2); // H2
+	SCR_UpdateProgressbar(2); // H2
 	RegisterModels(); // H2
 
-	SCR_UpdateProgressbar(0, 3); // H2
+	SCR_UpdateProgressbar(3); // H2
 
 	for (int i = 1; i < MAX_MODELS && cl.configstrings[CS_MODELS + i][0] != 0; i++)
 	{
@@ -78,16 +78,26 @@ void CL_PrepRefresh(void)
 
 		cl.model_draw[i] = re.RegisterModel(cl.configstrings[CS_MODELS + i]);
 		cl.model_clip[i] = ((name[0] == '*') ? CM_InlineModel(cl.configstrings[CS_MODELS + i]) : NULL);
+
+		//mxd. Update loading screen periodically to keep starfield animating.
+		if ((i & 15) == 0)
+			SCR_UpdateLoadingScreen();
 	}
 
 	Com_Printf("images\r");
-	SCR_UpdateProgressbar(0, 4); // H2
+	SCR_UpdateProgressbar(4); // H2
 
 	for (int i = 1; i < MAX_IMAGES && cl.configstrings[CS_IMAGES + i][0]; i++)
+	{
 		cl.image_precache[i] = re.RegisterPic(cl.configstrings[CS_IMAGES + i]);
 
+		//mxd. Update loading screen periodically to keep starfield animating.
+		if ((i & 31) == 0)
+			SCR_UpdateLoadingScreen();
+	}
+
 	Com_Printf("clients\r");
-	SCR_UpdateProgressbar(0, 5); // H2
+	SCR_UpdateProgressbar(5); // H2
 
 	for (int i = 0; i < MAX_CLIENTS; i++)
 		if (cl.configstrings[CS_PLAYERSKINS + i][0] != 0)
@@ -97,7 +107,7 @@ void CL_PrepRefresh(void)
 
 	// Set sky textures and speed.
 	Com_Printf("sky\r");
-	SCR_UpdateScreen();
+	SCR_UpdateLoadingScreen(); //mxd. Keep starfield animating.
 
 	const float rotate = (float)strtod(cl.configstrings[CS_SKYROTATE], NULL); //mxd. atof -> strtod
 	vec3_t axis;
@@ -111,7 +121,7 @@ void CL_PrepRefresh(void)
 	// Clear any lines of console text.
 	Con_ClearNotify();
 
-	SCR_UpdateScreen();
+	SCR_UpdateLoadingScreen(); //mxd. Keep starfield animating.
 	cl.refresh_prepped = true;
 	cl.force_refdef = true; // Make sure we have a valid refdef.
 

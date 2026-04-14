@@ -303,6 +303,7 @@
     <ClCompile Include="fx_PhoenixMissile.c">
       <Filter>src\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Effects\fx_Blood.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ce_DefaultMessageHandler.h">

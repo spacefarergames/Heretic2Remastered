@@ -41,7 +41,8 @@ static qboolean CreateSDLWindow(const SDL_WindowFlags flags, const int width, co
 		return true;
 	}
 
-	Com_Printf("Creating SDL window failed: %s\n", SDL_GetError());
+	Com_Printf("ERROR: Creating SDL window failed: %s\n", SDL_GetError());
+	Com_Printf("Window parameters: %ix%i, flags: 0x%x\n", width, height, flags);
 	return false;
 }
 
@@ -229,7 +230,40 @@ qboolean GLimp_InitGraphics(const int width, const int height)
 	// Create the window. Will be borderless if width and height match current screen resolution.
 	// If this fails, R_SetMode() will retry with gl_state.prev_mode.
 	if (!CreateSDLWindow(flags, width, height))
-		return false;
+	{
+		// If window creation failed and MSAA was requested, try again without it.
+		// Some systems/drivers (especially under Wine) don't support certain MSAA configurations.
+		if (Cvar_VariableInt("r_antialiasing") == 1)
+		{
+			Com_Printf("MSAA window creation failed, retrying without MSAA...\n");
+			SDL_GL_ResetAttributes();
+
+			// Disable MSAA and try again
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 0);
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 0);
+
+			// Re-request other attributes
+			flags = re.PrepareForWindow();
+			if ((int)flags == -1)
+				return false;
+
+			if ((int)vid_hidpi->value)
+				flags |= SDL_WINDOW_HIGH_PIXEL_DENSITY;
+
+			// Try window creation again
+			if (!CreateSDLWindow(flags, width, height))
+			{
+				Com_Printf("Window creation failed even without MSAA\n");
+				return false;
+			}
+
+			Com_Printf("Window created successfully without MSAA\n");
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	last_flags = (int)flags;
 

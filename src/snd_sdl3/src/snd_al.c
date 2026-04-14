@@ -9,6 +9,7 @@
 //
 
 #include "snd_al.h"
+#include "snd_efx.h"
 #include "snd_main.h"
 #include "snd_wav.h"
 
@@ -38,6 +39,12 @@ static int al_num_bufcache;
 
 // Distance attenuation constants matching the engine's software mixer.
 #define AL_FULLVOLUME_DIST	80.0f // Same as SDL_FULLVOLUME in snd_sdl3.c.
+
+// Track underwater state for filtering.
+static qboolean al_underwater = false;
+
+// Track if sources are connected to EFX.
+static qboolean al_efx_connected = false;
 
 #pragma region ========================== Buffer cache ==========================
 
@@ -409,6 +416,57 @@ void AL_Shutdown(void)
 
 	al_active = false;
 	si.Com_Printf("OpenAL Soft HRTF shut down.\n");
+}
+
+#pragma endregion
+
+#pragma region ========================== EFX Integration ==========================
+
+unsigned int AL_GetSourceForChannel(int channel_index)
+{
+	if (!al_active || channel_index < 0 || channel_index >= AL_MAX_SOURCES)
+		return 0;
+
+	return al_sources[channel_index];
+}
+
+void AL_ConnectSourcesToEFX(void)
+{
+	if (!al_active || !EFX_IsActive() || al_efx_connected)
+		return;
+
+	for (int i = 0; i < AL_MAX_SOURCES; i++)
+		EFX_ConnectSourceToReverb(al_sources[i]);
+
+	al_efx_connected = true;
+}
+
+void AL_DisconnectSourcesFromEFX(void)
+{
+	if (!al_active || !al_efx_connected)
+		return;
+
+	for (int i = 0; i < AL_MAX_SOURCES; i++)
+		EFX_DisconnectSourceFromReverb(al_sources[i]);
+
+	al_efx_connected = false;
+}
+
+void AL_SetUnderwaterState(qboolean underwater)
+{
+	if (!al_active)
+		return;
+
+	al_underwater = underwater;
+
+	if (!EFX_IsActive())
+		return;
+
+	// Apply or remove underwater filter to all active sources.
+	ALuint filter = underwater ? EFX_GetUnderwaterFilter() : AL_FILTER_NULL;
+
+	for (int i = 0; i < AL_MAX_SOURCES; i++)
+		alSourcei(al_sources[i], AL_DIRECT_FILTER, (ALint)filter);
 }
 
 #pragma endregion

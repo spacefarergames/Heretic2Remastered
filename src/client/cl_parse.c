@@ -91,6 +91,8 @@ static void CenterPrint(const char* msg, const PalIdx_t color_index) // H2
 		s++;
 	}
 
+	display_msg.total_display_time = display_msg.dispay_time; //mxd. Store total time for fade calculations.
+
 	Com_Printf("\n");
 
 	// Print message to console.
@@ -568,7 +570,7 @@ void CL_LoadClientinfo(clientinfo_t* ci, const char* s, const int index)
 void CL_ParseClientinfo(const int player)
 {
 	CL_LoadClientinfo(&cl.clientinfo[player], cl.configstrings[player + CS_PLAYERSKINS], player);
-	SCR_UpdateProgressbar(0, 6); // H2
+	SCR_UpdateProgressbar(6); // H2
 }
 
 static void CL_ParseConfigString(void)

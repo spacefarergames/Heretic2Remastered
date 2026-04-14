@@ -1679,8 +1679,13 @@ void CL_Init(void)
 	// All archived variables will now be loaded.
 	Con_Init();
 	VID_Init();
+
+	IN_PumpEvents(); // Keep window responsive during initialization.
+
 	SND_Init(); //mxd. Originally initialized in Qcommon_Init() before CL_Init() call.
 	CDAudio_Init(); // Init CD audio after sound system.
+
+	IN_PumpEvents(); // Keep window responsive during initialization.
 
 	// Hook music playback to route through CD audio when the Heretic II CD is present.
 	if (CDAudio_IsActive())
@@ -1713,6 +1718,8 @@ void CL_Init(void)
 	Cbuf_AddText("exec menus.cfg\n");
 	Cbuf_AddText("exec user.cfg\n");
 	Cbuf_Execute();
+
+	IN_PumpEvents(); // Keep window responsive during initialization.
 
 	Key_ReadConsoleHistory(); // YQ2
 	CL_LoadStrings();

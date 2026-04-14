@@ -27,6 +27,7 @@ extern qboolean Physics_MoveEnt(client_entity_t* self, float d_time, float d_tim
 
 extern int GetScaledCount(int count, float refdepend);
 extern float GetGravity(void);
+extern float GetDetailScale(float base_factor); //mxd. Returns detail-level-scaled value.
 
 //mxd. r_entity sprite setup functions.
 extern void RE_SetupRollSprite(entity_t* ent, float size, float roll);

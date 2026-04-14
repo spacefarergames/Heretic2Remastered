@@ -279,8 +279,8 @@ static void R_Register(void)
 	r_references = ri.Cvar_Get("r_references", "1.0", 0);
 	r_hdr_exposure    = ri.Cvar_Get("r_hdr_exposure",    "1.0", CVAR_ARCHIVE);
 	r_bloom           = ri.Cvar_Get("r_bloom",           "1",   CVAR_ARCHIVE);
-	r_bloom_threshold = ri.Cvar_Get("r_bloom_threshold", "0.8", CVAR_ARCHIVE);
-	r_bloom_strength  = ri.Cvar_Get("r_bloom_strength",  "0.5", CVAR_ARCHIVE);
+	r_bloom_threshold = ri.Cvar_Get("r_bloom_threshold", "0.9", CVAR_ARCHIVE);  // Higher = less bloom
+	r_bloom_strength  = ri.Cvar_Get("r_bloom_strength",  "0.25", CVAR_ARCHIVE); // Reduced from 0.5
 	r_ssao            = ri.Cvar_Get("r_ssao",            "1",   CVAR_ARCHIVE);
 	r_ssao_radius     = ri.Cvar_Get("r_ssao_radius",     "16.0",CVAR_ARCHIVE);
 	r_ssao_bias       = ri.Cvar_Get("r_ssao_bias",       "0.5", CVAR_ARCHIVE);

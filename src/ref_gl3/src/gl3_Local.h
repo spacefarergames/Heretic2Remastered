@@ -1,15 +1,15 @@
 //
 // gl3_Local.h
 //
-// OpenGL 3.3 Core Profile renderer for Heretic II Remaster.
+// OpenGL 4.6 Core Profile renderer for Heretic II Remaster.
 //
 
 #pragma once
 
-#include <glad-GL3.3/glad.h> // Must be included before SDL.
+#include <glad-GL4.6/glad.h> // Must be included before SDL.
 #include "ref.h"
 
-#define REF_TITLE			"OpenGL 3.3"
+#define REF_TITLE			"OpenGL 4.6"
 
 #define MAX_TEXTURE_UNITS	2
 

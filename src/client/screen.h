@@ -16,6 +16,9 @@ typedef struct GameMessageDisplayInfo_s //mxd
 	paletteRGBA_t color;
 	qboolean is_caption;
 	float dispay_time;
+	float fade_in_duration;   //mxd. Duration of fade-in effect in seconds.
+	float fade_out_duration;  //mxd. Duration of fade-out effect in seconds.
+	float total_display_time; //mxd. Total time message should be displayed (for fade calculations).
 } GameMessageDisplayInfo_t;
 
 extern GameMessageDisplayInfo_t display_msg; //mxd
@@ -43,12 +46,21 @@ extern void SCR_UpdateScreen(void);
 extern void SCR_RunConsole(void);
 extern void SCR_BeginLoadingPlaque(void);
 extern void SCR_EndLoadingPlaque(void);
-extern void SCR_UpdateProgressbar(int unused, int section); //mxd
+extern void SCR_UpdateProgressbar(int section); //mxd. Removed unused first parameter.
 extern void SCR_UpdateUIScale(void); //mxd
 extern void SCR_DebugGraph(float value, uint color); //mxd. Re-added.
 
 extern void SCR_AddDirtyPoint(int x, int y);
 extern void SCR_DirtyScreen(void);
+
+// Level transition fade (cl_screen.c).
+extern void SCR_StartLevelFade(qboolean fade_out); //mxd
+extern qboolean SCR_IsFadingOut(void);             //mxd
+extern void SCR_ClearLevelFade(void);              //mxd
+
+// Starfield background (cl_screen.c).
+extern void SCR_DrawStarfield(void);       //mxd
+extern void SCR_UpdateLoadingScreen(void); //mxd. Call during loading to keep starfield animating.
 
 // cl_smk.c
 extern void SCR_PlayCinematic(const char *name);

@@ -7,6 +7,7 @@
 #include "client.h"
 #include "clfx_dll.h"
 #include "LevelMaps.h"
+#include "screen.h"
 #include "menu_citymap.h"
 
 #include "cl_messages.h"
@@ -39,6 +40,7 @@ static void CityMap_DefaultDraw(void) // H2
 
 	// Draw menu BG.
 	Menu_DrawBG("book/back/b_conback8.bk", cls.m_menuscale);
+	m_skip_bg_fill = false;
 
 	if (cls.m_menualpha == 0.0f)
 		return;
@@ -61,6 +63,10 @@ static void CityMap_DefaultDraw(void) // H2
 
 static void CityMap_MenuDraw(void) // H2
 {
+	// Draw twinkling starfield background (fills widescreen letterbox areas).
+	SCR_DrawStarfield();
+	m_skip_bg_fill = true;
+
 	if (HaveCityMap())
 	{
 		const level_map_info_t* map_infos = fxe.GetLMI();
@@ -69,6 +75,8 @@ static void CityMap_MenuDraw(void) // H2
 
 		if (info->city_map != NULL)
 			Menu_DrawBG(info->city_map, cls.m_menuscale);
+
+		m_skip_bg_fill = false;
 	}
 	else
 	{

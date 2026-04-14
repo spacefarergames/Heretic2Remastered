@@ -6,6 +6,7 @@
 
 #include "client.h"
 #include "clfx_dll.h"
+#include "screen.h"
 #include "menu_worldmap.h"
 
 cvar_t* m_banner_worldmap;
@@ -30,9 +31,14 @@ static qboolean HaveWorldMap(void) // H2
 
 void M_WorldMap_MenuDraw(void) // H2
 {
+	// Draw twinkling starfield background (fills widescreen letterbox areas).
+	SCR_DrawStarfield();
+	m_skip_bg_fill = true;
+
 	if (!HaveWorldMap())
 	{
 		Menu_DrawBG("book/back/b_worldmap.bk", cls.m_menuscale);
+		m_skip_bg_fill = false;
 		return;
 	}
 
@@ -42,6 +48,8 @@ void M_WorldMap_MenuDraw(void) // H2
 
 	if (info->world_map != NULL)
 		Menu_DrawBG(info->world_map, cls.m_menuscale);
+
+	m_skip_bg_fill = false;
 
 	if (cls.m_menualpha == 0.0f || (info->flags & LMI_NODRAW) != 0)
 		return;
