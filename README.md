@@ -4,6 +4,7 @@
 A Very Special Thank You to the efforts of the developers of Heretic2R (Source Port) Without this none of this would be possible! https://github.com/m-x-d/Heretic2R
 Heretic II Remastered is a reverse-engineered source port of Heretic II (1998, Raven Software), with HD enhancements and modern engine improvements. Now completely 64bit with modern game control support out of the box and automatic detection of Original game data (Steam / GOG / CD) The best way to play Heretic II now and for the forseeable future!
 > This is a Free, Non-profit passion project but takes us a lot of coffee to get it done! Donate to us at https://buymeacoffee.com/jakeysbakery
+> PayPal- jake@spacefarergames.com
 ![Screenshot1](CorvusNight.png)
 ![Screenshot2](EnterThePalace.png)
 
